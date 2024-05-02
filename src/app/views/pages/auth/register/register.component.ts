@@ -10,6 +10,7 @@ import { JwtService } from 'src/app/services/jwt.service';
 export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup | undefined;
+  successMessage: string;
 
   constructor(
     private service: JwtService,
@@ -45,7 +46,7 @@ submitForm() {
   this.service.register(this.registerForm.value).subscribe(
     (response) => {
       if (response.id != null) {
-        alert("Hello " + response.name);
+        this.successMessage = "Hello " + response.name + ", you have registered successfully. Please verify your email before login.";
       }
     },
     (error) => {
@@ -55,6 +56,8 @@ submitForm() {
     }
   )
 }
+
+
 
 
 

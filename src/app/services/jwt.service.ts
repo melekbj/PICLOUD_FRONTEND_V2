@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 
 const BASE_URL = ["http://localhost:8080/auth/"]
 const API_BASE_URL = "http://localhost:8080/";
+const apiUrl = 'http://localhost:8080/users/api/user';
 
 @Injectable({
   providedIn: 'root'
@@ -74,6 +75,36 @@ export class JwtService {
       responseType: 'text'  // Add this line
     });
   }
+
+  getAllUsers(): Observable<any> {
+    return this.http.get(API_BASE_URL + 'users/allUsers', {
+      headers: this.createAuhtorizationHeader() || new HttpHeaders()
+    }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error status:', error.status);
+        console.error('Error body:', error.error);
+        return throwError(error);
+      })
+    );
+  }
+
+  getUsersByRole(role: string): Observable<any> {
+    return this.http.get(API_BASE_URL + 'users/usersByRole/' + role, {
+      headers: this.createAuhtorizationHeader() || new HttpHeaders()
+    }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error status:', error.status);
+        console.error('Error body:', error.error);
+        return throwError(error);
+      })
+    );
+  }
+  
+
+  getUser(): Observable<any> {
+    return this.http.get<any>(apiUrl);
+  }
+  
 
 
   isAuthenticated(): boolean {
