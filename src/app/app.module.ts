@@ -12,22 +12,18 @@ import { ErrorPageComponent } from './views/pages/error-page/error-page.componen
 
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
-import { ReactiveFormsModule } from '@angular/forms'
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-
 @NgModule({
-  declarations: [
-    AppComponent,
-    ErrorPageComponent,
-  ],
+  declarations: [AppComponent, ErrorPageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
-    ReactiveFormsModule, 
-    HttpClientModule
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [
     AuthGuardService,
@@ -39,10 +35,10 @@ import { HttpClientModule } from '@angular/common/http';
           xml: () => import('highlight.js/lib/languages/xml'),
           typescript: () => import('highlight.js/lib/languages/typescript'),
           scss: () => import('highlight.js/lib/languages/scss'),
-        }
-      }
-    }
+        },
+      },
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
