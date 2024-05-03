@@ -1,0 +1,135 @@
+<nav class="page-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/dashboard">Club Hive</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Libary</li>
+    </ol>
+</nav>
+
+<div class="container" style="margin-top: 20px;">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>Upload and Download Files</h4>
+        </div><br>
+        <div class="panel-body">
+            <strong>Select files from your computer</strong>
+            <div *ngIf="fileStatus.status==='progress'">
+                <div class="progress">
+                    <div [style.width.%]="fileStatus.percent" class="progress-bar progress-bar-animated bg-info"
+                        role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                        {{ fileStatus.requestType }} {{ fileStatus.percent }}
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+            <form enctype="multipart/form-data">
+                <fieldset>
+                    <div class="form-group">
+                        <div>
+                            <input type="file" (change)="onUploadFiles($event)" name="files" multiple
+                                class="form-control" />
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+            <br>
+
+            <div *ngIf="filenames?.length > 0" class="js-upload-finished">
+                <h3>Processed files</h3>
+                <div *ngFor="let filename of filenames" class="list-group">
+                    <a (click)="onDownloadFile(filename)" class="list-group-item list-group-item-success"
+                        style="cursor: pointer;">
+                        {{ filename }}
+                        <a class="alert-success float-right">Download</a>
+                    </a><br>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="card-title">Frequently Asked Questions</h6>
+                <ngb-accordion [closeOthers]="false" activeIds="faq1">
+                    <ngb-panel id="faq1" title="Why is the moon sometimes out during the day?">
+                        <ng-template ngbPanelContent>
+                            <div class="d-flex align-items-start">
+                                <img src="..." class="wd-100 wd-sm-200 me-3" alt="...">
+                                <div>
+                                    <h5 class="mb-2">Media heading</h5>
+                                    <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
+                                        sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra
+                                        turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue
+                                        felis in faucibus.</p>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ngb-panel>
+                    <ngb-panel id="faq2" title="Why is the sky blue?">
+                        <ng-template ngbPanelContent>
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
+                            squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
+                            nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+                            single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft
+                            beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
+                            lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
+                            probably haven't heard of them accusamus labore sustainable VHS.
+                        </ng-template>
+                    </ngb-panel>
+                    <ngb-panel id="faq3" title="Will we ever discover aliens?">
+                        <ng-template ngbPanelContent>
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
+                            squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
+                            nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+                            single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft
+                            beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
+                            lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
+                            probably haven't heard of them accusamus labore sustainable VHS.
+                        </ng-template>
+                    </ngb-panel>
+                    <ngb-panel id="faq4" title="How much does the Earth weigh?">
+                        <ng-template ngbPanelContent>
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
+                            squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
+                            nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+                            single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft
+                            beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
+                            lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
+                            probably haven't heard of them accusamus labore sustainable VHS.
+                        </ng-template>
+                    </ngb-panel>
+                    <ngb-panel id="faq5" title="How do airplanes stay up?">
+                        <ng-template ngbPanelContent>
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
+                            squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
+                            nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+                            single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft
+                            beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
+                            lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
+                            probably haven't heard of them accusamus labore sustainable VHS.
+                        </ng-template>
+                    </ngb-panel>
+                    <ngb-panel id="faq6" title="How can go to star?">
+                        <ng-template ngbPanelContent>
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
+                            squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
+                            nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+                            single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft
+                            beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
+                            lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
+                            probably haven't heard of them accusamus labore sustainable VHS.
+                        </ng-template>
+                    </ngb-panel>
+                </ngb-accordion>
+            </div>
+        </div>
+    </div>
+</div>
