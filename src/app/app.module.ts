@@ -14,9 +14,11 @@ import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { LibaryComponent } from './components/libary/libary/libary.component';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  declarations: [AppComponent, ErrorPageComponent],
+  declarations: [AppComponent, ErrorPageComponent, LibaryComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -24,6 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
     LayoutModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgbAccordionModule,
   ],
   providers: [
     AuthGuardService,

@@ -15,4 +15,9 @@ export const MENU: MenuItem[] = [
     icon: 'message-square',
     link: '/apps/chat',
   },
+  {
+    label: 'libary',
+    icon: 'message-square',
+    link: '/libary',
+  },
 ];

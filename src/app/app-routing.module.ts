@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BaseComponent } from './views/layout/base/base.component';
-import { AuthGuardService } from './services/auth-guard.service'; 
+import { AuthGuardService } from './services/auth-guard.service';
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
 import { ResetPasswordComponent } from './views/pages/auth/reset-password/reset-password.component';
+import { LibaryComponent } from './components/libary/libary/libary.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
           import('./views/pages/dashboard/dashboard.module').then(
             (m) => m.DashboardModule
           ),
+      },
+      {
+        path: 'libary',
+        component: LibaryComponent,
       },
       {
         path: 'apps',
@@ -86,7 +91,7 @@ const routes: Routes = [
       // { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
     ],
   },
-  { path: "reset-password", component: ResetPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   {
     path: 'error',
     component: ErrorPageComponent,
