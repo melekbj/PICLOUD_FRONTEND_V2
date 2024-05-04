@@ -159,6 +159,7 @@ export class LibaryComponent implements OnInit {
 
     this.fileService.addResource(this.validForm.value).subscribe((data) => {
       console.log(data);
+      this.getAllResources();
       this.alert.openAlertMixin(`successfully added`, 'top-end', 'success');
     });
 

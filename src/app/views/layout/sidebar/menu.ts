@@ -17,7 +17,7 @@ export const MENU: MenuItem[] = [
   },
   {
     label: 'libary',
-    icon: 'message-square',
+    icon: 'book-open',
     link: '/libary',
   },
 ];
