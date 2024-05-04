@@ -26,7 +26,30 @@ export class FilesService {
       reportProgress: true,
       observe: 'events',
       responseType: 'blob',
-      headers: this.jwtservice.createAuhtorizationHeader() || new HttpHeaders(),
+    });
+  }
+
+  getAllCate() {
+    return this.http.get(this.server + '/getallcategory', {
+      headers: this.jwtservice.createAuhtorizationHeader(),
+    });
+  }
+
+  addResource(resource) {
+    return this.http.post(this.server + '/addresource', resource, {
+      headers: this.jwtservice.createAuhtorizationHeader(),
+    });
+  }
+
+  getAllResources() {
+    return this.http.get(this.server + '/getallresources', {
+      headers: this.jwtservice.createAuhtorizationHeader(),
+    });
+  }
+
+  addCat(cat) {
+    return this.http.post(this.server + '/addcategory', cat, {
+      headers: this.jwtservice.createAuhtorizationHeader(),
     });
   }
 }

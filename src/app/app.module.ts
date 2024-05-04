@@ -12,10 +12,12 @@ import { ErrorPageComponent } from './views/pages/error-page/error-page.componen
 
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LibaryComponent } from './components/libary/libary/libary.component';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [AppComponent, ErrorPageComponent, LibaryComponent],
@@ -27,6 +29,9 @@ import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
     ReactiveFormsModule,
     HttpClientModule,
     NgbAccordionModule,
+    NgSelectModule,
+    FormsModule,
+    SweetAlert2Module.forRoot(),
   ],
   providers: [
     AuthGuardService,
