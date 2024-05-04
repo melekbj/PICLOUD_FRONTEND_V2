@@ -32,8 +32,8 @@ export const MENU: MenuItem[] = [
     
       },
       {
-        label: 'Clubs List',
-        link: '/apps/clubadminsite'
+        label: 'departments',
+        link: '/apps/departments'
       },
      
     ]

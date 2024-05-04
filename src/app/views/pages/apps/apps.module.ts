@@ -21,6 +21,8 @@ import { InboxComponent } from './email/inbox/inbox.component';
 import { ReadComponent } from './email/read/read.component';
 import { ComposeComponent } from './email/compose/compose.component';
 import { ReactiveFormsModule } from '@angular/forms';
+
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
@@ -32,7 +34,14 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { MembersListComponent} from 'src/app/components/members/members-list/members-list.component';
 import { MemberCreateComponent } from 'src/app/components/members/member-create/member-create.component';
+import { BehaviorScoreListComponent} from 'src/app/components/BehaviorScore/behaviorscore-list/behaviorscore-list.component';
+import { BehaviorscoreCreateComponent } from 'src/app/components/BehaviorScore/behaviorscore-create/behaviorscore-create.component';
+import { DepartmentListComponent } from 'src/app/components/department/department-list/department-list.component';
+import { DepartmentCreateComponent } from 'src/app/components/department/department-create/department-create.component';
+import { DepartmentDetailsComponent } from 'src/app/components/department/department-details/department-details.component';
+import { DepartmentUpdateComponent } from 'src/app/components/department/department-update/department-update.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+
   suppressScrollX: true
 };
 
@@ -48,6 +57,12 @@ const routes: Routes = [
     path: '',
     component: AppsComponent,
     children: [
+      { path: 'departments', component: DepartmentListComponent},
+      { path: 'department/create/:id', component: DepartmentCreateComponent },
+      { path: 'department/update/:iddepartment/:idclub', component: DepartmentUpdateComponent },
+      { path: 'department/get/:id', component: DepartmentDetailsComponent },
+      { path: 'behavior-score/list/:userId/:clubId', component: BehaviorScoreListComponent },
+      { path: 'behavior-score/create/:userId/:clubId', component: BehaviorscoreCreateComponent },
       { path: 'members', component: MembersListComponent},
       { path: 'member/create', component: MemberCreateComponent},
       {path:'clubadminsite',component:ClublistadminsiteComponent},
@@ -98,6 +113,13 @@ const routes: Routes = [
     ClublistadminsiteComponent,
     MemberCreateComponent,
     MembersListComponent,
+    BehaviorScoreListComponent,
+    BehaviorscoreCreateComponent,
+    DepartmentListComponent,
+    DepartmentCreateComponent,
+    DepartmentDetailsComponent,
+    DepartmentUpdateComponent,
+
     InboxComponent, ReadComponent, ComposeComponent],
   imports: [
     CommonModule,
@@ -115,6 +137,7 @@ const routes: Routes = [
     AngularCropperjsModule,
     CarouselModule,
     SweetAlert2Module.forRoot(),
+    NgxDatatableModule,
     SimplemdeModule.forRoot({
       provide: SIMPLEMDE_CONFIG,
       useValue: {}

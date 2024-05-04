@@ -1,11 +1,12 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,AfterViewInit } from '@angular/core';
 import { Membership } from '../../../models/membership.model';
 import { MembershipService } from '../../../services/membership.service';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../../../models/user.model';
 import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
+import { DataTable } from "simple-datatables";
 @Component({
   selector: 'app-members-list',
   templateUrl: './members-list.component.html',
@@ -22,7 +23,11 @@ export class MembersListComponent  {
      private router: Router) { 
       
      }
+     ngAfterViewInit() {
+      //const dataTable = new DataTable("#dataTableExample");
+    }
   ngOnInit() {
+    
     this.userId=localStorage.getItem('idUser') as unknown as number;
     const id =localStorage.getItem('idClub') as unknown as number;
     this.clubid = id;
@@ -39,6 +44,7 @@ for (let user of this.users) {
   }
 }
 this.users = filteredUsers;
+
       },
       (error) => {
         console.error('Error fetching users', error);
@@ -58,6 +64,6 @@ this.users = filteredUsers;
     );
   }
   redirectToCreateBehaviorScore(userId: number) {
-    this.router.navigate(['/behavior-score/list', userId, this.clubid]);
+    this.router.navigate(['/apps/behavior-score/list', userId, this.clubid]);
   }
 }

@@ -2,14 +2,15 @@ import { Component, OnInit, ViewChild, ElementRef, Inject, Renderer2 } from '@an
 import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
 import { JwtService } from 'src/app/services/jwt.service';
-
+import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-
+  searchControl = new FormControl();
+ 
   constructor(
     @Inject(DOCUMENT) private document: Document, 
     private renderer: Renderer2,
@@ -18,7 +19,10 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
   }
+
+  
 
   /**
    * Sidebar toggle on hamburger button click

@@ -1,7 +1,13 @@
 
 <div class="container">
-    <table class="table table-striped">
-      <thead>
+  <div class="row">
+    <div class="col-md-12 stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-title">Members list</h6>
+          <div class="table-responsive">
+            <table id="dataTableExample" class="table">
+              <thead>
         <tr>
           <th>Name</th>
           <th>Email</th>
@@ -9,6 +15,9 @@
         </tr>
       </thead>
       <tbody>
+        <tr>
+         
+        </tr>
         <tr *ngFor="let member of users; let i = index">
           <td>{{ member.name }}</td>
           <td>{{ member.email }}</td>
@@ -19,5 +28,19 @@
           </td>
         </tr>
       </tbody>
+      <tfoot>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+         
+        </tr>
+      </tfoot>
     </table>
   </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  
