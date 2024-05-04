@@ -15,6 +15,45 @@ export const MENU: MenuItem[] = [
     isTitle: true
   },
   {
+    label: 'President',
+    icon: 'slack',
+    subItems: [
+      {
+        label: 'Members',
+        subItems: [
+          {
+            label: 'Members List',
+            link: '/apps/members',
+          },
+          {
+            label: 'Add Member',
+            link: '/apps/member/create',
+          }]
+    
+      },
+      {
+        label: 'Clubs List',
+        link: '/apps/clubadminsite'
+      },
+     
+    ]
+  },
+  {
+    label: 'Clubs Managment',
+    icon: 'slack',
+    subItems: [
+      {
+        label: 'Add a Club',
+        link: '/apps/club/create',
+      },
+      {
+        label: 'Clubs List',
+        link: '/apps/clubadminsite'
+      },
+     
+    ]
+  },
+  {
     label: 'Email',
     icon: 'mail',
     subItems: [

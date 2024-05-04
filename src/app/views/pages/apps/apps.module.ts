@@ -20,11 +20,18 @@ import { EmailComponent } from './email/email.component';
 import { InboxComponent } from './email/inbox/inbox.component';
 import { ReadComponent } from './email/read/read.component';
 import { ComposeComponent } from './email/compose/compose.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-
+import { ClubCreateComponent } from 'src/app/components/clubs/club-create/club-create.component';
+import { ClublistadminsiteComponent } from 'src/app/components/clubs/clublistadminsite/clublistadminsite.component';
+import { ArchwizardModule } from 'angular-archwizard';
+import { AngularCropperjsModule } from 'angular-cropperjs';
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { MembersListComponent} from 'src/app/components/members/members-list/members-list.component';
+import { MemberCreateComponent } from 'src/app/components/members/member-create/member-create.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -41,6 +48,10 @@ const routes: Routes = [
     path: '',
     component: AppsComponent,
     children: [
+      { path: 'members', component: MembersListComponent},
+      { path: 'member/create', component: MemberCreateComponent},
+      {path:'clubadminsite',component:ClublistadminsiteComponent},
+      { path: 'club/create', component: ClubCreateComponent },
       {
         path: '',
         redirectTo: 'calendar',
@@ -82,7 +93,12 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [EmailComponent, ChatComponent, CalendarComponent, AppsComponent, InboxComponent, ReadComponent, ComposeComponent],
+  declarations: [EmailComponent, ChatComponent, CalendarComponent, AppsComponent, 
+    ClubCreateComponent,
+    ClublistadminsiteComponent,
+    MemberCreateComponent,
+    MembersListComponent,
+    InboxComponent, ReadComponent, ComposeComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -94,10 +110,20 @@ const routes: Routes = [
     NgbNavModule,
     NgbCollapseModule,
     NgSelectModule,
+    ReactiveFormsModule,
+    ArchwizardModule,
+    AngularCropperjsModule,
+    CarouselModule,
+    SweetAlert2Module.forRoot(),
     SimplemdeModule.forRoot({
       provide: SIMPLEMDE_CONFIG,
       useValue: {}
     })
+  ],
+  exports: [
+    ClubCreateComponent,
+    ClublistadminsiteComponent,
+    // other components...
   ],
   providers: [
     {

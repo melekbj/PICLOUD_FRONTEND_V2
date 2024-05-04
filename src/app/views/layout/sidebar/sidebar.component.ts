@@ -27,6 +27,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   @ViewChild('sidebarMenu') sidebarMenu: ElementRef;
 
   constructor(
+   
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
     router: Router
@@ -125,8 +126,10 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   /**
    * Switching sidebar light/dark
-   */
+   */ 
+
   onSidebarThemeChange(event: Event) {
+    
     this.document.body.classList.remove('sidebar-light', 'sidebar-dark');
     this.document.body.classList.add((<HTMLInputElement>event.target).value);
     this.document.body.classList.remove('settings-open');

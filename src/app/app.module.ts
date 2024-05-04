@@ -16,10 +16,15 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http';
 
 
+//import { ClubCreateComponent } from './components/clubs/club-create/club-create.component';
+//import { ClublistadminsiteComponent } from './components/clubs/clublistadminsite/clublistadminsite.component';
 @NgModule({
   declarations: [
     AppComponent,
     ErrorPageComponent,
+    
+   // ClubCreateComponent,
+    //ClublistadminsiteComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +35,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   providers: [
+    
     AuthGuardService,
     {
       provide: HIGHLIGHT_OPTIONS, // https://www.npmjs.com/package/ngx-highlightjs

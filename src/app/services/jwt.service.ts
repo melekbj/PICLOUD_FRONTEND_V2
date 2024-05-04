@@ -4,17 +4,22 @@ import { Observable } from 'rxjs';
 import { catchError, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { UserService } from './user.service';
+import { ClubService } from './club.service';
 
-
-const BASE_URL = ["http://localhost:8080/auth/"]
-const API_BASE_URL = "http://localhost:8080/";
+const BASE_URL = ["http://localhost:8089/auth/"]
+const API_BASE_URL = "http://localhost:8089/";
 
 @Injectable({
   providedIn: 'root'
 })
 export class JwtService {
 
-  constructor(private http: HttpClient, private router:Router) { }
+  constructor(private http: HttpClient, private router:Router,
+
+    private userService:UserService,
+    private clubService:ClubService
+  ) { }
 
   register(signRequest: any): Observable<any> {
     return this.http.post(BASE_URL + 'signup', signRequest).pipe(
@@ -79,9 +84,11 @@ export class JwtService {
   isAuthenticated(): boolean {
     const jwt = localStorage.getItem('jwt');
     // Check if the JWT exists
+    if(jwt!=null)
+    this.getiduserinlocalstorage()
     return jwt != null;
   }
-
+ 
 
   private createAuhtorizationHeader() {
     const jwtToken = localStorage.getItem('jwt');
@@ -95,5 +102,37 @@ export class JwtService {
     }
     return null;
   }
+  getToken(): string | null {
+    return localStorage.getItem('jwt');
+  }
+  getemail(): string | null{
+    const token = this.getToken();
+    const payload = token.split('.')[1];
+const decodedPayload = JSON.parse(atob(payload));
+//alert(decodedPayload.sub);
+//console.log(decodedPayload);
+return decodedPayload.sub;
+   }
+   getiduserinlocalstorage(){
+    
+  let email=this.getemail();
+  this.userService.getUserbyemail(email).subscribe(
+    (res)=>{
+      console.log(res);
+      console.log(res.id);
+      localStorage.setItem('idUser', res.id.toString()); 
+      alert(localStorage.getItem('idUser'));
+      this.clubService.getClubByUserAndPresident(res.id).subscribe(
+        (res)=>{
+          console.log(res);
+          console.log(res.id);
+          localStorage.setItem('idClub', res.id.toString()); 
+          alert(localStorage.getItem('idClub'));
+        }
+      ) 
+     
+    }
+  )
 
+  }
 }
