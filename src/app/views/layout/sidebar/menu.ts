@@ -18,6 +18,16 @@ export const MENU: MenuItem[] = [
     label: 'President',
     icon: 'slack',
     subItems: [
+  
+      {
+        label: 'Departments',
+        link: '/apps/departments'
+      },
+      
+      {
+        label: 'Tresory',
+        link: '/apps/finances'
+      },
       {
         label: 'Members',
         subItems: [
@@ -30,10 +40,6 @@ export const MENU: MenuItem[] = [
             link: '/apps/member/create',
           }]
     
-      },
-      {
-        label: 'departments',
-        link: '/apps/departments'
       },
      
     ]

@@ -40,6 +40,8 @@ import { DepartmentListComponent } from 'src/app/components/department/departmen
 import { DepartmentCreateComponent } from 'src/app/components/department/department-create/department-create.component';
 import { DepartmentDetailsComponent } from 'src/app/components/department/department-details/department-details.component';
 import { DepartmentUpdateComponent } from 'src/app/components/department/department-update/department-update.component';
+import { FinanceCreateComponent } from 'src/app/components/transaction/finance-create/finance-create.component';
+import { FinanceListComponent } from 'src/app/components/transaction/finance-list/finance-list.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
   suppressScrollX: true
@@ -57,6 +59,8 @@ const routes: Routes = [
     path: '',
     component: AppsComponent,
     children: [
+      { path: 'finance/create', component: FinanceCreateComponent},
+      { path: 'finances', component: FinanceListComponent},
       { path: 'departments', component: DepartmentListComponent},
       { path: 'department/create/:id', component: DepartmentCreateComponent },
       { path: 'department/update/:iddepartment/:idclub', component: DepartmentUpdateComponent },
@@ -119,7 +123,8 @@ const routes: Routes = [
     DepartmentCreateComponent,
     DepartmentDetailsComponent,
     DepartmentUpdateComponent,
-
+    FinanceListComponent,
+    FinanceCreateComponent,
     InboxComponent, ReadComponent, ComposeComponent],
   imports: [
     CommonModule,
