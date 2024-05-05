@@ -27,7 +27,7 @@ export class EventService {
     return this.http.post<any>(IMAGEURL + 'upload', formData);
   }
   getImageUrl(id: number) {
-    return this.http.get(IMAGEURL + 'getImageUrl/' + id);
+    return this.http.get(IMAGEURL + 'Imageurl/' + id);
   }
 }
 

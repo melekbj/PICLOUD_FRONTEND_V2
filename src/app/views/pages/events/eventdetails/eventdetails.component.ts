@@ -5,6 +5,7 @@ import { forkJoin } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { Image } from 'src/app/model/image';
+import { JwtService } from 'src/app/services/jwt.service';
 
 
 @Component({
@@ -20,13 +21,13 @@ export class EventdetailsComponent implements OnInit {
   
   
 
-  constructor(private eventService: EventService) { }
+  constructor(private eventService: EventService, private jwtService: JwtService) { }
 
   getEvents() {
-    this.eventService.getEvents().subscribe(events => {
+    this.jwtService.getEvents().subscribe(events => {
       this.events = events;
       this.events.forEach(event => {
-        this.eventService.getImageUrl(event.id).subscribe(imageUrl => {
+        this.jwtService.getImageUrl(event.id).subscribe(imageUrl => {
           event.imageUrl = imageUrl;
         });
       });
@@ -36,12 +37,12 @@ export class EventdetailsComponent implements OnInit {
 
 
   ngOnInit() {
-    this.eventService.getEvents().pipe(
+    this.jwtService.getEvents().pipe(
       mergeMap((events: any[]) => {
         this.events = events;
         return forkJoin(
           this.events.map(event =>
-            this.eventService.getImageUrl(event.id).pipe(
+            this.jwtService.getImageUrl(event.id).pipe(
               tap((imageUrl: string) => {
                 event.imageUrl = imageUrl;
               })

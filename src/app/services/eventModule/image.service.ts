@@ -12,9 +12,7 @@ export class ImageService {
 
   constructor(private http: HttpClient) { }
 
-  public getImage(id: number): Observable<Image> {
-    return this.http.get<Image>(IMAGEURL + "imageurl/" +id);
-  }
+  
 
   public list(): Observable<any> {
     return this.http.get<any>(IMAGEURL + 'list');

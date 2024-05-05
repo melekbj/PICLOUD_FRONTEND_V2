@@ -18,7 +18,7 @@
         <tr *ngFor="let event of events">
           <td>{{event.eventTitle}}</td>
           <td>{{event.eventDescription}}</td>
-          <td>{{event.eventImage}}</td>
+          <td><img [src]="event.imageUrl" alt="Event image"></td>
           <td>{{event.maxParticipants}}</td>
           <td>{{event.eventType}}</td>
           <td>{{event.location}}</td>

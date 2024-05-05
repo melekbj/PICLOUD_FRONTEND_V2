@@ -78,9 +78,7 @@ addEvent(event: any): Observable<any> {
 }
 
 getImageUrl(id: number): Observable<any> {
-  return this.http.get(API_BASE_URL + 'imageurl/' + id, {
-    headers: this.createAuhtorizationHeader() || new HttpHeaders()
-  }).pipe(
+  return this.http.get(API_BASE_URL + 'cloudinary/imageurl/' + id, {responseType: 'text'}).pipe(
     catchError((error: HttpErrorResponse) => {
       console.error('Error status:', error.status);
       console.error('Error body:', error.error);
