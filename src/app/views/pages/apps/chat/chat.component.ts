@@ -10,7 +10,6 @@ import { FormControl } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Stomp } from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
-import { DatePipe } from '@angular/common';
 import { ChatService } from 'src/app/services/chat/chat.service';
 import { JwtService } from 'src/app/services/jwt.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -39,14 +38,12 @@ export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
   newMessage = new FormControl('');
   messages?: Array<any> = [];
   users: any;
-  currentDate: any;
   searchQuery: string = '';
 
   constructor(
     private chatService: ChatService,
     private route: ActivatedRoute,
     private el: ElementRef,
-    private datePipe: DatePipe,
     private jwtService: JwtService,
     private modalService: NgbModal
   ) {}
@@ -69,7 +66,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
     var container = this.el.nativeElement.querySelector('#chat');
     container.scrollTop = container.scrollHeight;
   }
-
+  showicon: boolean = false;
   ngOnInit(): void {
     this.thisUserEmail = this.chatService.getEmailFromToken();
 
@@ -89,7 +86,9 @@ export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
       this.users = data;
       console.log(data);
     });
-    this.getCurrentDate();
+    setTimeout(() => {
+      this.showicon = true;
+    }, 10000);
   }
   getthisUser() {
     this.chatService.getUserByEmail(this.thisUserEmail).subscribe((data) => {
@@ -200,27 +199,6 @@ export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
     return myTimeStamp.substring(endDate + 1);
   }
 
-  getCurrentDate() {
-    const currentDate = new Date();
-    this.currentDate = this.datePipe.transform(currentDate, 'yyyy/MM/dd');
-  }
-
-  compareDates(providedDate: string): string {
-    console.log(providedDate);
-    const currentDate = new Date();
-    if (this.currentDate === providedDate) {
-      return '';
-    } else if (
-      providedDate === this.datePipe.transform(currentDate, 'yyyy/MM/dd')
-    ) {
-      this.currentDate = providedDate;
-      return 'Today';
-    }
-    this.currentDate = providedDate;
-
-    return providedDate;
-  }
-
   react(id: any, react: boolean) {
     this.stompClient!.send(
       '/app/chat/' + this.channelName,
@@ -254,6 +232,13 @@ export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
         return 'image';
     }
   }
+
+  receivedicon: string;
+
+  receiveDataFromChild(data: string) {
+    this.receivedicon = data;
+  }
+
   imagename;
   openVerticalCenteredModal(content: TemplateRef<any>, filename) {
     this.imagename = filename;

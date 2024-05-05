@@ -52,6 +52,7 @@
     "ngx-color-picker": "^11.0.0",
     "ngx-custom-validators": "^8.0.0",
     "ngx-dropzone-wrapper": "^10.0.1",
+    "ngx-emoji-picker": "^0.1.6",
     "ngx-highlightjs": "^6.1.0",
     "ngx-mask": "^13.0.1",
     "ngx-owl-carousel-o": "^7.0.1",

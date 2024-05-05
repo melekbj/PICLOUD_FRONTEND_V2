@@ -31,6 +31,9 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
+import { NgxEmojiPickerModule } from 'ngx-emoji-picker';
+import { EmojiComponent } from './chat/components/emoji/emoji.component';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
 };
@@ -96,6 +99,7 @@ const routes: Routes = [
     InboxComponent,
     ReadComponent,
     ComposeComponent,
+    EmojiComponent,
   ],
   imports: [
     CommonModule,
@@ -114,9 +118,9 @@ const routes: Routes = [
       provide: SIMPLEMDE_CONFIG,
       useValue: {},
     }),
+    NgxEmojiPickerModule,
   ],
   providers: [
-    DatePipe,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
