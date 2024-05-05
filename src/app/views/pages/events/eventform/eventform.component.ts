@@ -4,6 +4,7 @@ import { JwtService } from 'src/app/services/jwt.service';
 import { ImageService } from 'src/app/services/eventModule/image.service'; 
 import { Image } from 'src/app/model/image';
 import Swal from 'sweetalert2';
+import { EventService } from 'src/app/services/eventModule/event.service';
 
 @Component({
   selector: 'app-eventform',
@@ -16,7 +17,7 @@ export class EventformComponent implements OnInit {
   events: any;
   eventTypes: string[] = ['Hackathon', 'Formation', 'Dons', 'Crowfunding', 'Other'];
 
-  constructor(private formBuilder: FormBuilder, private jwtService: JwtService, private imageService: ImageService) {
+  constructor(private formBuilder: FormBuilder, private jwtService: JwtService, private imageService: ImageService, private eventService: EventService) {
     this.eventForm = this.formBuilder.group({
       eventTitle: ['', Validators.required],
       eventDescription: ['', Validators.required],
@@ -26,10 +27,18 @@ export class EventformComponent implements OnInit {
       startDate: ['', Validators.required],
       location: ['', Validators.required],
       isPublic: ['', Validators.required],
+      creator: [null],
     });
   }
-
+  thisUserEmail;
+  thisUser;
   ngOnInit(): void {
+    this.thisUserEmail = this.eventService.getEmailFromToken();
+    this.eventService.getUserByEmail(this.thisUserEmail).subscribe((data) => {
+      this.thisUser = data;
+      console.log(data);
+    });
+    
   }
 
   onSubmit() {
@@ -57,16 +66,21 @@ export class EventformComponent implements OnInit {
   }
 
   createEvent() {
-    this.jwtService.addEvent(this.eventForm.value).subscribe(response => {
+    this.eventForm.value.creator = this.thisUser;
+    
+    console.log(this.eventForm.value);
+    
+    this.eventService.addEvent(this.eventForm.value).subscribe(response => {
       Swal.fire('Success', 'Event and image uploaded successfully', 'success');
       this.getEvents();
     }, error => {
       Swal.fire('Error', 'Could not create the event', 'error');
     });
   }
+  
 
   getEvents() {
-    this.jwtService.getEvents().subscribe(events => {
+    this.eventService.getEvents().subscribe(events => {
       this.events = events;
     });
   }

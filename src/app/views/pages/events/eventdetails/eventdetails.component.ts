@@ -17,6 +17,7 @@ export class EventdetailsComponent implements OnInit {
 
   events: any;
   image: Image;
+  thisUserEmail;
 
   
   
@@ -24,25 +25,31 @@ export class EventdetailsComponent implements OnInit {
   constructor(private eventService: EventService, private jwtService: JwtService) { }
 
   getEvents() {
-    this.jwtService.getEvents().subscribe(events => {
+    this.eventService.getEvents().subscribe(events => {
       this.events = events;
       this.events.forEach(event => {
-        this.jwtService.getImageUrl(event.id).subscribe(imageUrl => {
+        this.eventService.getImageUrl(event.id).subscribe(imageUrl => {
           event.imageUrl = imageUrl;
         });
       });
     });
   }
+  //participate(userId: number ,enventId: number){
+  //  this.jwtService.addParticipant(userId, enventId).subscribe(response => {
+  //    console.log(response);
+  //  });
+    
+  //}
   
 
 
   ngOnInit() {
-    this.jwtService.getEvents().pipe(
+    this.eventService.getEvents().pipe(
       mergeMap((events: any[]) => {
         this.events = events;
         return forkJoin(
           this.events.map(event =>
-            this.jwtService.getImageUrl(event.id).pipe(
+            this.eventService.getImageUrl(event.id).pipe(
               tap((imageUrl: string) => {
                 event.imageUrl = imageUrl;
               })

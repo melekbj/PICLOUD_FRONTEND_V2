@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 const BASE_URL = ["http://localhost:8080/auth/"]
 const API_BASE_URL = "http://localhost:8080/";
 const EVENTURL = "http://localhost:8080/event/";
+const PARTICIPANTURL= "http://localhost:8080/participant/";
 
 
 @Injectable({
@@ -67,31 +68,18 @@ export class JwtService {
   );
 }
 
-addEvent(event: any): Observable<any> {
-  return this.http.post(API_BASE_URL + 'event/addEvent', event).pipe(
-    catchError((error: HttpErrorResponse) => {
-      console.error('Error status:', error.status);
-      console.error('Error body:', error.error);
-      return throwError(error);
-    })
-  );
-}
+//addParticipant(userId: number, eventId: number): Observable<any> {
+ // const participantData = { userId: userId, eventId: eventId };
+ // return this.http.post(PARTICIPANTURL + 'addParticipant/', participantData).pipe(
+  //  catchError((error: HttpErrorResponse) => {
+    //  console.error('Error status:', error.status);
+    //  console.error('Error body:', error.error);
+    //  return throwError(error);
+   // })
+ // );
+//}
 
-getImageUrl(id: number): Observable<any> {
-  return this.http.get(API_BASE_URL + 'cloudinary/imageurl/' + id, {responseType: 'text'}).pipe(
-    catchError((error: HttpErrorResponse) => {
-      console.error('Error status:', error.status);
-      console.error('Error body:', error.error);
-      return throwError(error);
-    })
-  );
-}
-
-
-getEvents(){
-  return this.http.get(EVENTURL + 'getAllEvents');
-}
-  setPassword(email: string, newPassword: string): Observable<any> {
+setPassword(email: string, newPassword: string): Observable<any> {
     return this.http.put(API_BASE_URL + 'set-password', null, {
       params: { email: email },
       headers: new HttpHeaders().set('newPassword', newPassword),
