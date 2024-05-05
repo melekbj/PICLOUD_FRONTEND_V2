@@ -14,6 +14,7 @@ import {
   NgbTooltipModule,
   NgbNavModule,
   NgbCollapseModule,
+  NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SimplemdeModule, SIMPLEMDE_CONFIG } from 'ng2-simplemde';
@@ -108,6 +109,7 @@ const routes: Routes = [
     NgbNavModule,
     NgbCollapseModule,
     NgSelectModule,
+    NgbModule,
     SimplemdeModule.forRoot({
       provide: SIMPLEMDE_CONFIG,
       useValue: {},

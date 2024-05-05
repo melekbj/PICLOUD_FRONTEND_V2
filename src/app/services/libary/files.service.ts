@@ -26,6 +26,7 @@ export class FilesService {
       reportProgress: true,
       observe: 'events',
       responseType: 'blob',
+      headers: this.jwtservice.createAuhtorizationHeader() || new HttpHeaders(),
     });
   }
 

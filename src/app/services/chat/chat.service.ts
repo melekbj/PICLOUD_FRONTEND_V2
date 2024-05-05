@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ChatMessage } from './chat-message';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders } from '@angular/common/http';
 import { JwtService } from '../jwt.service';
 
 @Injectable({
@@ -62,6 +62,24 @@ export class ChatService {
   getTheLastMsg(channelName) {
     return this.http.get(this.url + '/getlastmsg/' + channelName, {
       headers: this.jwtService.createAuhtorizationHeader(),
+    });
+  }
+
+  upload(formData: FormData): Observable<HttpEvent<string[]>> {
+    return this.http.post<string[]>(`${this.url}/chat/upload`, formData, {
+      headers: this.jwtService.createAuhtorizationHeader() || new HttpHeaders(),
+      reportProgress: true,
+      observe: 'events',
+    });
+  }
+
+  // define function to download files
+  download(filename: string): Observable<HttpEvent<Blob>> {
+    return this.http.get(`${this.url}/download/${filename}`, {
+      reportProgress: true,
+      observe: 'events',
+      responseType: 'blob',
+      headers: this.jwtService.createAuhtorizationHeader() || new HttpHeaders(),
     });
   }
 }

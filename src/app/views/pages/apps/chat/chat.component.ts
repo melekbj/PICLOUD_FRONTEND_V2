@@ -4,6 +4,7 @@ import {
   AfterViewInit,
   ElementRef,
   AfterViewChecked,
+  TemplateRef,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
@@ -12,6 +13,14 @@ import * as SockJS from 'sockjs-client';
 import { DatePipe } from '@angular/common';
 import { ChatService } from 'src/app/services/chat/chat.service';
 import { JwtService } from 'src/app/services/jwt.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  HttpErrorResponse,
+  HttpEvent,
+  HttpEventType,
+} from '@angular/common/http';
+
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-chat',
@@ -38,7 +47,8 @@ export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
     private route: ActivatedRoute,
     private el: ElementRef,
     private datePipe: DatePipe,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private modalService: NgbModal
   ) {}
   ngAfterViewChecked(): void {
     //this.scrollDown();
@@ -136,8 +146,11 @@ export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
 
   sendMsg() {
     console.log(this.newMessage);
-
-    if (this.newMessage.value !== '') {
+    let filename = null;
+    if (this.filenames.length != 0) {
+      filename = this.filenames[0];
+    }
+    if (this.newMessage.value !== '' || filename != null) {
       this.stompClient!.send(
         '/app/chat/' + this.channelName,
         {},
@@ -145,13 +158,13 @@ export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
           sender: this.thisUser.email,
           t_stamp: 'to be defined in server',
           content: this.newMessage.value,
+          filename: filename,
         })
       );
       this.newMessage.setValue('');
     }
-    setTimeout(() => {
-      //this.scrollDown();
-    }, 400);
+    this.fileStatus.status = '';
+    this.filenames = [];
   }
 
   deletefor(id, forr) {
@@ -225,5 +238,113 @@ export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
         user.user.name.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
     }
+  }
+
+  getImagewithResourceType(filename) {
+    const extention = filename.slice(-3);
+
+    switch (extention.toLowerCase()) {
+      case 'mp4':
+        return 'video';
+      case 'pdf':
+        return 'pdf.png';
+      case 'ocx':
+        return 'doc.png';
+      default:
+        return 'image';
+    }
+  }
+  imagename;
+  openVerticalCenteredModal(content: TemplateRef<any>, filename) {
+    this.imagename = filename;
+    this.modalService
+      .open(content, { centered: true })
+      .result.then((result) => {
+        console.log('Modal closed' + result);
+      })
+      .catch((res) => {});
+  }
+
+  filenames: string[] = [];
+  fileStatus = { status: '', requestType: '', percent: 0 };
+  onUploadFiles(event): void {
+    let files: File[] = null;
+    files = <File[]>event.target.files;
+    const formData = new FormData();
+    formData.append('files', files[0], files[0].name);
+    this.chatService.upload(formData).subscribe(
+      (event) => {
+        console.log(event);
+        this.resportProgress(event);
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    );
+  }
+
+  // define a function to download files
+  onDownloadFile(filename: string): void {
+    this.chatService.download(filename).subscribe(
+      (event) => {
+        console.log(event);
+        this.resportProgress(event);
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    );
+  }
+
+  private resportProgress(httpEvent: HttpEvent<string[] | Blob>): void {
+    switch (httpEvent.type) {
+      case HttpEventType.UploadProgress:
+        this.updateStatus(httpEvent.loaded, httpEvent.total!, 'Uploading... ');
+        break;
+      case HttpEventType.DownloadProgress:
+        this.updateStatus(
+          httpEvent.loaded,
+          httpEvent.total!,
+          'Downloading... '
+        );
+        break;
+      case HttpEventType.ResponseHeader:
+        console.log('Header returned', httpEvent);
+        break;
+      case HttpEventType.Response:
+        if (httpEvent.body instanceof Array) {
+          this.fileStatus.status = 'done';
+          for (const filename of httpEvent.body) {
+            this.filenames.unshift(filename);
+          }
+        } else {
+          saveAs(
+            new File([httpEvent.body!], httpEvent.headers.get('File-Name')!, {
+              type: `${httpEvent.headers.get('Content-Type')};charset=utf-8`,
+            })
+          );
+          // saveAs(new Blob([httpEvent.body!],
+          //   { type: `${httpEvent.headers.get('Content-Type')};charset=utf-8`}),
+          //    httpEvent.headers.get('File-Name'));
+        }
+        this.fileStatus.status = 'done';
+        break;
+      default:
+        console.log(httpEvent);
+        break;
+    }
+  }
+
+  private updateStatus(
+    loaded: number,
+    total: number,
+    requestType: string
+  ): void {
+    this.fileStatus.status = 'progress';
+    this.fileStatus.requestType = requestType;
+    this.fileStatus.percent = Math.round((100 * loaded) / total);
+  }
+  openFileInput() {
+    document.getElementById('fileInput')?.click();
   }
 }
