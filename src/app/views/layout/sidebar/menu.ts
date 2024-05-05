@@ -15,6 +15,10 @@ export const MENU: MenuItem[] = [
     isTitle: true
   },
   {
+    label: 'My Memberships',
+    icon: 'target',
+    link : '/apps/clubs'},
+  {
     label: 'President',
     icon: 'slack',
     subItems: [

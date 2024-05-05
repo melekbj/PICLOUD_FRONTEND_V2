@@ -42,6 +42,8 @@ import { DepartmentDetailsComponent } from 'src/app/components/department/depart
 import { DepartmentUpdateComponent } from 'src/app/components/department/department-update/department-update.component';
 import { FinanceCreateComponent } from 'src/app/components/transaction/finance-create/finance-create.component';
 import { FinanceListComponent } from 'src/app/components/transaction/finance-list/finance-list.component';
+import { ClubListComponent } from 'src/app/components/clubs/club-list/club-list.component';
+import {MyapplicationComponent} from 'src/app/components/RequestToJoin/myapplication/myapplication.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
   suppressScrollX: true
@@ -59,6 +61,8 @@ const routes: Routes = [
     path: '',
     component: AppsComponent,
     children: [
+      {path:'myapplication',component:MyapplicationComponent},
+      { path: 'clubs', component: ClubListComponent },
       { path: 'finance/create', component: FinanceCreateComponent},
       { path: 'finances', component: FinanceListComponent},
       { path: 'departments', component: DepartmentListComponent},
@@ -125,6 +129,8 @@ const routes: Routes = [
     DepartmentUpdateComponent,
     FinanceListComponent,
     FinanceCreateComponent,
+    ClubListComponent,
+    MyapplicationComponent,
     InboxComponent, ReadComponent, ComposeComponent],
   imports: [
     CommonModule,
