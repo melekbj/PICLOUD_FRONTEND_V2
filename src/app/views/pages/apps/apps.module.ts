@@ -48,6 +48,9 @@ import {ClubListAdminComponent} from 'src/app/components/clubs/club-list-admin/c
 import {ClubDetailsComponent} from 'src/app/components/clubs/club-details/club-details.component';
 import {ClubEditComponent} from 'src/app/components/clubs/club-edit/club-edit.component';
 import {TestModule} from 'src/app/components/test/test.module';
+import {RequestListComponent} from 'src/app/components/RequestToJoin/request-list/request-list.component';
+import {ListclubtojoinComponent} from 'src/app/components/clubs/listclubtojoin/listclubtojoin.component';
+import {TestModulefront} from 'src/app/components/testfront/test.module';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
   suppressScrollX: true
@@ -65,6 +68,9 @@ const routes: Routes = [
     path: '',
     component: AppsComponent,
     children: [
+      { path: 'testfront/:clubId', loadChildren: () => import('src/app/components/testfront/test.module').then(m => m.TestModulefront) },
+      {path: 'clublisttojoin',component:ListclubtojoinComponent},
+      {path: 'requestlist',component:RequestListComponent},
       {path: 'test', loadChildren: () => import('src/app/components/test/test.module').then((m)=> m.TestModule)},
       {path:'clubedit',component:ClubEditComponent},
       {path:'clublistadmin',component:ClubDetailsComponent},
@@ -141,6 +147,8 @@ const routes: Routes = [
     ClubListAdminComponent,
     ClubDetailsComponent,
     ClubEditComponent,
+    RequestListComponent,
+    ListclubtojoinComponent,
     InboxComponent, ReadComponent, ComposeComponent],
   imports: [
     CommonModule,
@@ -160,6 +168,7 @@ const routes: Routes = [
     SweetAlert2Module.forRoot(),
     NgxDatatableModule,
     TestModule,
+    TestModulefront,
     SimplemdeModule.forRoot({
       provide: SIMPLEMDE_CONFIG,
       useValue: {}

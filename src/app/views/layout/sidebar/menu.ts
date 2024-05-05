@@ -11,6 +11,11 @@ export const MENU: MenuItem[] = [
     link: '/dashboard'
   },
   {
+    label: 'Clubs',
+    icon: 'command',
+    link: '/apps/clublisttojoin'
+  },
+  {
     label: 'Web Apps',
     isTitle: true
   },
@@ -47,6 +52,10 @@ export const MENU: MenuItem[] = [
             link: '/apps/member/create',
           }]
     
+      },
+      {
+        label: 'Requests',
+        link: '/apps/requestlist'
       },
       {
         label: 'Quizzes',
