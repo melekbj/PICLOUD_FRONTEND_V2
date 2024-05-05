@@ -44,6 +44,10 @@ import { FinanceCreateComponent } from 'src/app/components/transaction/finance-c
 import { FinanceListComponent } from 'src/app/components/transaction/finance-list/finance-list.component';
 import { ClubListComponent } from 'src/app/components/clubs/club-list/club-list.component';
 import {MyapplicationComponent} from 'src/app/components/RequestToJoin/myapplication/myapplication.component';
+import {ClubListAdminComponent} from 'src/app/components/clubs/club-list-admin/club-list-admin.component';
+import {ClubDetailsComponent} from 'src/app/components/clubs/club-details/club-details.component';
+import {ClubEditComponent} from 'src/app/components/clubs/club-edit/club-edit.component';
+import {TestModule} from 'src/app/components/test/test.module';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
   suppressScrollX: true
@@ -61,6 +65,9 @@ const routes: Routes = [
     path: '',
     component: AppsComponent,
     children: [
+      {path: 'test', loadChildren: () => import('src/app/components/test/test.module').then((m)=> m.TestModule)},
+      {path:'clubedit',component:ClubEditComponent},
+      {path:'clublistadmin',component:ClubDetailsComponent},
       {path:'myapplication',component:MyapplicationComponent},
       { path: 'clubs', component: ClubListComponent },
       { path: 'finance/create', component: FinanceCreateComponent},
@@ -131,6 +138,9 @@ const routes: Routes = [
     FinanceCreateComponent,
     ClubListComponent,
     MyapplicationComponent,
+    ClubListAdminComponent,
+    ClubDetailsComponent,
+    ClubEditComponent,
     InboxComponent, ReadComponent, ComposeComponent],
   imports: [
     CommonModule,
@@ -149,6 +159,7 @@ const routes: Routes = [
     CarouselModule,
     SweetAlert2Module.forRoot(),
     NgxDatatableModule,
+    TestModule,
     SimplemdeModule.forRoot({
       provide: SIMPLEMDE_CONFIG,
       useValue: {}
