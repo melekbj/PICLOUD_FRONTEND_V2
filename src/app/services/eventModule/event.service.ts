@@ -9,7 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 const EVENTURL = "http://localhost:8080/event/";
 const IMAGEURL = "http://localhost:8080/cloudinary/";
-const BASE_URL = ["http://localhost:8080/auth/"]
+const PARTICIPANTURL = "http://localhost:8080/participant/";
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +35,7 @@ export class EventService {
       })
     );
   }
+
 
  // addEvent(event: any){
  //   return this.http.post(EVENTURL + 'addEvent', event);
@@ -79,6 +80,13 @@ export class EventService {
     console.log(payload);
 
     return payload.sub;
+  }
+  addParticipant(userId: number, eventId: number): Observable<any> {
+    const body = {
+      userId: userId,
+      eventId: eventId
+    };
+    return this.http.post(PARTICIPANTURL + 'addParticipant', body);
   }
   
 

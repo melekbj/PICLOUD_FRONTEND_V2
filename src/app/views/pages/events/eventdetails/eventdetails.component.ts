@@ -22,7 +22,7 @@ export class EventdetailsComponent implements OnInit {
   
   
 
-  constructor(private eventService: EventService, private jwtService: JwtService) { }
+  constructor(private eventService: EventService, private jwt: JwtService) { }
 
   getEvents() {
     this.eventService.getEvents().subscribe(events => {
@@ -64,6 +64,14 @@ export class EventdetailsComponent implements OnInit {
     this.eventService.deleteEvent(eventId).subscribe(response => {
       console.log(response);
       this.getEvents();
+    });
+  }
+  participate(eventId: number) {
+    const email = this.eventService.getEmailFromToken();
+    this.eventService.getUserByEmail(email).subscribe((data: any) => {
+      this.eventService.addParticipant(data.id, eventId).subscribe(participant => {
+        // handle the new participant
+      });
     });
   }
 

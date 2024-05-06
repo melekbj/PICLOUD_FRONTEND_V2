@@ -26,13 +26,14 @@
           <td>{{event.isPublic}}</td>
           <td>
             <button (click)="deleteEvent(event.id)">Delete</button>
-         <!--   <button (click)="participate(thisUserEmail, event.id)">Participate</button>   -->
-          </td>
+            <button (click)="participate(event.id)">Participate</button>
+        </td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
+
  <!-- <div *ngFor="let event of events"> 
   <img [src]="event.imageUrl" alt="Event image">
   <h2>{{ event.eventTitle }}</h2>
