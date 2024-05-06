@@ -51,6 +51,7 @@ import {TestModule} from 'src/app/components/test/test.module';
 import {RequestListComponent} from 'src/app/components/RequestToJoin/request-list/request-list.component';
 import {ListclubtojoinComponent} from 'src/app/components/clubs/listclubtojoin/listclubtojoin.component';
 import {TestModulefront} from 'src/app/components/testfront/test.module';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
   suppressScrollX: true
@@ -169,6 +170,7 @@ const routes: Routes = [
     NgxDatatableModule,
     TestModule,
     TestModulefront,
+    NgbPaginationModule,
     SimplemdeModule.forRoot({
       provide: SIMPLEMDE_CONFIG,
       useValue: {}

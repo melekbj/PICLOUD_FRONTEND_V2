@@ -7,12 +7,17 @@ import { User } from '../../../models/user.model';
 import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
 import { DataTable } from "simple-datatables";
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-members-list',
+ 
   templateUrl: './members-list.component.html',
-  styleUrls: ['./members-list.component.css']
+  styleUrls: ['./members-list.component.css'],
+  
 })
 export class MembersListComponent  {
+  page = 4;
   members: Membership[];
   users: User[];
   clubid: number;

@@ -9,9 +9,9 @@
                 <li class="nav-item">
                     <a class="nav-link active" data-bs-toggle="tab" role="tab"  >Quizzes List</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" id="#0">
                     
-                    <a class="nav-link" (click)="openLgModal(lgModal)" data-bs-toggle="tab" role="tab">Add a quiz</a>
+                    <a class="nav-link" (click)="openxlModal(lgModal)" data-bs-toggle="tab" role="tab">Add a quiz</a>
                     
                     <!-- Modal -->
                     <ng-template #lgModal let-modal>
@@ -25,11 +25,11 @@
                     </ng-template>
                 
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" (click)="openLgModal(lgModal)" data-bs-toggle="tab" role="tab">Import a test</a>
+                <li class="nav-item" id="#1">
+                    <a class="nav-link" (click)="openLgModal1(lgModal1)" data-bs-toggle="tab" role="tab">Import a test</a>
                     
                     <!-- Modal -->
-                    <ng-template #lgModal let-modal>
+                    <ng-template #lgModal1 let-modal>
                       
                         <app-importquiz></app-importquiz>
                         
@@ -97,13 +97,13 @@
                             </div>
                            
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                            <button class="btn btn-primary" [routerLink]="['testdetails', t.id]">View</button>
-                                   
-                                 
-                                      <button class="btn btn-danger" (click)="openDeleteModal(t.id)">Delete</button>
-                                   
-                                    
-                                      <button class="btn btn-secondary" (click)="active(t.id)">Active/Inactive</button>
+                                    <div class="button-background">
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                            <button class="btn btn-outline-primary btn-sm" [routerLink]="['testdetails', t.id]">View</button>
+                                            <button class="btn btn-outline-danger btn-sm" (click)="openDeleteModal(t.id)">Delete</button>
+                                            <button class="btn btn-outline-secondary btn-sm" (click)="active(t.id)">Active/Inactive</button>
+                                        </div>
+                                    </div>
                                     </div>
                         </div>
                     </div>

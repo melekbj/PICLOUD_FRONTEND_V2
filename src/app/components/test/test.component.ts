@@ -7,7 +7,7 @@ import { Test } from 'src/app/models/quiz';
 import { ClubService } from 'src/app/services/club.service';
 
 import { QuizService } from 'src/app/services/quiz.service';
-import { ImportquizComponent } from './importquiz/importquiz.component';
+//import { ImportquizComponent } from './importquiz/importquiz.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -98,7 +98,12 @@ export class TestComponent implements OnInit{
   reloadPage() {
     location.reload();
   }
-  openLgModal(content: TemplateRef<any>) {
+  openxlModal(content: TemplateRef<any>) {
+    this.modalService.open(content, {size: 'xl'}).result.then((result) => {
+      console.log("Modal closed" + result);
+    }).catch((res) => {});
+  }
+  openLgModal1(content: TemplateRef<any>) {
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       console.log("Modal closed" + result);
     }).catch((res) => {});
