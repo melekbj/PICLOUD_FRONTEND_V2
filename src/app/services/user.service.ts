@@ -52,5 +52,7 @@ export class UserService {
     return this.http.get<User>(`${this.baseUrl}/email/${email}`);
   }
 
- 
+  deleteUserFromDepartment(userId: number, clubId: number): Observable<User> {
+    return this.http.delete<any>(`${this.baseUrl}/deleteUserFromDepartment/${userId}/${clubId}`);
+  }
 }

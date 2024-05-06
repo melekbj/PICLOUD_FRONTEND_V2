@@ -10,74 +10,14 @@ export const MENU: MenuItem[] = [
     icon: 'home',
     link: '/dashboard'
   },
-  {
-    label: 'Clubs',
-    icon: 'command',
-    link: '/apps/clublisttojoin'
-  },
+ 
   {
     label: 'Web Apps',
     isTitle: true
   },
-  {
-    label: 'My Memberships',
-    icon: 'target',
-    link : '/apps/clubs'},
-  {
-    label: 'President',
-    icon: 'slack',
-    subItems: [
-      {
-        label: 'Club',
-        link: '/apps/clublistadmin'
-      },
-      {
-        label: 'Departments',
-        link: '/apps/departments'
-      },
-      
-      {
-        label: 'Tresory',
-        link: '/apps/finances'
-      },
-      {
-        label: 'Members',
-        subItems: [
-          {
-            label: 'Members List',
-            link: '/apps/members',
-          },
-          {
-            label: 'Add Member',
-            link: '/apps/member/create',
-          }]
-    
-      },
-      {
-        label: 'Requests',
-        link: '/apps/requestlist'
-      },
-      {
-        label: 'Quizzes',
-        link: '/apps/test'
-      },
-    ]
-  },
-  {
-    label: 'Clubs Managment',
-    icon: 'slack',
-    subItems: [
-      {
-        label: 'Add a Club',
-        link: '/apps/club/create',
-      },
-      {
-        label: 'Clubs List',
-        link: '/apps/clubadminsite'
-      },
-     
-    ]
-  },
+
+  
+ 
   {
     label: 'Email',
     icon: 'mail',

@@ -46,6 +46,7 @@ export class JwtService {
     // Remove the JWT from local storage
     localStorage.removeItem('jwt');
     localStorage.removeItem('refreshToken');
+    localStorage.clear();
     // Optionally, navigate the user to the login page
     this.router.navigate(['/auth/login']);
   }
@@ -121,13 +122,35 @@ return decodedPayload.sub;
       console.log(res);
       console.log(res.id);
       localStorage.setItem('idUser', res.id.toString()); 
-      alert(localStorage.getItem('idUser'));
+      //alert(localStorage.getItem('idUser'));
+      //alert(res.role);
+      
+      localStorage.setItem('Role', res.role); 
+      if(localStorage.getItem('Role')=="ADMIN"){
+        if (!localStorage.getItem('reloaded')) {
+          // Set the 'reloaded' flag in the local storage
+          localStorage.setItem('reloaded', 'true');
+          location.reload();
+        } else {
+          // Remove the 'reloaded' flag from the local storage
+          localStorage.removeItem('reloaded');
+        }
+      }
+      //alert(localStorage.getItem('Role'));
       this.clubService.getClubByUserAndPresident(res.id).subscribe(
         (res)=>{
           console.log(res);
           console.log(res.id);
           localStorage.setItem('idClub', res.id.toString()); 
-          alert(localStorage.getItem('idClub'));
+          if (!localStorage.getItem('reloaded')) {
+            // Set the 'reloaded' flag in the local storage
+            localStorage.setItem('reloaded', 'true');
+            location.reload();
+          } else {
+            // Remove the 'reloaded' flag from the local storage
+            localStorage.removeItem('reloaded');
+          }
+         // alert(localStorage.getItem('idClub'));
         }
       ) 
      

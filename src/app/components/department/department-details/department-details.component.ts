@@ -10,10 +10,11 @@ import { User } from '../../../models/user.model';
   styleUrls: ['./department-details.component.css']
 })
 export class DepartmentDetailsComponent implements OnInit {
+
   users: User[] = [];
   responsable: User | null = null;
   departmentId!: number; // Declare departmentId property
-
+  clubId :number;
   constructor(
     private userService: UserService,
     private departmentService: DepartmentService,
@@ -25,8 +26,20 @@ export class DepartmentDetailsComponent implements OnInit {
       this.departmentId = +params['id']; // Get departmentId from route parameter
       this.loadUsers();
     });
+    this.clubId=localStorage.getItem('idClub') as unknown as number;
   }
-
+  deleteuser(arg0: number) {
+    console.log("user" + arg0 + "clubid" + this.clubId);
+    this.userService.deleteUserFromDepartment(arg0, this.clubId).subscribe(
+      () => {
+        this.users = this.users.filter(user => user.id !== arg0);
+        this.loadUsers();
+      },
+      error => {
+        console.error('Error deleting user:', error);
+      }
+    );
+    }
   loadUsers(): void {
     this.userService.getUsersByDepartmentId(this.departmentId).subscribe(
       users => {

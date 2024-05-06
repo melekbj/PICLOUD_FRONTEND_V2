@@ -10,12 +10,16 @@
       </div>
     </div>
   
-    <div *ngIf="users.length > 0" class="members-section">
+    <div class="members-section">
       <h2>Members in Department</h2>
       <div class="list-group">
-        <a *ngFor="let user of users" href="#" class="list-group-item list-group-item-action">
+        <a *ngFor="let user of users"  class="list-group-item list-group-item-action">
           {{ user.name }} 
+          <button  class="btn btn-danger" (click)="deleteuser(user.id)">
+             Delete
+          </button>
         </a>
+        
       </div>
     </div>
   </div>

@@ -28,8 +28,7 @@ export class FinanceCreateComponent implements OnInit {
      receiver: [''],
       amount: ['', [Validators.required]],
       transactionType: ['', Validators.required],
-      transactionDate: ['', Validators.required],
-      description: [''],
+     description: [''],
      
     });
   }
@@ -47,6 +46,7 @@ export class FinanceCreateComponent implements OnInit {
     if (this.financeForm.valid) {
       let finance = {
         ...this.financeForm.value,
+        transactionDate: new Date(),
         club: { id: this.clubid }
       };
       this.financeService.addFinance(finance).subscribe(
