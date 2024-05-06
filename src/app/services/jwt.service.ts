@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 const BASE_URL = ["http://localhost:8080/auth/"]
 const API_BASE_URL = "http://localhost:8080/";
 const apiUrl = 'http://localhost:8080/users/api/user';
-
+const apiU = 'http://localhost:8080/users';
 @Injectable({
   providedIn: 'root'
 })
@@ -36,6 +36,29 @@ export class JwtService {
           return throwError(error);
       })
   );
+  }
+
+  getEmailFromToken(): string | null {
+    const token = localStorage.getItem('jwt');
+    if (!token) {
+      return null;
+    }
+
+    const tokenParts = token.split('.');
+    if (tokenParts.length !== 3) {
+      return null;
+    }
+
+    const payload = JSON.parse(atob(tokenParts[1]));
+    console.log(payload);
+
+    return payload.sub;
+  }
+
+  getUserByEmail(email) {
+    return this.http.get(apiU + '/findByEmail/' + email, {
+      headers: this.createAuhtorizationHeader(),
+    });
   }
 
   logout(): void {

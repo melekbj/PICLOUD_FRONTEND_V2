@@ -40,18 +40,17 @@ export class LoginComponent implements OnInit {
     this.service.login(this.loginForm.value).subscribe(
       (response) => {
         console.log(response);
-        if (response.jwt != null) {
-          const jwtToken = response.jwt;
+        const jwtToken = response.jwt;
+        if (jwtToken) {
           localStorage.setItem('jwt', jwtToken);
           this.router.navigateByUrl("/dashboard");
         }
       },
       (error) => {
-        // Display error message if login fails
-        this.loginError = 'Invalid email or password.';
+        console.error('Login error:', error.error);
+        this.loginError = error.error; // Directly display the backend-provided message
       }
     );
   }
-  
 
 }

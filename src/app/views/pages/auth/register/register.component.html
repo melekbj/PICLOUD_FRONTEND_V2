@@ -42,6 +42,12 @@
                 <input type="password" class="form-control" formControlName="confirmPassword" id="exampleInputPassword1" autocomplete="current-password" placeholder="Password">
               </div>
 
+              <div class="mb-3">
+                <label for="profileImage" class="form-label">Profile Image</label>
+                <input type="file" class="form-control" id="profileImage" (change)="onFileSelect($event)" required>
+              </div>
+              
+
               <div>
                 <button type="submit" class="btn btn-primary me-2 mb-2 mb-md-0 w-100">Sign up</button>
               </div>
