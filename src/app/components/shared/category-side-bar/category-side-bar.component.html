@@ -1,0 +1,14 @@
+<div class="sidebar-view-category">
+  <div style="color: black; font-weight: bold">Browse Categories</div>
+  <hr />
+  <span *ngFor="let category of categories">
+  <span class="category-text">
+    <a [routerLink]="['/view-category', category.idCategory]">{{category.name}}</a>
+    <button *ngIf="isAdmin" (click)="deleteCategory(category.idCategory)">
+      <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+    </button>
+  </span>
+  <hr />
+</span>
+  <div class="view-all" *ngIf="displayViewAll" (click)="onViewAll()">View All</div>  <!-- Change this line -->
+</div>

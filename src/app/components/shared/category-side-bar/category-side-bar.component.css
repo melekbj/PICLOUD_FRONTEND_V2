@@ -1,0 +1,58 @@
+.sidebar-view-category {
+  width: 312px;
+  height: 280px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  overflow: auto;  /* Add a scrollbar if the content overflows */
+  background-color: #fcf8e3;  /* Light grey background */
+  color: #343a40;  /* Dark grey text */
+  position: relative;
+  border-radius: 4px;
+  padding: 15px;  /* Increase padding */
+  margin-top: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);  /* Add a shadow for a 3D effect */
+  transition: transform 0.3s ease;
+}
+.sidebar-view-category:hover {
+  transform: scale(1.1); /* Increase the size of the sidebar when hovered */
+}
+.category-text {
+  display: block;  /* Make the category text a block element */
+  margin: 10px 0;  /* Add some vertical margin */
+  font-size: 1.2em;
+
+}
+.category-text button {
+  background-color: transparent;
+  border: none;
+  color: #8B4513;
+  cursor: pointer;
+}
+
+.category-text button:hover {
+  color: #A0522D;
+}
+.category-text a {
+  color: #8B4513;  /* Change the link color to a dark blue */
+  text-decoration: none;  /* Remove the underline */
+}
+
+.category-text a:hover {
+  color: #A0522D;  /* Darken the link color when hovered */
+}
+
+hr {
+  border-top: 1px solid #ccc;  /* Light grey horizontal line */
+}
+
+.view-all {
+  text-align: center;
+  font-weight: bold;
+  color: #007bff;  /* Change the link color to a dark blue */
+  cursor: pointer;  /* Change the cursor to a pointer when hovered */
+}
+
+.view-all:hover {
+  color: #0056b3;  /* Darken the link color when hovered */
+}

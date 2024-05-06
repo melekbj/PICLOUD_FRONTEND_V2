@@ -11,6 +11,11 @@ export const MENU: MenuItem[] = [
     link: '/dashboard'
   },
   {
+    label: 'Forum',
+    icon: 'message-circle', // choose an appropriate icon
+    link: '/forum'
+  },
+  {
     label: 'Web Apps',
     isTitle: true
   },
@@ -164,6 +169,7 @@ export const MENU: MenuItem[] = [
         label: 'Cropper',
         link: '/advanced-ui/cropper',
       },
+
       {
         label: 'Owl carousel',
         link: '/advanced-ui/owl-carousel',

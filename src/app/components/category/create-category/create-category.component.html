@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="create-category-container">
+        <form class="post-form" [formGroup]="createCategoryForm" (ngSubmit)="createCategory()">
+          <div class="form-group">
+            <div class="create-category-heading">Create Category</div>
+            <hr />
+            <input type="text" [formControlName]="'name'" class="form-control" style="margin-top: 5px"
+                   placeholder="Name" [ngClass]="{'is-invalid': createCategoryForm.controls['name'].invalid && createCategoryForm.controls['name'].touched}">
+            <div class="invalid-feedback" *ngIf="createCategoryForm.controls['name'].invalid && createCategoryForm.controls['name'].touched">
+              Name is required
+            </div>
+            <textarea type="text" [formControlName]="'description'" style="width: 100%; margin-top: 5px"
+                      placeholder="Description" [ngClass]="{'is-invalid': createCategoryForm.controls['description'].invalid && createCategoryForm.controls['description'].touched}"></textarea>
+            <div class="invalid-feedback" *ngIf="createCategoryForm.controls['description'].invalid && createCategoryForm.controls['description'].touched">
+              Description is required
+            </div>
+            <div>
+              <div style="margin-top: 5px" class="float-right">
+                <button (click)="discard()" class="btnDiscard">Discard</button>
+                <button class="btnCreateCategory">Create</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="guidelines-container">
+        <h5 class="guidelines">Posting to Forum</h5>
+        <hr />
+        <ul>
+          <li>Stay humble and be gentle</li>
+          <hr />
+          <li>Behave like you would in real life</li>
+          <hr />
+          <li>Don't spam</li>
+          <hr />
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

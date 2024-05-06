@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="row">
+    <!-- New part -->
+    <div class="d-none d-md-block col-md-3 left-wrapper">
+      <div class="card rounded">
+        <div class="card-body">
+          <h5>About this Post</h5> <!-- Add a title -->
+          <div><strong>Category:</strong> {{post?.categoryName}}</div>
+          <div><strong>Creation Date:</strong> {{post?.createdDate | date:'shortDate'}}</div>
+          <!-- Add more details here -->
+        </div>
+      </div>
+    </div>
+    <!-- Existing part -->
+    <div class="col-md-6">
+      <div class="row post">
+        <hr />
+        <div class="col-md-12">
+          <div class="row post">
+            <div class="col-md-1" *ngIf="post">
+              <app-vote-button [post]="post"></app-vote-button>
+            </div>
+            <div class="col-md-11">
+              <span>
+                <span class="category-text"><a class="post-url" href="">{{post?.categoryName}}</a></span>
+                <span> . Posted
+                  <span> {{post?.duration}} </span>
+                  by
+                  <a class="username" href="">{{post?.userName}}</a>
+                </span>
+              </span>
+              <hr />
+              <a routerLink="post?.url" class="post-title">{{post?.postName}}</a>
+              <div>
+                <p class="post-text" [innerHtml]="post?.description"></p>
+              </div>
+              <div class="post-comment">
+                <form [formGroup]="commentForm" (ngSubmit)="postComment()">
+                  <div class="form-group">
+                    <textarea class="form-control" [formControlName]="'text'" placeholder="Your Thoughts?"></textarea>
+                  </div>
+                  <button type="submit" class="login float-right">Comment</button>
+                </form>
+              </div>
+              <div style="margin-top: 60px;" *ngFor="let comment of comments">
+                <div class="comment-username">{{comment.username}}</div>  <!-- Display the username here -->
+                <div class="comment">
+                  <b>{{comment?.text}}</b>
+                  <button class="edit-button" (click)="editComment(comment)">
+                    <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                  </button>
+                  <button class="delete-button" (click)="deleteComment(comment)">
+                    <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+                  </button>
+                </div>
+                <hr />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Existing part -->
+    <div class="col-md-3">
+      <app-side-bar></app-side-bar>
+      <app-category-side-bar></app-category-side-bar>
+    </div>
+  </div>
+</div>

@@ -36,7 +36,28 @@ export class JwtService {
       })
   );
   }
-
+  getUserRole(): Observable<string> {
+    const jwtToken = localStorage.getItem('jwt');
+    if (jwtToken) {
+      const headers = new HttpHeaders().set("Authorization", "Bearer " + jwtToken);
+      return this.http.get(BASE_URL + 'api/user-role', { headers, responseType: 'text' });
+    } else {
+      return new Observable<string>(observer => {
+        observer.error('JWT token not found in local storage');
+      });
+    }
+  }
+  getCurrentUser(): Observable<string> {
+    const jwtToken = localStorage.getItem('jwt');
+    if (jwtToken) {
+      const headers = new HttpHeaders().set("Authorization", "Bearer " + jwtToken);
+      return this.http.get(BASE_URL + 'api/current-user', { headers, responseType: 'text' });
+    } else {
+      return new Observable<string>(observer => {
+        observer.error('JWT token not found in local storage');
+      });
+    }
+  }
   logout(): void {
     // Remove the JWT from local storage
     localStorage.removeItem('jwt');
@@ -44,14 +65,16 @@ export class JwtService {
     // Optionally, navigate the user to the login page
     this.router.navigate(['/auth/login']);
   }
-
+  refreshToken(refreshTokenRequest: any): Observable<any> {
+    return this.http.post(BASE_URL + 'refresh-token', refreshTokenRequest);
+  }
   hello(): Observable<any> {
     return this.http.get(API_BASE_URL + 'api/hello', {
       headers: this.createAuhtorizationHeader() || new HttpHeaders()
     })
   }
 
- // Add this method to your JwtService
+ // Add this method to your JwtAuthServiceService
  forgotPassword(email: string): Observable<any> {
   return this.http.get(API_BASE_URL + 'forgot-password', {
     params: { email: email },
@@ -66,7 +89,7 @@ export class JwtService {
 }
 
 
- 
+
   setPassword(email: string, newPassword: string): Observable<any> {
     return this.http.put(API_BASE_URL + 'set-password', null, {
       params: { email: email },
@@ -83,7 +106,7 @@ export class JwtService {
   }
 
 
-  private createAuhtorizationHeader() {
+  createAuhtorizationHeader() {
     const jwtToken = localStorage.getItem('jwt');
     if (jwtToken) {
       console.log("JWT token found in local storage", jwtToken);

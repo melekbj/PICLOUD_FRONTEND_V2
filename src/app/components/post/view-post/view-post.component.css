@@ -1,0 +1,125 @@
+.post-title {
+  font-size: 28px;
+  font-weight: bold;
+  opacity: 1;
+  color: #333;
+  text-decoration: none;
+}
+.left-wrapper {
+  margin-bottom: 20px;
+}
+
+.left-wrapper .card {
+  background-color: #fcf8e3; /* Change the background color of the card */
+}
+
+.left-wrapper .card-body div {
+  margin-bottom: 10px; /* Add some space between the divs */
+  font-size: 16px; /* Increase the font size */
+  color: #6a1a21; /* Change the text color */
+}
+.left-wrapper .card-body {
+  color: #333;
+}
+
+.left-wrapper .card-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.no-dropdown-toggle-icon {
+  background: none;
+  border: none;
+}
+
+.no-dropdown-toggle-icon:hover {
+  background: none;
+  border: none;
+}
+
+.no-dropdown-toggle-icon:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.no-dropdown-toggle-icon:active {
+  background: none;
+  border: none;
+}
+.edit-button, .delete-button {
+  background-color: transparent;
+  border: none;
+  color: #2f344c;
+  padding: 5px 10px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.edit-button:hover{
+  color: #007bff;
+  transform: scale(1.2);
+}
+
+.delete-button:hover {
+  color: #ff0000;
+  transform: scale(1.2);
+}
+
+.category-text {
+  font-weight: bold;
+  color: #333;
+}
+
+.post-url {
+  color: #333;
+}
+
+.username{
+  color: #333;
+}
+
+.post-text{
+  margin-top: 10px;
+  color: #333;
+}
+
+.post{
+  --post-line-color: #ccc;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  background-color: #fcf8e3;
+  color: #333;
+  position: relative;
+  border-radius: 4px;
+  padding:5px;
+}
+
+.comment .username {
+  font-weight: bold;
+  color: #333;
+}
+
+.comment-username {
+  font-weight: bold;  /* Make the text bold */
+  font-family: Arial, sans-serif;  /* Change the font */
+  color: #6a1a21;  /* Text color */
+  background-color: #fcf8e3;  /* Background color */
+  padding: 5px;  /* Padding to give some space around the text */
+  margin-bottom: 5px;  /* Reduced margin-bottom */
+  border-radius: 4px;  /* Rounded corners */
+}
+
+.comment{
+  --post-line-color: #ccc;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  overflow: hidden;
+  background-color: rgba(255,255,255,0.8);
+  color: #333;
+  position: relative;
+  border-radius: 4px;
+  padding:5px;
+}

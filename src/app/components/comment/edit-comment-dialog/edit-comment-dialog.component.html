@@ -1,0 +1,11 @@
+<!-- EditCommentDialogComponent HTML -->
+<div class="modal-header">
+  <h1 class="dialog-title">Edit Comment</h1>
+</div>
+<div class="modal-body">
+  <textarea [(ngModel)]="text" class="form-control" rows="3"></textarea>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" (click)="onCancel()">Cancel</button>
+  <button class="btn btn-primary" (click)="onUpdate()">Update</button>
+</div>
