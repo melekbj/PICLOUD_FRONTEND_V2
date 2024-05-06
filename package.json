@@ -34,6 +34,7 @@
     "@sweetalert2/ngx-sweetalert2": "^10.0.0",
     "@swimlane/ngx-datatable": "^20.0.0",
     "@types/file-saver": "^2.0.7",
+    "@zegocloud/zego-uikit-prebuilt": "^2.0.1",
     "angular-archwizard": "^7.0.0",
     "angular-cropperjs": "^1.0.2",
     "animate.css": "^4.1.1",

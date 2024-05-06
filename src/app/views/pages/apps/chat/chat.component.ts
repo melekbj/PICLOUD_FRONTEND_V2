@@ -87,7 +87,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
       console.log(data);
     });
     setTimeout(() => {
-      this.showicon = true;
+      this.showicon = false;
     }, 10000);
   }
   getthisUser() {
@@ -236,7 +236,13 @@ export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
   receivedicon: string;
 
   receiveDataFromChild(data: string) {
-    this.receivedicon = data;
+    let curValue;
+    if (this.newMessage.value == '') {
+      curValue = '';
+    } else {
+      curValue = this.newMessage.value;
+    }
+    this.newMessage.setValue(curValue + data);
   }
 
   imagename;

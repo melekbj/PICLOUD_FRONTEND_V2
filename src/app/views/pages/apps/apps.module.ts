@@ -33,6 +33,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 import { NgxEmojiPickerModule } from 'ngx-emoji-picker';
 import { EmojiComponent } from './chat/components/emoji/emoji.component';
+import { VideocallComponent } from './chat/components/videocall/videocall.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -83,6 +84,10 @@ const routes: Routes = [
         component: ChatComponent,
       },
       {
+        path: 'video-call',
+        component: VideocallComponent,
+      },
+      {
         path: 'calendar',
         component: CalendarComponent,
       },
@@ -100,6 +105,7 @@ const routes: Routes = [
     ReadComponent,
     ComposeComponent,
     EmojiComponent,
+    VideocallComponent,
   ],
   imports: [
     CommonModule,

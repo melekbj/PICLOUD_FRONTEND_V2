@@ -14,7 +14,7 @@ export class EmojiComponent implements OnInit {
   messageicon: string = '';
 
   handleSelection(event) {
-    this.messageicon += event.char;
+    this.messageicon = event.char;
     this.dataEmitted.emit(this.messageicon);
   }
 }

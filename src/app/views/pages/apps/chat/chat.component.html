@@ -28,6 +28,9 @@
                   </div>
                 </div>
               </div>
+
+
+
               <div class="aside-body">
                 <ul ngbNav #defaultNav="ngbNav" class="nav-tabs nav-fill mt-3">
                   <li [ngbNavItem]="1">
@@ -96,6 +99,11 @@
                     </div>
                   </div>
                 </ng-template>
+                <div class="d-flex align-items-center me-n1">
+                  <a routerLink="/apps/video-call" target="_blank">
+                    <i class="feather icon-video icon-lg text-muted me-3" ngbTooltip="Start video call"></i>
+                  </a>
+                </div>
               </div>
             </div>
             <div class="chat-body" [perfectScrollbar]>
@@ -231,6 +239,7 @@
                 </div>
 
               </ul>
+
             </div>
             <div class="chat-footer d-flex" *ngIf="otherUserEmail">
               <div *ngIf="showicon else showdeficon">
