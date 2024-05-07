@@ -30,6 +30,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   userRole: string;
 
   constructor(
+   
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
     router: Router,
@@ -74,6 +75,90 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     //this.document.body.classList.add('sidebar-dark');
     this.menuItems = MENU;
+    let clubItem= {
+      label: 'Clubs',
+      icon: 'command',
+      link: '/apps/clublisttojoin'
+    }
+    let memberItem=  {
+      label: 'My Memberships',
+      icon: 'target',
+      link : '/apps/clubs'}
+    let roleItem={ 
+      label: 'Clubs Managment',
+      icon: 'slack',
+      subItems: [
+        {
+          label: 'Add a Club',
+          link: '/apps/club/create',
+        },
+        {
+          label: 'Clubs List',
+          link: '/apps/clubadminsite'
+        },
+       
+      ]
+    }
+   let presedentItem={
+    label: 'President',
+    icon: 'slack',
+    subItems: [
+      {
+        label: 'Club',
+        link: '/apps/clublistadmin'
+      },
+      {
+        label: 'Departments',
+        link: '/apps/departments'
+      },
+      
+      {
+        label: 'Tresory',
+        link: '/apps/finances'
+      },
+      {
+        label: 'Members',
+        subItems: [
+          {
+            label: 'Members List',
+            link: '/apps/members',
+          },
+          {
+            label: 'Add Member',
+            link: '/apps/member/create',
+          }]
+    
+      },
+      {
+        label: 'Requests',
+        link: '/apps/requestlist'
+      },
+      {
+        label: 'Quizzes',
+        link: '/apps/test'
+      },
+    ]
+  }
+  let idClub = localStorage.getItem("idClub");
+  if(idClub !== null && idClub !== undefined && idClub !== ''){
+    let position = 2; 
+    this.menuItems .splice(position, 0, presedentItem);
+    //this.menuItems.splice(position, 0, memberItem);
+    //this.menuItems.splice(position, 0, clubItem);
+
+  }
+  let role = localStorage.getItem("Role");
+  if(role=="ADMIN")
+    {
+         let position = 2;
+          this.menuItems.splice(position, 0, roleItem);
+    }
+    else{
+      let position = 2;
+      this.menuItems.splice(position, 0, memberItem);
+      this.menuItems.splice(position, 0, clubItem);
+    }
+
 
     /**
      * Sidebar-folded on desktop (min-width:992px and max-width: 1199px)
@@ -148,8 +233,10 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   /**
    * Switching sidebar light/dark
-   */
+   */ 
+
   onSidebarThemeChange(event: Event) {
+    
     this.document.body.classList.remove('sidebar-light', 'sidebar-dark');
     this.document.body.classList.add((<HTMLInputElement>event.target).value);
     this.document.body.classList.remove('settings-open');
