@@ -74,10 +74,10 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'tables',
+        path: 'users',
         loadChildren: () =>
-          import('./views/pages/tables/tables.module').then(
-            (m) => m.TablesModule
+          import('./views/pages/users/users.module').then(
+            (m) => m.UsersModule
           ),
       },
       {

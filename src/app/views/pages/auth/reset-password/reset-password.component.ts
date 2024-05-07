@@ -12,6 +12,9 @@ import { Router } from '@angular/router';
 
 export class ResetPasswordComponent {
   resetPasswordForm: FormGroup;
+  successMessage: string;
+  errorMessage: string;
+  isFormVisible = true;
 
   constructor(
     private service: JwtService,
@@ -21,6 +24,8 @@ export class ResetPasswordComponent {
     this.resetPasswordForm = new FormGroup({
       password: new FormControl(''),
     });
+    const isFormVisibleInStorage = localStorage.getItem('isFormVisible');
+  this.isFormVisible = isFormVisibleInStorage !== 'false';  // Default to true if not set
    }
 
    resetPassword() {
@@ -28,12 +33,18 @@ export class ResetPasswordComponent {
     const email = this.route.snapshot.queryParamMap.get('email');
     this.service.setPassword(email, newPassword).subscribe(
       response => {
-        alert('Your password has been reset.');
-        this.router.navigate(['/auth/login']);  // Add this line
+        this.successMessage = 'Your password has been reset succesfully.You can go back and login';
+        this.isFormVisible = false;  // Hide the form
+        localStorage.setItem('isFormVisible', 'false');  // Store the state
       },
-      error => alert('An error occurred while trying to reset your password.')
+      error => {
+        this.errorMessage = 'An error occurred while trying to reset your password.';
+      }
     );
   }
+  
+  
+  
   
   
   
