@@ -8,6 +8,7 @@ interface MyEvent {
   title: string;
   start: Date;
   end: Date;
+  color: string;
   // Add other properties as needed
 }
 
@@ -70,14 +71,38 @@ export class CalendarComponent implements OnInit {
   async fetchEvents() {
     this.eventService.getEvents().subscribe(eventsFromService => {
       console.log(eventsFromService);
-      this.currentEvents = (eventsFromService as any[]).map(event => ({
-        id: event.id.toString(),
-        title: event.eventTitle,
-        start: new Date(event.startDate),
-        end: new Date(event.endDate),
-        // Add other properties as needed
-      }));
-    this.calendarOptions.events = this.currentEvents;
+      this.currentEvents = (eventsFromService as any[]).map(event => {
+        let color;
+        switch (event.eventType) { // Replace `eventType` with the actual property name
+          case 'Hackathon':
+            color = 'rgba(253,126,20,.25)';
+            break;
+          case 'Formation':
+            color = 'rgba(241,0,117,.25)';
+            break;
+          case 'Dons':
+            color = 'rgba(0,204,204,.25)';
+            break;
+          case 'Crowdfunding':
+            color = 'rgb(18,182,89,.25)';
+            break;
+          case 'Other':
+            color = 'rgba(91,71,251,.2)';
+            break;
+        }
+  
+        return {
+          id: event.id.toString(),
+          title: event.eventTitle,
+          start: new Date(event.startDate),
+          end: new Date(event.endDate),
+          color: color, // Set the color property
+          // Add other properties as needed
+        };
+      });
+  
+      // Update the events in the calendar options
+      this.calendarOptions.events = this.currentEvents;
     });
   }
 
@@ -107,6 +132,6 @@ export class CalendarComponent implements OnInit {
   }
 
   handleEvents(events: EventApi[]) {
-    this.currentEvents = events;
+   // this.currentEvents = events;
   }
 }
