@@ -2,7 +2,8 @@
 <table class="table">
     <thead>
       <tr>
-        <th>ID</th>
+        <th>...</th>
+
         <th>Description</th>
         <th>Name</th>
         <th>Email</th>
@@ -12,7 +13,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let request of requests">
-        <td>{{ request.id }}</td>
+        <td><img class="img-fluid" src="http://127.0.0.1:8080/img/ABL.jpg" alt="" style="object-fit: cover; width: 50px; height: 50px;"></td>
         <td>{{ request.description }}</td>
         <td>{{ request.userName}}</td> <!-- Update this based on your User model -->
         <td>{{ request.userEmail}}</td>
