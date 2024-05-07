@@ -4,8 +4,6 @@ import { Observable } from 'rxjs';
 import { catchError, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { jwtDecode } from 'jwt-decode';
-
 
 const BASE_URL = ["http://localhost:8080/auth/"]
 const API_BASE_URL = "http://localhost:8080/";
@@ -25,20 +23,16 @@ export class JwtService {
             return throwError(error);
         })
     );
-}
+  }
 
-
-login(loginRequest: any): Observable<any> {
-  return this.http.post(BASE_URL + 'login', loginRequest).pipe(
-    catchError((error: HttpErrorResponse) => {
-        console.error('Login error:', error.error);
-        return throwError(() => new Error(error.error || 'Unknown error'));
-    })
-  );
-}
-
-
-
+  login(loginRequest: any): Observable<any> {
+    return this.http.post(BASE_URL + 'login', loginRequest).pipe(
+      catchError((error: HttpErrorResponse) => {
+          console.error('Login error:', error.error);
+          return throwError(() => new Error(error.error || 'Unknown error'));
+      })
+    );
+  }
 
 
   getEmailFromToken(): string | null {
@@ -74,20 +68,19 @@ login(loginRequest: any): Observable<any> {
   }
 
 
- // Add this method to your JwtService
- forgotPassword(email: string): Observable<any> {
-  return this.http.get(API_BASE_URL + 'forgot-password', {
-    params: { email: email },
-    responseType: 'text'  // Add this line
-  }).pipe(
-    catchError((error: HttpErrorResponse) => {
-      console.error('Error status:', error.status);
-      console.error('Error body:', error.error);
-      return throwError(error);
-    })
-  );
-}
-
+  // Add this method to your JwtService
+  forgotPassword(email: string): Observable<any> {
+    return this.http.get(API_BASE_URL + 'forgot-password', {
+      params: { email: email },
+      responseType: 'text'  // Add this line
+    }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error status:', error.status);
+        console.error('Error body:', error.error);
+        return throwError(error);
+      })
+    );
+  }
 
   setPassword(email: string, newPassword: string): Observable<any> {
     return this.http.put(API_BASE_URL + 'set-password', null, {
@@ -110,19 +103,29 @@ login(loginRequest: any): Observable<any> {
   }
 
   // Adjust the setUserAccepted method to expect a text response
-setUserAccepted(id: number): Observable<any> {
-  return this.http.put(`${API_BASE_URL}users/${id}/accepted`, null, {
-    responseType: 'text' // Specify the expected response type as text
-  }).pipe(
-    catchError((error: HttpErrorResponse) => {
-      console.error('Error status:', error.status);
-      console.error('Error body:', error.error);
-      return throwError(error);
-    })
-  );
-}
+  setUserAccepted(id: number): Observable<any> {
+    return this.http.put(`${API_BASE_URL}users/${id}/accepted`, null, {
+      responseType: 'text' // Specify the expected response type as text
+    }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error status:', error.status);
+        console.error('Error body:', error.error);
+        return throwError(error);
+      })
+    );
+  }
 
 
+  updateUserProfile(userId: number, userData: any): Observable<any> {
+    return this.http.put(API_BASE_URL + 'users/' + userId + '/updateProfile', userData, {
+      headers: this.createAuhtorizationHeader() || new HttpHeaders()
+    }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error updating user profile:', error.error);
+        return throwError(() => new Error(error.error || 'Unknown error'));
+      })
+    );
+  }
 
   getUsersByRoleAndEtat(role: string, etat: string): Observable<any> {
     return this.http.get(API_BASE_URL + 'users/usersByRoleAndEtat/' + role + '/' + etat, {
@@ -142,8 +145,6 @@ setUserAccepted(id: number): Observable<any> {
     return jwt != null;
   }
 
- 
-
   private createAuhtorizationHeader() {
     const jwtToken = localStorage.getItem('jwt');
     if (jwtToken) {
@@ -156,5 +157,23 @@ setUserAccepted(id: number): Observable<any> {
     }
     return null;
   }
+
+
+  getToken(): string | null {
+    return localStorage.getItem('jwt');
+  }
+
+
+  isTokenExpired(token: string | null): boolean {
+  if (!token) {
+    return true;
+  }
+  const payload = JSON.parse(atob(token.split('.')[1]));
+  const exp = payload.exp; // Expiration time of the token, UNIX timestamp
+  const now = new Date().getTime() / 1000; // Current time in UNIX timestamp
+  return exp < now;
+}
+
+  
 
 }
