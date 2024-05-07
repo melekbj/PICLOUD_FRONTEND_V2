@@ -11,7 +11,7 @@ import { GeminiAPI, Question, Quiz, Test, UserTest } from '../models/quiz';
 export class QuizService {
   private apiUrl = 'https://api.pexels.com/v1/';
   private apiKey = '3HmjnHyURxliuydjkOoYf50Pd1oOdNifZv9JW6IY';
-  private apiServerUrl = 'http://localhost:8089/quiz';
+  private apiServerUrl = 'http://localhost:8089/api/quiz';
 
   constructor(private http: HttpClient, private router: Router) {}
 

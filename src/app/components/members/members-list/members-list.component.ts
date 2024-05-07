@@ -11,7 +11,8 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-members-list',
- 
+ // standalone: true,
+  //imports: [NgbPaginationModule],
   templateUrl: './members-list.component.html',
   styleUrls: ['./members-list.component.css'],
   

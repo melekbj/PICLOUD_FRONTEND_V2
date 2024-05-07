@@ -9,7 +9,7 @@ import { Test } from '../models/quiz';
   providedIn: 'root'
 })
 export class ClubService {
-  private apiUrl = 'http://localhost:8089/club'; 
+  private apiUrl = 'http://localhost:8089/api/club'; 
 
   constructor(private http: HttpClient) {}
 

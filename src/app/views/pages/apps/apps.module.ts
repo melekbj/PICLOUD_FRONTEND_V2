@@ -169,6 +169,7 @@ const routes: Routes = [
     SweetAlert2Module.forRoot(),
     NgxDatatableModule,
     TestModule,
+    
     TestModulefront,
     NgbPaginationModule,
     SimplemdeModule.forRoot({

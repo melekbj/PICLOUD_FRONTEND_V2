@@ -7,7 +7,7 @@ import { Membership } from '../models/membership.model';
   providedIn: 'root'
 })
 export class MembershipService {
-  private apiUrl = 'http://localhost:8089/members';
+  private apiUrl = 'http://localhost:8089/api/members';
 
   constructor(private http: HttpClient) { }
 

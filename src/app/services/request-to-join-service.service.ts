@@ -7,7 +7,7 @@ import { RequestToJoin } from '../models/RequestToJoin.model';
   providedIn: 'root'
 })
 export class RequestToJoinService {
-  private baseUrl = 'http://localhost:8089/requestToJoin';  // Update this URL
+  private baseUrl = 'http://localhost:8089/api/requestToJoin';  // Update this URL
 
   constructor(private http: HttpClient) { }
 

@@ -22,7 +22,7 @@
             </button>
           </div>
 
-          <div style="background-color: rgb(228, 249, 255);">
+          <!--<div style="background-color: rgb(228, 249, 255);">
             <h2>questions form :</h2>
           list of questions:
           <div>
@@ -33,19 +33,19 @@
 <button (click)="asksomeone(questionBody.value, connecteduser.id, connecteduser.userimage, connecteduser.username, q.id.toString())" class="btn btn-primary btn-sm rounded-1">Ask</button>
 
           
-          </div>
+          </div>-->
 
         </div>
       </div>
       <div class="col-md-6">
         <div>
             <br>
-           <!-- <button class="btn btn-primary" (click)="currentIframeUrl=!currentIframeUrl">search in youtube</button>
+            <button class="btn btn-primary" (click)="currentIframeUrl=!currentIframeUrl">search in youtube</button>
             <div  *ngIf="!currentIframeUrl">
             
             <app-youtube></app-youtube>
             
-            </div>-->
+            </div>
           <iframe
             *ngIf="currentIframeUrl"
             [src]="currentIframeUrl"
