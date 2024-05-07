@@ -12,12 +12,35 @@ export const MENU: MenuItem[] = [
   },
  
   {
+    label: 'Events',
+    icon: 'activity',
+    link: '/events'
+  },
+  {
+    label: 'Event Form',
+    icon: 'activity',
+    link: '/eventform'
+  },
+
+  {
     label: 'Web Apps',
     isTitle: true
   },
 
+  {
+    label: 'Liste des invitations',
+    icon: 'layout',
+    subItems: [
+      {
+        label: 'Requests users',
+        link: '/users/request_users'
+      }
+    ]
+  },
+
   
  
+
   {
     label: 'Email',
     icon: 'mail',
@@ -239,24 +262,7 @@ export const MENU: MenuItem[] = [
       },
     ]
   },
-  {
-    label: 'Tables',
-    icon: 'layout',
-    subItems: [
-      {
-        label: 'Basic tables',
-        link: '/tables/basic-table',
-      },
-      {
-        label: 'Data table',
-        link: '/tables/data-table',
-      },
-      {
-        label: 'Ngx-datatable',
-        link: '/tables/ngx-datatable'
-      }
-    ]
-  },
+  
   {
     label: 'Icons',
     icon: 'smile',

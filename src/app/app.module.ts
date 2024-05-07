@@ -12,8 +12,13 @@ import { ErrorPageComponent } from './views/pages/error-page/error-page.componen
 
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
-import { ReactiveFormsModule } from '@angular/forms'
-import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { JwtInterceptorService } from './services/interceptor.service';
+
+
+import { EventdetailsComponent } from './views/pages/events/eventdetails/eventdetails.component';
+import { EventformComponent } from './views/pages/events/eventform/eventform.component';
 
 
 
@@ -23,9 +28,15 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AppComponent,
     ErrorPageComponent,
+
+    EventdetailsComponent,
+    EventformComponent,
+    
+
     
    // ClubCreateComponent,
     //ClublistadminsiteComponent
+
   ],
   imports: [
     BrowserModule,
@@ -33,7 +44,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     LayoutModule,
     ReactiveFormsModule, 
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     
@@ -48,6 +60,11 @@ import { HttpClientModule } from '@angular/common/http';
           scss: () => import('highlight.js/lib/languages/scss'),
         }
       }
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptorService,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]

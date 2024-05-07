@@ -26,6 +26,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+
 import { ClubCreateComponent } from 'src/app/components/clubs/club-create/club-create.component';
 import { ClublistadminsiteComponent } from 'src/app/components/clubs/clublistadminsite/clublistadminsite.component';
 import { ArchwizardModule } from 'angular-archwizard';
@@ -52,6 +53,7 @@ import {RequestListComponent} from 'src/app/components/RequestToJoin/request-lis
 import {ListclubtojoinComponent} from 'src/app/components/clubs/listclubtojoin/listclubtojoin.component';
 import {TestModulefront} from 'src/app/components/testfront/test.module';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
   suppressScrollX: true

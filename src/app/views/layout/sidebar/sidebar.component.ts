@@ -14,6 +14,7 @@ import MetisMenu from 'metismenujs';
 import { MENU } from './menu';
 import { MenuItem } from './menu.model';
 import { Router, NavigationEnd } from '@angular/router';
+import { JwtService } from 'src/app/services/jwt.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -26,11 +27,14 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   menuItems: MenuItem[] = [];
   @ViewChild('sidebarMenu') sidebarMenu: ElementRef;
 
+  userRole: string;
+
   constructor(
    
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
-    router: Router
+    router: Router,
+    private service: JwtService
   ) {
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
@@ -47,8 +51,27 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         }
       }
     });
+
   }
 
+  
+  getMenuItemsForRole(role: string): MenuItem[] {
+    if (role === 'ADMIN') {
+      return MENU;
+    } else {
+      // Filter out the 'Requests users' item for non-admin users
+      return MENU.map(item => {
+        if (item.label === 'Liste des invitations') {
+          return {
+            ...item,
+            subItems: item.subItems.filter(subItem => subItem.label !== 'Requests users')
+          };
+        } else {
+          return item;
+        }
+      });
+    }
+  }
   ngOnInit(): void {
     //this.document.body.classList.add('sidebar-dark');
     this.menuItems = MENU;

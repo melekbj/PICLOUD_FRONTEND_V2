@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NgxDatatableComponent } from './ngx-datatable.component';
+import { EventdetailsComponent } from './eventdetails.component';
 
-describe('NgxDatatableComponent', () => {
-  let component: NgxDatatableComponent;
-  let fixture: ComponentFixture<NgxDatatableComponent>;
+describe('EventdetailsComponent', () => {
+  let component: EventdetailsComponent;
+  let fixture: ComponentFixture<EventdetailsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NgxDatatableComponent ]
+      declarations: [ EventdetailsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NgxDatatableComponent);
+    fixture = TestBed.createComponent(EventdetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
