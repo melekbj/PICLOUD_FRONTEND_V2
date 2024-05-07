@@ -37,21 +37,22 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm() {
-    this.service.login(this.loginForm.value).subscribe(
-      (response) => {
+    this.service.login(this.loginForm.value).subscribe({
+      next: (response) => {
         console.log(response);
-        if (response.jwt != null) {
-          alert("Hello, Your token is " + response.jwt);
-          const jwtToken = response.jwt;
+        const jwtToken = response.jwt;
+        if (jwtToken) {
           localStorage.setItem('jwt', jwtToken);
           this.router.navigateByUrl("/dashboard");
         }
       },
-      (error) => {
-        // Display error message if login fails
-        this.loginError = 'Invalid email or password.';
+      error: (error) => {
+        console.error('Login error:', error);
+        this.loginError = error.message || 'An unexpected error occurred';
       }
-    );
+    });
   }
+  
+  
 
 }

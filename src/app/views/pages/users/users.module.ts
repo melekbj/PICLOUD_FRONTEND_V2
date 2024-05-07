@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { TablesComponent } from './tables.component';
 import { BasicTableComponent } from './basic-table/basic-table.component';
 import { DataTableComponent } from './data-table/data-table.component';
-import { NgxDatatableComponent } from './ngx-datatable/ngx-datatable.component';
+import {RequestUsersComponent } from './request-users/request-users.component';
 
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
@@ -28,19 +28,19 @@ const routes: Routes = [
         component: DataTableComponent
       },
       {
-        path: 'ngx-datatable',
-        component: NgxDatatableComponent
+        path: 'request_users',
+        component: RequestUsersComponent
       }
     ]
   }
 ]
 
 @NgModule({
-  declarations: [TablesComponent, BasicTableComponent, DataTableComponent, NgxDatatableComponent],
+  declarations: [TablesComponent, BasicTableComponent, DataTableComponent, RequestUsersComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     NgxDatatableModule
   ]
 })
-export class TablesModule { }
+export class UsersModule { }
