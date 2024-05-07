@@ -1,4 +1,13 @@
-import {Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter, ChangeDetectorRef} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectorRef,
+  SimpleChanges
+} from '@angular/core';
 import { PostService } from '../post.service';
 import { PostModel } from '../post-model';
 
@@ -11,6 +20,7 @@ import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {EditPostDialogComponent} from "../../post/edit-post-dialog-component/edit-post-dialog-component.component";
 import { faBookOpen, faShareAlt, faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import {BehaviorSubject} from "rxjs";
+
 @Component({
   selector: 'app-post-tile',
   templateUrl: './post-tile.component.html',
@@ -26,16 +36,12 @@ export class PostTileComponent implements OnInit {
   faTrashAlt = faTrashAlt;
 
   @Input() posts: PostModel[];
-  pagedPosts: PostModel[] = []; // posts for the current page
-  currentPage: number = 1;
-  postsPerPage: number = 2; // adjust this value as needed
   @Output() voteUpdated = new EventEmitter<void>();  // Add this line
-  @Output() currentPageChange = new EventEmitter<number>();
-  @Output() currentPagePosts = new EventEmitter<PostModel[]>();
   isAdmin: boolean = false;
   currentUser: string;
   private bsModalRef: BsModalRef;
   private categoryService: CategoryService;
+
   constructor(
     private router: Router,
     private postService: PostService,
@@ -43,11 +49,12 @@ export class PostTileComponent implements OnInit {
     private route: ActivatedRoute,
     private modalService: BsModalService,
     private changeDetector: ChangeDetectorRef,
-    ) { }
+  ) { }
 
   onVoteUpdated(): void {
     this.voteUpdated.emit();
   }
+
   ngOnInit(): void {
     this.jwtService.getUserRole().subscribe(role => {
       this.isAdmin = role === 'ADMIN';
@@ -56,35 +63,8 @@ export class PostTileComponent implements OnInit {
       this.currentUser = userId;
       this.voteUpdated.emit();  // Emit voteUpdated event after currentUser is set
     });
-
-    this.route.params.subscribe(params => {
-      const categoryId = params['id'];
-      if (categoryId) {
-        this.postService.getPostsByCategory(categoryId).subscribe(posts => {
-          this.posts = posts;
-          this.posts.forEach(post => {
-            this.postService.getCommentCountByPostId(post.postId).subscribe(count => {
-              post.commentCount = count;
-              console.log(`Post ID: ${post.postId}, Comment Count: ${post.commentCount}`); // Add this line
-            });
-          });
-        });
-      }
-      this.updatePagedPosts(); // Call this after posts is updated
-      this.changeDetector.detectChanges();
-    });
-
   }
 
-  updatePagedPosts(): void {
-    console.log(this.currentPage)
-
-    console.log(this.posts)
-    const startIndex = (this.currentPage -1) * this.postsPerPage;
-    this.pagedPosts = this.posts.slice(startIndex, startIndex + this.postsPerPage);
-    this.currentPageChange.emit(this.currentPage); // Emit the current page number
-    this.currentPagePosts.emit(this.pagedPosts);
-  }
   sharePost(id: number): void {
     this.postService.getShareableLink(id).subscribe((shareableLink) => {
       // Copy the shareable link to the clipboard
@@ -99,6 +79,7 @@ export class PostTileComponent implements OnInit {
       });
     });
   }
+
   editPost(post: PostModel): void {
     this.bsModalRef = this.modalService.show(EditPostDialogComponent);
     this.bsModalRef.content.text = post.description;
@@ -112,6 +93,7 @@ export class PostTileComponent implements OnInit {
       });
     });
   }
+
   deletePost(id: number): void {
     Swal.fire({
       title: 'Are you sure?',
@@ -137,6 +119,7 @@ export class PostTileComponent implements OnInit {
       }
     });
   }
+
   goToPost(id: number): void {
     this.router.navigateByUrl('/view-post/' + id);
   }
