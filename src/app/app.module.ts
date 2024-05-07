@@ -14,12 +14,17 @@ import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 import { ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http';
+import { EventdetailsComponent } from './views/pages/events/eventdetails/eventdetails.component';
+import { EventformComponent } from './views/pages/events/eventform/eventform.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ErrorPageComponent,
+    EventdetailsComponent,
+    EventformComponent,
+    
   ],
   imports: [
     BrowserModule,
