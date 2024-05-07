@@ -82,4 +82,9 @@ export class ChatService {
       headers: this.jwtService.createAuhtorizationHeader() || new HttpHeaders(),
     });
   }
+  getclubbyuser(userId) {
+    return this.http.get(this.url + '/club/getbyuser/' + userId, {
+      headers: this.jwtService.createAuhtorizationHeader(),
+    });
+  }
 }

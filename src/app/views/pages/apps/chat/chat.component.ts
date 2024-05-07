@@ -40,6 +40,8 @@ export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
   users: any;
   searchQuery: string = '';
 
+  defaultNavActiveId = 1;
+
   constructor(
     private chatService: ChatService,
     private route: ActivatedRoute,
@@ -87,13 +89,31 @@ export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
       console.log(data);
     });
     setTimeout(() => {
-      this.showicon = false;
-    }, 10000);
+      this.showicon = true;
+    }, 5000);
   }
   getthisUser() {
     this.chatService.getUserByEmail(this.thisUserEmail).subscribe((data) => {
       this.thisUser = data;
       this.thisUser.propic = './assets/images/avatar1.png';
+      if (data) {
+        this.getclubsbythisuser();
+      }
+    });
+  }
+  clubs;
+  getclubsbythisuser() {
+    this.chatService.getclubbyuser(this.thisUser.id).subscribe((data) => {
+      this.clubs = data;
+      console.log(data);
+    });
+  }
+  getUserimage(email) {
+    this.chatService.getUserByEmail(email).subscribe((data) => {
+      if (data) {
+        this.otherUser = data;
+        return this.otherUser.profileImage;
+      }
     });
   }
   getOtherUser() {
@@ -106,7 +126,32 @@ export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
       //this.el.nativeElement.querySelector('#chat').scrollIntoView();
 
       //this.scrollDown();
-      console.log(this.otherUser);
+    });
+  }
+  clubname;
+  onConnectToGroupChat() {
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      let exist = this.route.snapshot.paramMap.has('clubname');
+      this.channelName = params.get('clubname');
+      this.clubname = this.channelName;
+      if (exist) {
+        this.loadChat(this.channelName);
+
+        this.socket = new SockJS(this.url + '/chat-socket', [
+          'Authorization',
+          `${this.jwtService.createAuhtorizationHeader()}`,
+        ]);
+        this.stompClient = Stomp.over(this.socket);
+
+        this.stompClient.connect({}, (frame) => {
+          this.stompClient!.subscribe(
+            '/topic/' + this.channelName,
+            (response) => {
+              this.loadChat(this.channelName);
+            }
+          );
+        });
+      }
     });
   }
 
@@ -143,11 +188,14 @@ export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
     });
   }
 
+  profileimage = null;
   sendMsg() {
-    console.log(this.newMessage);
     let filename = null;
     if (this.filenames.length != 0) {
       filename = this.filenames[0];
+    }
+    if (this.clubname) {
+      this.profileimage = this.thisUser.profileImage;
     }
     if (this.newMessage.value !== '' || filename != null) {
       this.stompClient!.send(
@@ -158,6 +206,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
           t_stamp: 'to be defined in server',
           content: this.newMessage.value,
           filename: filename,
+          profileimage: this.profileimage,
         })
       );
       this.newMessage.setValue('');
@@ -250,9 +299,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
     this.imagename = filename;
     this.modalService
       .open(content, { centered: true })
-      .result.then((result) => {
-        console.log('Modal closed' + result);
-      })
+      .result.then((result) => {})
       .catch((res) => {});
   }
 
@@ -265,7 +312,6 @@ export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
     formData.append('files', files[0], files[0].name);
     this.chatService.upload(formData).subscribe(
       (event) => {
-        console.log(event);
         this.resportProgress(event);
       },
       (error: HttpErrorResponse) => {
