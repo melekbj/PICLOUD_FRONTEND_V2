@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter, ChangeDetectorRef} from '@angular/core';
 import { PostService } from '../post.service';
 import { PostModel } from '../post-model';
 
@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {EditPostDialogComponent} from "../../post/edit-post-dialog-component/edit-post-dialog-component.component";
 import { faBookOpen, faShareAlt, faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import {BehaviorSubject} from "rxjs";
 @Component({
   selector: 'app-post-tile',
   templateUrl: './post-tile.component.html',
@@ -23,9 +24,14 @@ export class PostTileComponent implements OnInit {
   faShareAlt = faShareAlt;
   faEdit = faEdit;
   faTrashAlt = faTrashAlt;
-  @Input() posts: PostModel[];
-  @Output() voteUpdated = new EventEmitter<void>();  // Add this line
 
+  @Input() posts: PostModel[];
+  pagedPosts: PostModel[] = []; // posts for the current page
+  currentPage: number = 1;
+  postsPerPage: number = 2; // adjust this value as needed
+  @Output() voteUpdated = new EventEmitter<void>();  // Add this line
+  @Output() currentPageChange = new EventEmitter<number>();
+  @Output() currentPagePosts = new EventEmitter<PostModel[]>();
   isAdmin: boolean = false;
   currentUser: string;
   private bsModalRef: BsModalRef;
@@ -36,12 +42,12 @@ export class PostTileComponent implements OnInit {
     private jwtService: JwtService,
     private route: ActivatedRoute,
     private modalService: BsModalService,
-  ) { }
+    private changeDetector: ChangeDetectorRef,
+    ) { }
 
   onVoteUpdated(): void {
     this.voteUpdated.emit();
   }
-  // In your PostTileComponent
   ngOnInit(): void {
     this.jwtService.getUserRole().subscribe(role => {
       this.isAdmin = role === 'ADMIN';
@@ -56,9 +62,28 @@ export class PostTileComponent implements OnInit {
       if (categoryId) {
         this.postService.getPostsByCategory(categoryId).subscribe(posts => {
           this.posts = posts;
+          this.posts.forEach(post => {
+            this.postService.getCommentCountByPostId(post.postId).subscribe(count => {
+              post.commentCount = count;
+              console.log(`Post ID: ${post.postId}, Comment Count: ${post.commentCount}`); // Add this line
+            });
+          });
         });
       }
+      this.updatePagedPosts(); // Call this after posts is updated
+      this.changeDetector.detectChanges();
     });
+
+  }
+
+  updatePagedPosts(): void {
+    console.log(this.currentPage)
+
+    console.log(this.posts)
+    const startIndex = (this.currentPage -1) * this.postsPerPage;
+    this.pagedPosts = this.posts.slice(startIndex, startIndex + this.postsPerPage);
+    this.currentPageChange.emit(this.currentPage); // Emit the current page number
+    this.currentPagePosts.emit(this.pagedPosts);
   }
   sharePost(id: number): void {
     this.postService.getShareableLink(id).subscribe((shareableLink) => {

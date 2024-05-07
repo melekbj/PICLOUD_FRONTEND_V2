@@ -4,10 +4,17 @@
     <div class="d-none d-md-block col-md-3 left-wrapper">
       <div class="card rounded">
         <div class="card-body">
-          <h5>About this Post</h5> <!-- Add a title -->
+
           <div><strong>Category:</strong> {{post?.categoryName}}</div>
           <div><strong>Creation Date:</strong> {{post?.createdDate | date:'shortDate'}}</div>
           <!-- Add more details here -->
+          <h6>Rules:</h6>
+          <ul>
+            <li>Rule 1: Be respectful to each other.</li>
+            <li>Rule 2: No spamming.</li>
+            <li>Rule 3: Stay on topic.</li>
+            <!-- Add more rules as needed -->
+          </ul>
         </div>
       </div>
     </div>
@@ -34,6 +41,7 @@
               <div>
                 <p class="post-text" [innerHtml]="post?.description"></p>
               </div>
+              <img class="post-image" [src]="'http://localhost/img/' + post.image" alt="Post image">
               <div class="post-comment">
                 <form [formGroup]="commentForm" (ngSubmit)="postComment()">
                   <div class="form-group">

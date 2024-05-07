@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostModel } from "../shared/post-model";
 import { PostService } from "../shared/post.service";
-import { throwError } from 'rxjs';
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-home',
@@ -12,9 +12,7 @@ export class ForumComponent implements OnInit {
 
   posts: Array<PostModel> = [];
 
-  constructor(private postService: PostService) {
-
-  }
+  constructor(private postService: PostService) { }
 
   ngOnInit(): void {
     const jwtToken = localStorage.getItem('jwt');
@@ -24,21 +22,18 @@ export class ForumComponent implements OnInit {
       console.log("JWT token not found in local storage");
     }
 
-    this.postService.getPostsOrderedByVotes().subscribe(post => {
-      this.posts = post;
-    }, error => {
-      console.log(error);
-      throwError(error);
-    });
     this.loadPosts();
   }
-  loadPosts(): void {
-    this.postService.getPostsOrderedByVotes().subscribe(post => {
-      this.posts = post;
-    }, error => {
-      console.log(error);+
-      throwError(error);
-    });
+
+  loadPosts(): Subscription {
+    return this.postService.getPostsOrderedByVotes().subscribe(
+      posts => {
+        this.posts = posts;
+      },
+      error => {
+        console.error('Error fetching posts:', error);
+      }
+    );
   }
 
   onVoteUpdated(): void {

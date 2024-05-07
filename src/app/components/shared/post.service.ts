@@ -39,6 +39,7 @@ export class PostService {
 
   getPostsByCategory(categoryId: string): Observable<PostModel[]> {
     return this.http.get<PostModel[]>(`http://localhost:8080/api/posts/by-category/${categoryId}`, { headers: this.jwtService.createAuhtorizationHeader() });
+
   }
   getPostsOrderedByVotes(): Observable<PostModel[]> {
     return this.http.get<PostModel[]>('http://localhost:8080/api/posts/by-votes', { headers: this.jwtService.createAuhtorizationHeader() })
@@ -67,5 +68,7 @@ export class PostService {
   updateVoteCount(postId: number, voteCount: number): Observable<PostModel> {
     return this.http.put<PostModel>('http://localhost:8080/api/posts/vote/' + postId, voteCount, { headers: this.jwtService.createAuhtorizationHeader() });
   }
-
+  getCommentCountByPostId(postId: number): Observable<number> {
+    return this.http.get<number>(`http://localhost:8080/api/posts/count/${postId}`, { headers: this.jwtService.createAuhtorizationHeader() });
+  }
 }

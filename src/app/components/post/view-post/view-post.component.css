@@ -10,7 +10,7 @@
 }
 
 .left-wrapper .card {
-  background-color: #fcf8e3; /* Change the background color of the card */
+  background-color: #ffffff; /* Change the background color to white */
 }
 
 .left-wrapper .card-body div {
@@ -26,7 +26,20 @@
   font-size: 20px;
   font-weight: bold;
 }
+.left-wrapper .card-body ul {
+  list-style-type: none; /* Remove the default bullet points */
+  padding-left: 0; /* Remove the default padding */
+}
 
+.left-wrapper .card-body ul li {
+  font-size: 18px; /* Increase the font size */
+  font-weight: bold; /* Make the text bold */
+  color: #ff6347; /* Change the text color to tomato */
+  background-color: #f2f2f2; /* Change the background color to light grey */
+  margin-bottom: 10px; /* Add some space between the rules */
+  padding: 10px; /* Add some padding around the text */
+  border-radius: 5px; /* Add rounded corners */
+}
 .no-dropdown-toggle-icon {
   background: none;
   border: none;
@@ -68,17 +81,18 @@
 
 .category-text {
   font-weight: bold;
-  color: #333;
+  color: #008000; /* Change the text color to green */
+  font-size: 18px; /* Increase the font size */
 }
 
 .post-url {
   color: #333;
 }
-
-.username{
-  color: #333;
+.username {
+  color: #800000; /* Change the text color to maroon */
+  font-size: 18px; /* Increase the font size */
+  font-weight: bold; /* Make the text bold */
 }
-
 .post-text{
   margin-top: 10px;
   color: #333;
@@ -90,13 +104,12 @@
   margin-top: 10px;
   margin-bottom: 10px;
   overflow: hidden;
-  background-color: #fcf8e3;
+  background-color: #ffffff; /* Change the background color to white */
   color: #333;
   position: relative;
   border-radius: 4px;
   padding:5px;
 }
-
 .comment .username {
   font-weight: bold;
   color: #333;
@@ -105,11 +118,14 @@
 .comment-username {
   font-weight: bold;  /* Make the text bold */
   font-family: Arial, sans-serif;  /* Change the font */
-  color: #6a1a21;  /* Text color */
-  background-color: #fcf8e3;  /* Background color */
-  padding: 5px;  /* Padding to give some space around the text */
-  margin-bottom: 5px;  /* Reduced margin-bottom */
+  color: #ffffff;  /* Text color to white for contrast */
+  background-color: #808080;  /* Background color to grey */
+  padding: 10px;  /* Padding to give some space around the text */
+  margin-bottom: 10px;  /* Increased margin-bottom */
   border-radius: 4px;  /* Rounded corners */
+  font-size: 20px; /* Increase the font size */
+  border: 2px solid #333; /* Add a border */
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.5); /* Add a shadow for a 3D effect */
 }
 
 .comment{
@@ -117,7 +133,7 @@
   border: 1px solid #ccc;
   margin-bottom: 10px;
   overflow: hidden;
-  background-color: rgba(255,255,255,0.8);
+  background-color: #f5f5f5; /* Change the background color to light grey for better visibility */
   color: #333;
   position: relative;
   border-radius: 4px;

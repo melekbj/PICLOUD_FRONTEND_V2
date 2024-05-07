@@ -38,6 +38,7 @@ import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {
   EditPostDialogComponent
 } from "./components/post/edit-post-dialog-component/edit-post-dialog-component.component";
+import {NgbDropdownModule, NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [
@@ -78,6 +79,8 @@ import {
     QuillModule.forRoot(),
     MonacoEditorModule.forRoot(),
     ToastrModule.forRoot(),
+    NgbDropdownModule,
+    NgbPaginationModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

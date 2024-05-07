@@ -9,7 +9,7 @@ export class PostModel {
   userName: string;
   categoryName: string;
   image: string;
-  commentCount: number;
+  commentCount?: number;
   createdDate: Date;
   duration: string;
   upVote: boolean;
