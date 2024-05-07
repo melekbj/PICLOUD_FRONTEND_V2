@@ -4,12 +4,12 @@ import { Observable } from 'rxjs';
 import { catchError, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
 
 
 const BASE_URL = ["http://localhost:8080/auth/"]
 const API_BASE_URL = "http://localhost:8080/";
-const apiUrl = 'http://localhost:8080/users/api/user';
-const apiU = 'http://localhost:8080/users';
+const url = "http://localhost:8080/users";
 @Injectable({
   providedIn: 'root'
 })
@@ -28,15 +28,18 @@ export class JwtService {
 }
 
 
-  login(loginRequest: any): Observable<any> {
-    return this.http.post(BASE_URL + 'login', loginRequest).pipe(
-      catchError((error: HttpErrorResponse) => {
-          console.log('Error status:', error.status);
-          console.log('Error body:', error.error);
-          return throwError(error);
-      })
+login(loginRequest: any): Observable<any> {
+  return this.http.post(BASE_URL + 'login', loginRequest).pipe(
+    catchError((error: HttpErrorResponse) => {
+        console.error('Login error:', error.error);
+        return throwError(() => new Error(error.error || 'Unknown error'));
+    })
   );
-  }
+}
+
+
+
+
 
   getEmailFromToken(): string | null {
     const token = localStorage.getItem('jwt');
@@ -55,8 +58,9 @@ export class JwtService {
     return payload.sub;
   }
 
+
   getUserByEmail(email) {
-    return this.http.get(apiU + '/findByEmail/' + email, {
+    return this.http.get(url + '/findByEmail/' + email, {
       headers: this.createAuhtorizationHeader(),
     });
   }
@@ -69,11 +73,6 @@ export class JwtService {
     this.router.navigate(['/auth/login']);
   }
 
-  hello(): Observable<any> {
-    return this.http.get(API_BASE_URL + 'api/hello', {
-      headers: this.createAuhtorizationHeader() || new HttpHeaders()
-    })
-  }
 
  // Add this method to your JwtService
  forgotPassword(email: string): Observable<any> {
@@ -90,7 +89,6 @@ export class JwtService {
 }
 
 
- 
   setPassword(email: string, newPassword: string): Observable<any> {
     return this.http.put(API_BASE_URL + 'set-password', null, {
       params: { email: email },
@@ -111,8 +109,23 @@ export class JwtService {
     );
   }
 
-  getUsersByRole(role: string): Observable<any> {
-    return this.http.get(API_BASE_URL + 'users/usersByRole/' + role, {
+  // Adjust the setUserAccepted method to expect a text response
+setUserAccepted(id: number): Observable<any> {
+  return this.http.put(`${API_BASE_URL}users/${id}/accepted`, null, {
+    responseType: 'text' // Specify the expected response type as text
+  }).pipe(
+    catchError((error: HttpErrorResponse) => {
+      console.error('Error status:', error.status);
+      console.error('Error body:', error.error);
+      return throwError(error);
+    })
+  );
+}
+
+
+
+  getUsersByRoleAndEtat(role: string, etat: string): Observable<any> {
+    return this.http.get(API_BASE_URL + 'users/usersByRoleAndEtat/' + role + '/' + etat, {
       headers: this.createAuhtorizationHeader() || new HttpHeaders()
     }).pipe(
       catchError((error: HttpErrorResponse) => {
@@ -122,13 +135,6 @@ export class JwtService {
       })
     );
   }
-  
-
-  getUser(): Observable<any> {
-    return this.http.get<any>(apiUrl);
-  }
-  
-
 
   isAuthenticated(): boolean {
     const jwt = localStorage.getItem('jwt');
@@ -136,6 +142,7 @@ export class JwtService {
     return jwt != null;
   }
 
+ 
 
   private createAuhtorizationHeader() {
     const jwtToken = localStorage.getItem('jwt');

@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Inject, Renderer2 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { Router } from '@angular/router';
 import { JwtService } from 'src/app/services/jwt.service';
 
 @Component({
@@ -15,24 +14,22 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     @Inject(DOCUMENT) private document: Document, 
-    private renderer: Renderer2,
-    private router: Router,
     private service: JwtService
   ) { }
 
   ngOnInit(): void {
-    this.thisUserEmail = this.service.getEmailFromToken();
-    this.service.getUserByEmail(this.thisUserEmail).subscribe((data) => {
-      this.thisUser = data;
-      console.log(this.thisUser)
-    });
+    const email = this.service.getEmailFromToken();
+    if (email) {
+      this.service.getUserByEmail(email).subscribe(data => {
+        this.thisUser = data;
+        console.log('User details retrieved:', this.thisUser); // Log user details here
+      }, error => {
+        console.error('Failed to fetch user details:', error);
+      });
+    }
   }
 
-  
 
-  /**
-   * Sidebar toggle on hamburger button click
-   */
   toggleSidebar(e: Event) {
     e.preventDefault();
     this.document.body.classList.toggle('sidebar-open');

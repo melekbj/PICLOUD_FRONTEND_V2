@@ -51,11 +51,6 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       }
     });
 
-    this.service.getUser().subscribe(user => {
-      this.userRole = user.role;
-      this.menuItems = this.getMenuItemsForRole(this.userRole);
-    });
-
   }
 
   

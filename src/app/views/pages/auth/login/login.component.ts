@@ -37,8 +37,8 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm() {
-    this.service.login(this.loginForm.value).subscribe(
-      (response) => {
+    this.service.login(this.loginForm.value).subscribe({
+      next: (response) => {
         console.log(response);
         const jwtToken = response.jwt;
         if (jwtToken) {
@@ -46,11 +46,13 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl("/dashboard");
         }
       },
-      (error) => {
-        console.error('Login error:', error.error);
-        this.loginError = error.error; // Directly display the backend-provided message
+      error: (error) => {
+        console.error('Login error:', error);
+        this.loginError = error.message || 'An unexpected error occurred';
       }
-    );
+    });
   }
+  
+  
 
 }

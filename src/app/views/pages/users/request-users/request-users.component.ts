@@ -13,9 +13,11 @@ export class RequestUsersComponent implements OnInit {
   loadingIndicator = true;
   reorderable = true;
   ColumnMode = ColumnMode;
+  successMessage: string | null = null;
+  errorMessage: string | null = null;
 
   constructor(private jwtService: JwtService) {
-    this.fetch('MEMBRE', (data: any) => {
+    this.fetch('MEMBRE', 'PENDING', (data: any) => {
       this.rows = data;
       this.loadingIndicator = false;
     });
@@ -24,8 +26,8 @@ export class RequestUsersComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  fetch(role: string, cb: any) {
-    this.jwtService.getUsersByRole(role).subscribe(
+  fetch(role: string, etat: string, cb: any) {
+    this.jwtService.getUsersByRoleAndEtat(role, etat).subscribe(
       (response) => {
         cb(response);
       },
@@ -33,6 +35,28 @@ export class RequestUsersComponent implements OnInit {
         console.error('Error:', error);
       }
     );
+  }
+
+  acceptUser(id: number): void {
+    this.jwtService.setUserAccepted(id).subscribe(
+      response => {
+        this.successMessage = 'User accepted successfully: ' + response;
+        this.errorMessage = null;
+        this.fetch('MEMBRE', 'PENDING', (data: any) => {
+          this.rows = data;
+        });
+      },
+      error => {
+        this.errorMessage = 'Error accepting user: ' + error.error;
+        this.successMessage = null;
+      }
+    );
+  }
+
+  // Method to clear messages
+  clearMessages(): void {
+    this.successMessage = null;
+    this.errorMessage = null;
   }
 
 }
