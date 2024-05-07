@@ -60,6 +60,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'update-profile',
+        loadChildren: () =>
+          import('./views/pages/update-profile/update-profile.module').then(
+            (m) => m.updateProfileModule
+          ),
+      },
+      {
         path: 'advanced-form-elements',
         loadChildren: () =>
           import(
