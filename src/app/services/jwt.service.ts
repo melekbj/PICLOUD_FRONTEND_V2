@@ -161,7 +161,7 @@ export class JwtService {
 
  
 
-  private createAuhtorizationHeader() {
+  public createAuhtorizationHeader() {
 
     const jwtToken = localStorage.getItem('jwt');
     if (jwtToken) {
@@ -230,10 +230,8 @@ return decodedPayload.sub;
 
 
 
-  getToken(): string | null {
-    return localStorage.getItem('jwt');
-  }
-
+ 
+   }
 
   isTokenExpired(token: string | null): boolean {
   if (!token) {
@@ -248,6 +246,6 @@ return decodedPayload.sub;
   
 
 
-  }
+
 
 }

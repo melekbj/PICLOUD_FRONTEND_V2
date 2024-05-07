@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Image } from 'src/app/model/image';
 
-const IMAGEURL = "http://localhost:8080/cloudinary/";
+const IMAGEURL = "http://localhost:8089/cloudinary/";
 
 @Injectable({
   providedIn: 'root'

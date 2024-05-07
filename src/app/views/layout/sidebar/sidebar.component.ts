@@ -75,15 +75,23 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     //this.document.body.classList.add('sidebar-dark');
     this.menuItems = MENU;
+    let eventItems= {
+      label: 'Events',
+      icon: 'activity',
+      link: '/events'
+    }
     let clubItem= {
       label: 'Clubs',
       icon: 'command',
       link: '/apps/clublisttojoin'
+
     }
     let memberItem=  {
       label: 'My Memberships',
       icon: 'target',
-      link : '/apps/clubs'}
+      link : '/apps/clubs'
+    
+    }
     let roleItem={ 
       label: 'Clubs Managment',
       icon: 'slack',
@@ -137,6 +145,11 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         label: 'Quizzes',
         link: '/apps/test'
       },
+      {
+        label: 'Events ',
+        
+        link: '/eventform'
+      },
     ]
   }
   let idClub = localStorage.getItem("idClub");
@@ -157,6 +170,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       let position = 2;
       this.menuItems.splice(position, 0, memberItem);
       this.menuItems.splice(position, 0, clubItem);
+      this.menuItems.splice(position, 0, eventItems);
     }
 
 
