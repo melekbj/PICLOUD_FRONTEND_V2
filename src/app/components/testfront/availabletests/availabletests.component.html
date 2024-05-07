@@ -25,14 +25,14 @@
             </div>
 
 
-            <div class="row" *ngIf="gridview">
-                <div class="col-xxl-4 col-lg-6" *ngFor="let t of getActiveTests().reverse() ">
+            <div class="row " *ngIf="gridview">
+                <div class="col-xxl-4 col-lg-6 d-flex"  *ngFor="let t of getActiveTests().reverse() ">
 
-                    <div class="card border-0" style="background-color: rgb(229, 222, 236);">
+                    <div class="card border-0 " style="background-color: rgb(229, 222, 236);">
                         <div class="card-body">
                             <div class="d-flex justify-content-between gap-4">
                                 <div class="avatar-img w-auto rounded-2 overflow-hidden flex-shrink-0">
-                                    <img [src]="t.image.startsWith('http') ? t.image : '/' + t.image" width="400px">
+                                    <img [src]="t.image.startsWith('http') ? t.image : '/' + t.image" width="350px">
                                 </div>
                             </div>
                             <div class="card-content mt-4">
