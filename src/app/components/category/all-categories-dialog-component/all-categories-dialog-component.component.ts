@@ -24,4 +24,18 @@ export class AllCategoriesDialogComponent implements OnInit {
   onCategoryClick() {
     this.bsModalRef.hide();
   }
+  deleteCategory(id: number) {
+    if (window.confirm('Are you sure you want to delete this category?')) {
+      this.categoryService.deleteCategory(id).subscribe(
+        (data) => {
+          console.log('Category deleted successfully');
+          this.ngOnInit(); // Refresh the list of categories
+        },
+        (error) => {
+          console.log('Error deleting category');
+          throwError(error);
+        }
+      );
+    }
+  }
 }

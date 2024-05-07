@@ -8,6 +8,7 @@ export class PostModel {
   voteCount: number;
   userName: string;
   categoryName: string;
+  image: string;
   commentCount: number;
   createdDate: Date;
   duration: string;

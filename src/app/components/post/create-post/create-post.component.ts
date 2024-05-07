@@ -20,6 +20,7 @@ export class CreatePostComponent implements OnInit {
   createPostForm: FormGroup;
   postPayload: CreatePostPayload;
   categories: Array<CategoryModel>;
+  selectedFile: File;
 
   constructor(
     private router: Router,
@@ -51,7 +52,36 @@ export class CreatePostComponent implements OnInit {
       }
     );
   }
-
+  onFileSelect(event) {
+    if (event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
+    }
+  }
+  // createPost() {
+  //   if (this.createPostForm.invalid) {
+  //     this.createPostForm.markAllAsTouched();
+  //     return;
+  //   }
+  //   this.postPayload.postName = this.createPostForm.get('postName').value;
+  //   this.postPayload.url = this.createPostForm.get('url').value;
+  //   let description=this.createPostForm.get('description').value;
+  //   description=this.filter.clean(description); // Clean the description
+  //   this.postPayload.description = description; // Assign the cleaned value
+  //
+  //   const selectedCategory = this.categories.find(
+  //     (category) => category.name === this.createPostForm.get('categoryName').value
+  //   );
+  //   this.postPayload.categoryId = selectedCategory ? selectedCategory.idCategory : null;
+  //
+  //   this.postService.createPost(this.postPayload, this.postPayload.categoryId).subscribe(
+  //     (data) => {
+  //       this.router.navigateByUrl('/forum');
+  //     },
+  //     (error) => {
+  //       throwError(error);
+  //     }
+  //   );
+  // }
   createPost() {
     if (this.createPostForm.invalid) {
       this.createPostForm.markAllAsTouched();
@@ -67,8 +97,18 @@ export class CreatePostComponent implements OnInit {
       (category) => category.name === this.createPostForm.get('categoryName').value
     );
     this.postPayload.categoryId = selectedCategory ? selectedCategory.idCategory : null;
+    this.postPayload.image = this.selectedFile; // Assign the selected file
 
-    this.postService.createPost(this.postPayload, this.postPayload.categoryId).subscribe(
+    const postData = new FormData();
+    postData.append('postName', this.postPayload.postName);
+    postData.append('url', this.postPayload.url);
+    postData.append('description', this.postPayload.description);
+    postData.append('categoryId', this.postPayload.categoryId.toString());
+    if (this.postPayload.image) {
+      postData.append('image', this.postPayload.image, this.postPayload.image.name);
+    }
+
+    this.postService.createPost(postData, this.postPayload.categoryId).subscribe(
       (data) => {
         this.router.navigateByUrl('/forum');
       },

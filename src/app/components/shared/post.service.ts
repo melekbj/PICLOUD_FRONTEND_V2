@@ -23,8 +23,8 @@ export class PostService {
     });
   }
 
-  createPost(postPayload: CreatePostPayload, categoryId: number): Observable<any> {
-    return this.http.post('http://localhost:8080/api/posts/' + categoryId, postPayload, { headers: this.jwtService.createAuhtorizationHeader() });
+  createPost(postData: FormData, categoryId: number): Observable<any> {
+    return this.http.post('http://localhost:8080/api/posts/' + categoryId, postData, { headers: this.jwtService.createAuhtorizationHeader() });
   }
   editPost(id: number, post: PostModel): Observable<PostModel> {
     return this.http.put<PostModel>('http://localhost:8080/api/posts/edit/' + id, post, { headers: this.jwtService.createAuhtorizationHeader() });

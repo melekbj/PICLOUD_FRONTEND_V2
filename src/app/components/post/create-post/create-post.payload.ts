@@ -3,4 +3,5 @@ export class CreatePostPayload {
   categoryId?: number;
   url?: string;
   description: string;
+  image?: File;
 }

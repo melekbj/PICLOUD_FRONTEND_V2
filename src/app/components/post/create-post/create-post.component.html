@@ -35,6 +35,7 @@
           <div *ngIf="createPostForm.controls['categoryName'].invalid && createPostForm.controls['categoryName'].touched" class="form-error">
             Category is required.
           </div>
+          <input type="file" id="image" class="form-control" (change)="onFileSelect($event)" required>
 
           <div class="NgxEditor__Wrapper">
             <textarea

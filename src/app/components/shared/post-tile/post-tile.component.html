@@ -24,7 +24,8 @@
           <div>
             <p class="post-text" [innerHtml]="post.description"></p>
           </div>
-          <hr />
+          <img [src]="'http://localhost/img/' + post.image" alt="Post image">
+
           <span>
             <a class="btnCommments" role="button">
               <fa-icon [icon]="faComments"></fa-icon>
