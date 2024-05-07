@@ -11,6 +11,17 @@ export const MENU: MenuItem[] = [
     link: '/dashboard'
   },
   {
+    label: 'Events',
+    icon: 'activity',
+    link: '/events'
+  },
+  {
+    label: 'Event Form',
+    icon: 'activity',
+    link: '/eventform'
+  },
+
+  {
     label: 'Web Apps',
     isTitle: true
   },

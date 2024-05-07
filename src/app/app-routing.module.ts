@@ -4,6 +4,8 @@ import { BaseComponent } from './views/layout/base/base.component';
 import { AuthGuardService } from './services/auth-guard.service'; 
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
 import { ResetPasswordComponent } from './views/pages/auth/reset-password/reset-password.component';
+import { EventdetailsComponent } from './views/pages/events/eventdetails/eventdetails.component';
+import { EventformComponent } from './views/pages/events/eventform/eventform.component';
 
 const routes: Routes = [
   {
@@ -22,6 +24,14 @@ const routes: Routes = [
           import('./views/pages/dashboard/dashboard.module').then(
             (m) => m.DashboardModule
           ),
+      },
+      {
+        path: 'events',
+        component: EventdetailsComponent
+      },
+      {
+        path: 'eventform',
+        component: EventformComponent
       },
       {
         path: 'apps',
