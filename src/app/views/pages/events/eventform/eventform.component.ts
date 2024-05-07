@@ -5,6 +5,7 @@ import { ImageService } from 'src/app/services/eventModule/image.service';
 import { Image } from 'src/app/model/image';
 import Swal from 'sweetalert2';
 import { EventService } from 'src/app/services/eventModule/event.service';
+import { end } from '@popperjs/core';
 
 @Component({
   selector: 'app-eventform',
@@ -25,6 +26,7 @@ export class EventformComponent implements OnInit {
       maxParticipants: ['', Validators.required],
       eventType: ['', Validators.required],
       startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
       location: ['', Validators.required],
       isPublic: ['', Validators.required],
       creator: [null],

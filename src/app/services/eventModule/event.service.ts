@@ -23,8 +23,12 @@ export class EventService {
   getEvents(){
     return this.http.get(EVENTURL + 'getAllEvents');
   }
+
   getEventById(eventId: number){
     return this.http.get(EVENTURL + 'getEvent/' + eventId);
+  }
+  getEventsByEventType(eventType: string){
+    return this.http.get(EVENTURL + 'getEventsByeventType/' + eventType);
   }
   addEvent(event: any): Observable<any> {
     return this.http.post(EVENTURL + 'addEvent', event).pipe(

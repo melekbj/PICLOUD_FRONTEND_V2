@@ -1,8 +1,19 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-
 import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/angular';
-import { Draggable } from '@fullcalendar/interaction'; // for dateClick
-import { INITIAL_EVENTS, createEventId } from './event-utils';
+import { Draggable } from '@fullcalendar/interaction';
+import { EventService } from 'src/app/services/eventModule/event.service'; // Update with your actual path
+
+interface MyEvent {
+  id: string;
+  title: string;
+  start: Date;
+  end: Date;
+  // Add other properties as needed
+}
+
+// Then use this type for `this.currentEvents`:
+
+
 
 @Component({
   selector: 'app-calendar',
@@ -10,17 +21,18 @@ import { INITIAL_EVENTS, createEventId } from './event-utils';
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent implements OnInit {
+  currentEvents: MyEvent[] = [];
 
   @ViewChild('externalEvents', {static: true}) externalEvents: ElementRef;
 
   calendarOptions: CalendarOptions = {
+    events: this.currentEvents,
     headerToolbar: {
       left: 'prev,today,next',
       center: 'title',
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     },
     initialView: 'dayGridMonth',
-    initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
     weekends: true,
     editable: true,
     selectable: true,
@@ -35,12 +47,13 @@ export class CalendarComponent implements OnInit {
     eventRemove:
     */
   };
-  currentEvents: EventApi[] = [];
+  
 
-  constructor() { }
+  constructor(private eventService: EventService) { }
 
   ngOnInit(): void {
-
+    this.fetchEvents();
+  
     // For external-events dragging
     new Draggable(this.externalEvents.nativeElement, {
       itemSelector: '.fc-event',
@@ -52,9 +65,21 @@ export class CalendarComponent implements OnInit {
         };
       }
     });
-
   }
 
+  async fetchEvents() {
+    this.eventService.getEvents().subscribe(eventsFromService => {
+      console.log(eventsFromService);
+      this.currentEvents = (eventsFromService as any[]).map(event => ({
+        id: event.id.toString(),
+        title: event.eventTitle,
+        start: new Date(event.startDate),
+        end: new Date(event.endDate),
+        // Add other properties as needed
+      }));
+    this.calendarOptions.events = this.currentEvents;
+    });
+  }
 
   handleDateSelect(selectInfo: DateSelectArg) {
     const title = prompt('Please enter a new title for your event');
@@ -64,7 +89,7 @@ export class CalendarComponent implements OnInit {
 
     if (title) {
       calendarApi.addEvent({
-        id: createEventId(),
+        id: Date.now().toString(), // Temporary ID until the event is saved in the backend
         title,
         start: selectInfo.startStr,
         end: selectInfo.endStr,
@@ -84,5 +109,4 @@ export class CalendarComponent implements OnInit {
   handleEvents(events: EventApi[]) {
     this.currentEvents = events;
   }
-
 }
