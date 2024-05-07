@@ -10,16 +10,9 @@ export const MENU: MenuItem[] = [
     icon: 'home',
     link: '/dashboard'
   },
-  {
-    label: 'Events',
-    icon: 'activity',
-    link: '/events'
-  },
-  {
-    label: 'Event Form',
-    icon: 'activity',
-    link: '/eventform'
-  },
+ 
+ 
+
 
   {
     label: 'Web Apps',
@@ -36,6 +29,10 @@ export const MENU: MenuItem[] = [
       }
     ]
   },
+
+  
+ 
+
   {
     label: 'Email',
     icon: 'mail',
