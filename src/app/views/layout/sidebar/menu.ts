@@ -10,6 +10,7 @@ export const MENU: MenuItem[] = [
     icon: 'home',
     link: '/dashboard'
   },
+ 
   {
     label: 'Events',
     icon: 'activity',
@@ -26,6 +27,7 @@ export const MENU: MenuItem[] = [
     isTitle: true
   },
 
+
   {
     label: 'Liste des invitations',
     icon: 'layout',
@@ -36,6 +38,7 @@ export const MENU: MenuItem[] = [
       }
     ]
   },
+
   {
     label: 'Email',
     icon: 'mail',

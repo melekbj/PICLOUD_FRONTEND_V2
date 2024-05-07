@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, Inject, Renderer2 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { JwtService } from 'src/app/services/jwt.service';
-
+import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -9,8 +9,13 @@ import { JwtService } from 'src/app/services/jwt.service';
 })
 export class NavbarComponent implements OnInit {
 
+
   thisUserEmail :string
   thisUser: any
+
+
+  searchControl = new FormControl();
+ 
 
   constructor(
     @Inject(DOCUMENT) private document: Document, 
@@ -18,6 +23,7 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
     const email = this.service.getEmailFromToken();
     if (email) {
       this.service.getUserByEmail(email).subscribe(data => {
@@ -29,6 +35,16 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+
+
+
+  }
+
+  
+
+  /**
+   * Sidebar toggle on hamburger button click
+   */
 
   toggleSidebar(e: Event) {
     e.preventDefault();

@@ -22,13 +22,21 @@ import { EventdetailsComponent } from './views/pages/events/eventdetails/eventde
 import { EventformComponent } from './views/pages/events/eventform/eventform.component';
 
 
+
+//import { ClubCreateComponent } from './components/clubs/club-create/club-create.component';
+//import { ClublistadminsiteComponent } from './components/clubs/clublistadminsite/clublistadminsite.component';
 @NgModule({
   declarations: [
     AppComponent,
     ErrorPageComponent,
+
     EventdetailsComponent,
     EventformComponent,
     
+
+   // ClubCreateComponent,
+    //ClublistadminsiteComponent
+
   ],
   imports: [
     BrowserModule,
@@ -40,6 +48,7 @@ import { EventformComponent } from './views/pages/events/eventform/eventform.com
     FormsModule
   ],
   providers: [
+    
     AuthGuardService,
     {
       provide: HIGHLIGHT_OPTIONS, // https://www.npmjs.com/package/ngx-highlightjs

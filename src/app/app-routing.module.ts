@@ -4,10 +4,17 @@ import { BaseComponent } from './views/layout/base/base.component';
 import { AuthGuardService } from './services/auth-guard.service'; 
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
 import { ResetPasswordComponent } from './views/pages/auth/reset-password/reset-password.component';
+
 import { EventdetailsComponent } from './views/pages/events/eventdetails/eventdetails.component';
 import { EventformComponent } from './views/pages/events/eventform/eventform.component';
 
+
+import { ClubCreateComponent } from './components/clubs/club-create/club-create.component';
+import { ClublistadminsiteComponent } from './components/clubs/clublistadminsite/clublistadminsite.component';
+
 const routes: Routes = [
+  //{path:'clubadminsite',component:ClublistadminsiteComponent},
+  //{ path: 'club/create', component: ClubCreateComponent },
   {
     path: 'auth',
     loadChildren: () =>
