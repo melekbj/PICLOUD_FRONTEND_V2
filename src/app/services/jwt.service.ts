@@ -146,7 +146,7 @@ export class JwtService {
     return jwt != null;
   }
 
-  private createAuhtorizationHeader() {
+  public createAuhtorizationHeader() {
     const jwtToken = localStorage.getItem('jwt');
     if (jwtToken) {
       console.log("JWT token found in local storage", jwtToken);
