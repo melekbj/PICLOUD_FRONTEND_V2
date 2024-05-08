@@ -3,13 +3,17 @@ import { MenuItem } from './menu.model';
 export const MENU: MenuItem[] = [
   {
     label: 'Main',
-    isTitle: true
+    isTitle: true,
   },
   {
     label: 'Dashboard',
     icon: 'home',
     link: '/dashboard'
   },
+ 
+ 
+
+
   {
     label: 'Forum',
     icon: 'message-circle', // choose an appropriate icon
@@ -19,6 +23,21 @@ export const MENU: MenuItem[] = [
     label: 'Web Apps',
     isTitle: true
   },
+
+  {
+    label: 'Liste des invitations',
+    icon: 'layout',
+    subItems: [
+      {
+        label: 'Requests users',
+        link: '/users/request_users'
+      }
+    ]
+  },
+
+  
+ 
+
   {
     label: 'Email',
     icon: 'mail',
@@ -36,6 +55,7 @@ export const MENU: MenuItem[] = [
         link: '/apps/email/compose'
       },
     ]
+
   },
   {
     label: 'Chat',
@@ -43,6 +63,11 @@ export const MENU: MenuItem[] = [
     link: '/apps/chat',
   },
   {
+
+    label: 'libary',
+    icon: 'book-open',
+    link: '/libary',
+  },{
     label: 'Calendar',
     icon: 'calendar',
     link: '/apps/calendar',
@@ -241,24 +266,7 @@ export const MENU: MenuItem[] = [
       },
     ]
   },
-  {
-    label: 'Tables',
-    icon: 'layout',
-    subItems: [
-      {
-        label: 'Basic tables',
-        link: '/tables/basic-table',
-      },
-      {
-        label: 'Data table',
-        link: '/tables/data-table',
-      },
-      {
-        label: 'Ngx-datatable',
-        link: '/tables/ngx-datatable'
-      }
-    ]
-  },
+  
   {
     label: 'Icons',
     icon: 'smile',
@@ -334,5 +342,6 @@ export const MENU: MenuItem[] = [
         link: '/error/500',
       },
     ]
+
   },
 ];

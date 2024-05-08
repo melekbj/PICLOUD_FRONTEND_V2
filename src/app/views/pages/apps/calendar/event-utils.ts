@@ -1,4 +1,7 @@
 import { EventInput } from '@fullcalendar/angular';
+import { EventService } from 'src/app/services/eventModule/event.service';
+
+
 
 let eventGuid = 0;
 const TODAY_STR = () => {

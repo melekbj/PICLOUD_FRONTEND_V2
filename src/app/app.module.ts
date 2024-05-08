@@ -7,6 +7,24 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { AppComponent } from './app.component';
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+ 
+
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { LibaryComponent } from './components/libary/libary/libary.component';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptorService } from './services/interceptor.service';
+
+
+
+import { EventdetailsComponent } from './views/pages/events/eventdetails/eventdetails.component';
+import { EventformComponent } from './views/pages/events/eventform/eventform.component';
+ 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ForumComponent} from "./components/forum/forum.component";
@@ -39,11 +57,28 @@ import {
   EditPostDialogComponent
 } from "./components/post/edit-post-dialog-component/edit-post-dialog-component.component";
 import {NgbDropdownModule, NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
+ 
 
+
+//import { ClubCreateComponent } from './components/clubs/club-create/club-create.component';
+//import { ClublistadminsiteComponent } from './components/clubs/clublistadminsite/clublistadminsite.component';
 @NgModule({
+
+
   declarations: [
     AppComponent,
     ErrorPageComponent,
+ 
+
+    EventdetailsComponent,
+    EventformComponent,
+    
+    LibaryComponent
+    
+   // ClubCreateComponent,
+    //ClublistadminsiteComponent
+
+ 
     ForumComponent,
     CategorySideBarComponent,
     CreateCategoryComponent,
@@ -57,12 +92,31 @@ import {NgbDropdownModule, NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap
     EditCommentDialogComponent,
     AllCategoriesDialogComponent,
     EditPostDialogComponent
+ 
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
+ 
+
+    ReactiveFormsModule,
+    HttpClientModule,
+    NgbAccordionModule,
+    NgSelectModule,
+    FormsModule,
+    SweetAlert2Module.forRoot(),
+
+    ReactiveFormsModule, 
+    HttpClientModule,
+    FormsModule
+
+  ],
+  providers: [
+    
+ 
     ReactiveFormsModule,
 
     HttpClientModule,
@@ -85,6 +139,7 @@ import {NgbDropdownModule, NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     ToastrService,
+ 
     AuthGuardService,
     {
       provide: HIGHLIGHT_OPTIONS,
@@ -94,14 +149,24 @@ import {NgbDropdownModule, NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap
           xml: () => import('highlight.js/lib/languages/xml'),
           typescript: () => import('highlight.js/lib/languages/typescript'),
           scss: () => import('highlight.js/lib/languages/scss'),
-        }
-      }
+
+        },
+      },
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptorService,
+      multi: true
     }
+
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
+ 
+=======
 export class AppModule {
   constructor(library: FaIconLibrary) {
     library.addIcons(faEdit, faTrash);
   }
 }
+ 

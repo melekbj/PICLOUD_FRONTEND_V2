@@ -14,6 +14,7 @@ import MetisMenu from 'metismenujs';
 import { MENU } from './menu';
 import { MenuItem } from './menu.model';
 import { Router, NavigationEnd } from '@angular/router';
+import { JwtService } from 'src/app/services/jwt.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -26,10 +27,14 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   menuItems: MenuItem[] = [];
   @ViewChild('sidebarMenu') sidebarMenu: ElementRef;
 
+  userRole: string;
+
   constructor(
+   
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
-    router: Router
+    router: Router,
+    private service: JwtService
   ) {
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
@@ -46,11 +51,128 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         }
       }
     });
+
   }
 
+  
+  getMenuItemsForRole(role: string): MenuItem[] {
+    if (role === 'ADMIN') {
+      return MENU;
+    } else {
+      // Filter out the 'Requests users' item for non-admin users
+      return MENU.map(item => {
+        if (item.label === 'Liste des invitations') {
+          return {
+            ...item,
+            subItems: item.subItems.filter(subItem => subItem.label !== 'Requests users')
+          };
+        } else {
+          return item;
+        }
+      });
+    }
+  }
   ngOnInit(): void {
     //this.document.body.classList.add('sidebar-dark');
     this.menuItems = MENU;
+    let eventItems= {
+      label: 'Events',
+      icon: 'activity',
+      link: '/events'
+    }
+    let clubItem= {
+      label: 'Clubs',
+      icon: 'command',
+      link: '/apps/clublisttojoin'
+
+    }
+    let memberItem=  {
+      label: 'My Memberships',
+      icon: 'target',
+      link : '/apps/clubs'
+    
+    }
+    let roleItem={ 
+      label: 'Clubs Managment',
+      icon: 'slack',
+      subItems: [
+        {
+          label: 'Add a Club',
+          link: '/apps/club/create',
+        },
+        {
+          label: 'Clubs List',
+          link: '/apps/clubadminsite'
+        },
+       
+      ]
+    }
+   let presedentItem={
+    label: 'President',
+    icon: 'slack',
+    subItems: [
+      {
+        label: 'Club',
+        link: '/apps/clublistadmin'
+      },
+      {
+        label: 'Departments',
+        link: '/apps/departments'
+      },
+      
+      {
+        label: 'Tresory',
+        link: '/apps/finances'
+      },
+      {
+        label: 'Members',
+        subItems: [
+          {
+            label: 'Members List',
+            link: '/apps/members',
+          },
+          {
+            label: 'Add Member',
+            link: '/apps/member/create',
+          }]
+    
+      },
+      {
+        label: 'Requests',
+        link: '/apps/requestlist'
+      },
+      {
+        label: 'Quizzes',
+        link: '/apps/test'
+      },
+      {
+        label: 'Events ',
+        
+        link: '/eventform'
+      },
+    ]
+  }
+  let idClub = localStorage.getItem("idClub");
+  if(idClub !== null && idClub !== undefined && idClub !== ''){
+    let position = 2; 
+    this.menuItems .splice(position, 0, presedentItem);
+    //this.menuItems.splice(position, 0, memberItem);
+    //this.menuItems.splice(position, 0, clubItem);
+
+  }
+  let role = localStorage.getItem("Role");
+  if(role=="ADMIN")
+    {
+         let position = 2;
+          this.menuItems.splice(position, 0, roleItem);
+    }
+    else{
+      let position = 2;
+      this.menuItems.splice(position, 0, memberItem);
+      this.menuItems.splice(position, 0, clubItem);
+      this.menuItems.splice(position, 0, eventItems);
+    }
+
 
     /**
      * Sidebar-folded on desktop (min-width:992px and max-width: 1199px)
@@ -125,8 +247,10 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   /**
    * Switching sidebar light/dark
-   */
+   */ 
+
   onSidebarThemeChange(event: Event) {
+    
     this.document.body.classList.remove('sidebar-light', 'sidebar-dark');
     this.document.body.classList.add((<HTMLInputElement>event.target).value);
     this.document.body.classList.remove('settings-open');

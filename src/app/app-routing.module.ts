@@ -4,14 +4,27 @@ import { BaseComponent } from './views/layout/base/base.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
 import { ResetPasswordComponent } from './views/pages/auth/reset-password/reset-password.component';
+ 
+import { LibaryComponent } from './components/libary/libary/libary.component';
+
+import { EventdetailsComponent } from './views/pages/events/eventdetails/eventdetails.component';
+import { EventformComponent } from './views/pages/events/eventform/eventform.component';
+
+
+import { ClubCreateComponent } from './components/clubs/club-create/club-create.component';
+import { ClublistadminsiteComponent } from './components/clubs/clublistadminsite/clublistadminsite.component';
+ 
 import {ForumComponent} from "./components/forum/forum.component";
 import {ViewPostComponent} from "./components/post/view-post/view-post.component";
 import {ListCategoriesComponent} from "./components/category/list-categories/list-categories.component";
 import {CreatePostComponent} from "./components/post/create-post/create-post.component";
 import {CreateCategoryComponent} from "./components/category/create-category/create-category.component";
 import {ViewCategoryComponent} from "./components/category/view-category/view-category.component";
+ 
 
 const routes: Routes = [
+  //{path:'clubadminsite',component:ClublistadminsiteComponent},
+  //{ path: 'club/create', component: ClubCreateComponent },
   {
     path: 'auth',
     loadChildren: () =>
@@ -55,6 +68,19 @@ const routes: Routes = [
           ),
       },
       {
+
+        path: 'libary',
+        component: LibaryComponent,
+      },{
+        path: 'events',
+        component: EventdetailsComponent
+      },
+      {
+        path: 'eventform',
+        component: EventformComponent
+
+      },
+      {
         path: 'apps',
         loadChildren: () =>
           import('./views/pages/apps/apps.module').then((m) => m.AppsModule),
@@ -81,6 +107,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'update-profile',
+        loadChildren: () =>
+          import('./views/pages/update-profile/update-profile.module').then(
+            (m) => m.updateProfileModule
+          ),
+      },
+      {
         path: 'advanced-form-elements',
         loadChildren: () =>
           import(
@@ -95,10 +128,10 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'tables',
+        path: 'users',
         loadChildren: () =>
-          import('./views/pages/tables/tables.module').then(
-            (m) => m.TablesModule
+          import('./views/pages/users/users.module').then(
+            (m) => m.UsersModule
           ),
       },
       {
@@ -117,7 +150,7 @@ const routes: Routes = [
       // { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
     ],
   },
-  { path: "reset-password", component: ResetPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   {
     path: 'error',
     component: ErrorPageComponent,
