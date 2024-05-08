@@ -37,7 +37,7 @@ const routes: Routes = [
 
         path: 'libary',
         component: LibaryComponent,
-
+      },{
         path: 'events',
         component: EventdetailsComponent
       },

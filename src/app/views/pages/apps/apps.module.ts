@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { FullCalendarModule } from '@fullcalendar/angular'; // for FullCalendar!
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -9,15 +9,9 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 
-import {
-  NgbDropdownModule,
-  NgbTooltipModule,
-  NgbNavModule,
-  NgbCollapseModule,
-  NgbModule,
-} from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbTooltipModule, NgbNavModule, NgbCollapseModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { SimplemdeModule, SIMPLEMDE_CONFIG } from 'ng2-simplemde';
+import { SimplemdeModule, SIMPLEMDE_CONFIG } from 'ng2-simplemde'
 
 import { AppsComponent } from './apps.component';
 import { CalendarComponent } from './calendar/calendar.component';
@@ -32,14 +26,6 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-
-
-import { NgxEmojiPickerModule } from 'ngx-emoji-picker';
-import { EmojiComponent } from './chat/components/emoji/emoji.component';
-import { VideocallComponent } from './chat/components/videocall/videocall.component';
-
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: true,
 
 import { ClubCreateComponent } from 'src/app/components/clubs/club-create/club-create.component';
 import { ClublistadminsiteComponent } from 'src/app/components/clubs/clublistadminsite/clublistadminsite.component';
@@ -67,19 +53,21 @@ import {RequestListComponent} from 'src/app/components/RequestToJoin/request-lis
 import {ListclubtojoinComponent} from 'src/app/components/clubs/listclubtojoin/listclubtojoin.component';
 import {TestModulefront} from 'src/app/components/testfront/test.module';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { VideocallComponent } from './chat/components/videocall/videocall.component';
+import { NgxEmojiPickerModule } from 'ngx-emoji-picker';
+import { EmojiComponent } from './chat/components/emoji/emoji.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
   suppressScrollX: true
-
 };
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
   timeGridPlugin,
   listPlugin,
-  interactionPlugin,
-]);
+  interactionPlugin
+])
 
 const routes: Routes = [
   {
@@ -118,25 +106,25 @@ const routes: Routes = [
           {
             path: '',
             redirectTo: 'inbox',
-            pathMatch: 'full',
+            pathMatch: 'full'
           },
           {
             path: 'inbox',
-            component: InboxComponent,
+            component: InboxComponent
           },
           {
             path: 'read',
-            component: ReadComponent,
+            component: ReadComponent
           },
           {
             path: 'compose',
-            component: ComposeComponent,
-          },
-        ],
+            component: ComposeComponent
+          }
+        ]
       },
       {
         path: 'chat',
-        component: ChatComponent,
+        component: ChatComponent
       },
       {
         path: 'video-call',
@@ -144,26 +132,13 @@ const routes: Routes = [
       },
       {
         path: 'calendar',
-        component: CalendarComponent,
+        component: CalendarComponent
       },
-    ],
-  },
-];
+    ]
+  }
+]
 
 @NgModule({
-
-  declarations: [
-    EmailComponent,
-    ChatComponent,
-    CalendarComponent,
-    AppsComponent,
-    InboxComponent,
-    ReadComponent,
-    ComposeComponent,
-    EmojiComponent,
-    VideocallComponent,
-  ],
-
   declarations: [EmailComponent, ChatComponent, CalendarComponent, AppsComponent, 
     ClubCreateComponent,
     ClublistadminsiteComponent,
@@ -184,13 +159,13 @@ const routes: Routes = [
     ClubEditComponent,
     RequestListComponent,
     ListclubtojoinComponent,
-    InboxComponent, ReadComponent, ComposeComponent],
-
+    InboxComponent, ReadComponent, ComposeComponent,
+    EmojiComponent
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     FormsModule,
-    ReactiveFormsModule,
     FullCalendarModule, // import the FullCalendar module! will make the FullCalendar component available
     PerfectScrollbarModule,
     NgbDropdownModule,
@@ -198,9 +173,6 @@ const routes: Routes = [
     NgbNavModule,
     NgbCollapseModule,
     NgSelectModule,
-
-    NgbModule,
-
     ReactiveFormsModule,
     ArchwizardModule,
     AngularCropperjsModule,
@@ -208,15 +180,14 @@ const routes: Routes = [
     SweetAlert2Module.forRoot(),
     NgxDatatableModule,
     TestModule,
-    
+    NgbModule,
+    NgxEmojiPickerModule,
     TestModulefront,
     NgbPaginationModule,
-
     SimplemdeModule.forRoot({
       provide: SIMPLEMDE_CONFIG,
-      useValue: {},
-    }),
-    NgxEmojiPickerModule,
+      useValue: {}
+    })
   ],
   exports: [
     ClubCreateComponent,
@@ -226,8 +197,8 @@ const routes: Routes = [
   providers: [
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
-      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
-    },
-  ],
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    }
+  ]
 })
-export class AppsModule {}
+export class AppsModule { }

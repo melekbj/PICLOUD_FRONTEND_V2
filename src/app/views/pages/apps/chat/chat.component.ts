@@ -27,7 +27,7 @@ import { saveAs } from 'file-saver';
   styleUrls: ['./chat.component.scss'],
 })
 export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
-  url = 'http://localhost:8087';
+  url = 'http://localhost:8080';
   otherUser?: any;
   thisUser?: any = '';
   thisUserEmail: string;
@@ -87,6 +87,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
     this.chatService.getAllUsers(this.thisUserEmail).subscribe((data) => {
       this.users = data;
       console.log(data);
+      
     });
     setTimeout(() => {
       this.showicon = true;
@@ -95,7 +96,6 @@ export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
   getthisUser() {
     this.chatService.getUserByEmail(this.thisUserEmail).subscribe((data) => {
       this.thisUser = data;
-      this.thisUser.propic = './assets/images/avatar1.png';
       if (data) {
         this.getclubsbythisuser();
       }
@@ -119,7 +119,6 @@ export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
   getOtherUser() {
     this.chatService.getUserByEmail(this.otherUserEmail).subscribe((data) => {
       this.otherUser = data;
-      this.otherUser.propic = './assets/images/avatar2.png';
 
       this.connectToChat();
 

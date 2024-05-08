@@ -7,7 +7,7 @@ import { JwtService } from '../jwt.service';
   providedIn: 'root',
 })
 export class FilesService {
-  private server = 'http://localhost:8087/api';
+  private server = 'http://localhost:8080/api';
 
   constructor(private http: HttpClient, private jwtservice: JwtService) {}
 

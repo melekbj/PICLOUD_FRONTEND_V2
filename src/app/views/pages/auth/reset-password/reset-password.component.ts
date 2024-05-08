@@ -8,15 +8,14 @@ import { FormGroup, FormControl } from '@angular/forms';
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss']
 })
-
 export class ResetPasswordComponent implements OnInit {
   resetPasswordForm: FormGroup;
   successMessage: string;
   errorMessage: string;
-  isFormVisible: boolean = false; // Set initial visibility to false
+  isFormVisible: boolean; // No initial value here
 
   constructor(
-    private service: JwtService,
+    private jwtService: JwtService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -26,10 +25,13 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Check for 'email' query parameter in the URL
+    // Check local storage for form visibility
+    this.isFormVisible = localStorage.getItem('formVisibility') !== 'hidden';
+
     this.route.queryParams.subscribe(params => {
-      if (params['email']) {
-        this.isFormVisible = true; // Only show form if 'email' parameter exists
+      if (!params['email']) {
+        this.errorMessage = 'No valid email address provided.';
+        this.isFormVisible = false; // Hide form if no email parameter is found
       }
     });
   }
@@ -38,11 +40,11 @@ export class ResetPasswordComponent implements OnInit {
     const newPassword = this.resetPasswordForm.get('password').value;
     const email = this.route.snapshot.queryParamMap.get('email');
     if (email) {
-      this.service.setPassword(email, newPassword).subscribe(
+      this.jwtService.setPassword(email, newPassword).subscribe(
         response => {
           this.successMessage = 'Your password has been reset successfully. You can go back and login.';
-          this.isFormVisible = false;  // Hide the form after successful reset
-          localStorage.setItem('isFormVisible', 'false');  // Update stored state
+          this.isFormVisible = false; // Hide the form after successful reset
+          localStorage.setItem('formVisibility', 'hidden'); // Save the state in local storage
         },
         error => {
           this.errorMessage = 'An error occurred while trying to reset your password.';

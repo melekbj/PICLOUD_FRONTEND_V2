@@ -20,8 +20,7 @@ import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptorService } from './services/interceptor.service';
 
 
@@ -35,7 +34,6 @@ import { EventformComponent } from './views/pages/events/eventform/eventform.com
 //import { ClublistadminsiteComponent } from './components/clubs/clublistadminsite/clublistadminsite.component';
 @NgModule({
 
-  declarations: [AppComponent, ErrorPageComponent, LibaryComponent],
 
   declarations: [
     AppComponent,
@@ -44,7 +42,7 @@ import { EventformComponent } from './views/pages/events/eventform/eventform.com
     EventdetailsComponent,
     EventformComponent,
     
-
+    LibaryComponent
     
    // ClubCreateComponent,
     //ClublistadminsiteComponent
@@ -83,10 +81,6 @@ import { EventformComponent } from './views/pages/events/eventform/eventform.com
 
         },
       },
-    },
-
-        }
-      }
     },
     {
       provide: HTTP_INTERCEPTORS,

@@ -62,7 +62,7 @@ export const MENU: MenuItem[] = [
     label: 'libary',
     icon: 'book-open',
     link: '/libary',
-
+  },{
     label: 'Calendar',
     icon: 'calendar',
     link: '/apps/calendar',

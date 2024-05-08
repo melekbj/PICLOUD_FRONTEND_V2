@@ -12,7 +12,7 @@ export class ChatService {
   private messageSubject: BehaviorSubject<ChatMessage[]> = new BehaviorSubject<
     ChatMessage[]
   >([]);
-  url = 'http://localhost:8087/api';
+  url = 'http://localhost:8080/api';
 
   constructor(private http: HttpClient, private jwtService: JwtService) {}
 
