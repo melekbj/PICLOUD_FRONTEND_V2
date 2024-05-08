@@ -118,11 +118,12 @@
           <div class="col-lg-8 chat-content">
             <div class="chat-header border-bottom pb-2">
               <div class="d-flex justify-content-between">
-                <div class="d-flex align-items-center" *ngIf="otherUser; else elsecomp">
+                <div class="d-flex align-items-center" *ngIf="otherUser && !clubname; else elsecomp">
                   <i (click)="backToChatList()"
                     class="feather icon-corner-up-left icon-md me-2 ms-n2 text-muted d-lg-none"></i>
                   <figure class="mb-0 me-2">
-                    <img src="{{otherUser?.propic}}" class="img-sm rounded-circle" alt="image">
+                    <img src="http://localhost/img/{{otherUser.profileImage}}" class="img-sm rounded-circle"
+                      alt="image">
                     <div class="status online"></div>
                     <div class="status online"></div>
                   </figure>
