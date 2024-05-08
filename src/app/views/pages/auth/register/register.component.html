@@ -24,6 +24,10 @@
           <p *ngIf="registerForm.get('email').errors['email']">Email must be a valid email address.</p>
           <p *ngIf="registerForm.get('email').errors['emailTaken']">Email is already taken.</p>
       </div>
+
+      <div *ngIf="submitted && registerForm.get('profileImage').hasError('required')" class="alert alert-danger">
+        Profile image is required.
+      </div>
             <form [formGroup]="registerForm" (ngSubmit)="submitForm()" class="forms-sample">
               <div class="mb-3">
                 <label for="exampleInputUsername1" class="form-label">Full Name</label>
@@ -39,7 +43,7 @@
               </div>
               <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" formControlName="confirmPassword" id="exampleInputPassword1" autocomplete="current-password" placeholder="Password">
+                <input type="password" class="form-control" formControlName="confirmPassword" id="exampleInputPassword2" autocomplete="current-password" placeholder="Password">
               </div>
 
               <div class="mb-3">

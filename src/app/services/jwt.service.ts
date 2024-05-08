@@ -9,11 +9,15 @@ import { UserService } from './user.service';
 import { ClubService } from './club.service';
 
 
-const url = "http://localhost:8089/users";
+const BASE_URL = ["http://localhost:8080/auth/"]
+const API_BASE_URL = "http://localhost:8080/";
+const url = "http://localhost:8080/users";
 
-const BASE_URL = ["http://localhost:8089/auth/"]
-const API_BASE_URL = "http://localhost:8089/";
-
+export interface User {
+  id: number;
+  email: string;
+  username?: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +29,9 @@ export class JwtService {
     private userService:UserService,
     private clubService:ClubService
   ) { }
+
+
+  // ...........................................Authentication............................................
 
   register(signRequest: any): Observable<any> {
     return this.http.post(BASE_URL + 'signup', signRequest).pipe(
@@ -52,6 +59,8 @@ export class JwtService {
       return null;
     }
 
+    
+
     const tokenParts = token.split('.');
     if (tokenParts.length !== 3) {
       return null;
@@ -63,12 +72,16 @@ export class JwtService {
     return payload.sub;
   }
 
-
   getUserByEmail(email) {
     return this.http.get(url + '/findByEmail/' + email, {
       headers: this.createAuhtorizationHeader(),
     });
   }
+
+
+//   getUserByEmail(email: string): Observable<User> {
+//     return this.http.get<User>(`${API_BASE_URL}/users/findByEmail/${email}`);
+// }
 
   logout(): void {
     // Remove the JWT from local storage
@@ -102,6 +115,17 @@ export class JwtService {
     });
   }
 
+  
+
+  isAuthenticated(): boolean {
+    const jwt = localStorage.getItem('jwt');
+    // Check if the JWT exists
+    if(jwt!=null)
+      this.getiduserinlocalstorage()
+    return jwt != null;
+  }
+  // ...........................................User Managaement............................................
+
   getAllUsers(): Observable<any> {
     return this.http.get(API_BASE_URL + 'users/allUsers', {
       headers: this.createAuhtorizationHeader() || new HttpHeaders()
@@ -123,6 +147,19 @@ export class JwtService {
         console.error('Error status:', error.status);
         console.error('Error body:', error.error);
         return throwError(error);
+      })
+    );
+  }
+
+
+  setUserPending(id: number): Observable<any> {
+    return this.http.put(`${API_BASE_URL}users/${id}/pending`, null, {
+      responseType: 'text'  // Specify the expected response type as text if the backend does not return JSON
+    }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error status:', error.status);
+        console.error('Error body:', error.error);
+        return throwError(() => error); // Proper way to rethrow error in newer RxJS versions
       })
     );
   }
@@ -151,18 +188,10 @@ export class JwtService {
     );
   }
 
-  isAuthenticated(): boolean {
-    const jwt = localStorage.getItem('jwt');
-    // Check if the JWT exists
-    if(jwt!=null)
-    this.getiduserinlocalstorage()
-    return jwt != null;
-  }
 
- 
+    // .........................................Authorization............................................
 
   public createAuhtorizationHeader() {
-
     const jwtToken = localStorage.getItem('jwt');
     if (jwtToken) {
       console.log("JWT token found in local storage", jwtToken);
@@ -174,45 +203,31 @@ export class JwtService {
     }
     return null;
   }
+
   getToken(): string | null {
     return localStorage.getItem('jwt');
   }
-  getemail(): string | null{
+
+  getemail(): string | null {
     const token = this.getToken();
     const payload = token.split('.')[1];
-const decodedPayload = JSON.parse(atob(payload));
-//alert(decodedPayload.sub);
-//console.log(decodedPayload);
-return decodedPayload.sub;
-   }
-   getiduserinlocalstorage(){
-    
-  let email=this.getemail();
-  this.userService.getUserbyemail(email).subscribe(
-    (res)=>{
-      console.log(res);
-      console.log(res.id);
-      localStorage.setItem('idUser', res.id.toString()); 
-      //alert(localStorage.getItem('idUser'));
-      //alert(res.role);
-      
-      localStorage.setItem('Role', res.role); 
-      if(localStorage.getItem('Role')=="ADMIN"){
-        if (!localStorage.getItem('reloaded')) {
-          // Set the 'reloaded' flag in the local storage
-          localStorage.setItem('reloaded', 'true');
-          location.reload();
-        } else {
-          // Remove the 'reloaded' flag from the local storage
-          localStorage.removeItem('reloaded');
-        }
-      }
-      //alert(localStorage.getItem('Role'));
-      this.clubService.getClubByUserAndPresident(res.id).subscribe(
-        (res)=>{
-          console.log(res);
-          console.log(res.id);
-          localStorage.setItem('idClub', res.id.toString()); 
+    const decodedPayload = JSON.parse(atob(payload));
+    return decodedPayload.sub;
+  }
+
+
+  getiduserinlocalstorage() {
+
+    let email = this.getemail();
+    this.userService.getUserbyemail(email).subscribe(
+      (res) => {
+        console.log(res);
+        console.log(res.id);
+        localStorage.setItem('idUser', res.id.toString());
+        //alert(localStorage.getItem('idUser'));
+        //alert(res.role);
+        localStorage.setItem('Role', res.role);
+        if (localStorage.getItem('Role') == "ADMIN") {
           if (!localStorage.getItem('reloaded')) {
             // Set the 'reloaded' flag in the local storage
             localStorage.setItem('reloaded', 'true');
@@ -221,17 +236,27 @@ return decodedPayload.sub;
             // Remove the 'reloaded' flag from the local storage
             localStorage.removeItem('reloaded');
           }
-         // alert(localStorage.getItem('idClub'));
         }
-      ) 
-     
-    }
-  )
+        this.clubService.getClubByUserAndPresident(res.id).subscribe(
+          (res) => {
+            console.log(res);
+            console.log(res.id);
+            localStorage.setItem('idClub', res.id.toString());
+            if (!localStorage.getItem('reloaded')) {
+              // Set the 'reloaded' flag in the local storage
+              localStorage.setItem('reloaded', 'true');
+              location.reload();
+            } else {
+              // Remove the 'reloaded' flag from the local storage
+              localStorage.removeItem('reloaded');
+            }
+            // alert(localStorage.getItem('idClub'));
+          }
+        )
 
-
-
- 
-   }
+      }
+    )
+  }
 
   isTokenExpired(token: string | null): boolean {
   if (!token) {

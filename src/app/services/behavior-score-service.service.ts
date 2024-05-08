@@ -9,7 +9,7 @@ import { BehaviorScore } from '../models/BehaviorScore.model';
   providedIn: 'root'
 })
 export class BehaviorScoreService {
-  private baseUrl = 'http://localhost:8089/api/behaviorscore';
+  private baseUrl = 'http://localhost:8080/api/behaviorscore';
 
   constructor(private http: HttpClient) { }
 

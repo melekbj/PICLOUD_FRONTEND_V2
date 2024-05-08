@@ -13,6 +13,7 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   selectedFile: File = null;
   successMessage: string;
+  submitted = false;
 
   constructor(
     private jwtService: JwtService,
@@ -24,27 +25,36 @@ export class RegisterComponent implements OnInit {
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', [Validators.required]]
+      confirmPassword: ['', [Validators.required]],
+      profileImage: [null, [Validators.required]]  // Although Validators.required won't work directly, it's set for consistency.
     }, { validator: this.passwordMathValidator });
   }
 
   onFileSelect(event): void {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
+      this.registerForm.get('profileImage').setValue(this.selectedFile);
+    } else {
+      this.registerForm.get('profileImage').setValue(null);
     }
   }
 
   submitForm() {
+    this.submitted = true;  // Set the flag to true on form submission
+  
     if (this.registerForm.invalid) {
+      if (!this.selectedFile) {
+        this.registerForm.get('profileImage').setErrors({ required: true });
+      }
       return;
     }
-
+  
     const formData = new FormData();
     formData.append('name', this.registerForm.get('name').value);
     formData.append('email', this.registerForm.get('email').value);
     formData.append('password', this.registerForm.get('password').value);
     formData.append('profileImage', this.selectedFile);
-    
+  
     this.jwtService.register(formData).subscribe(
       response => {
         this.successMessage = "Hello " + response.name + ", you have registered successfully. Please verify your email before login.";
@@ -57,6 +67,7 @@ export class RegisterComponent implements OnInit {
       }
     );
   }
+  
 
   passwordMathValidator(formGroup: FormGroup): void {
     const password = formGroup.get('password')?.value;

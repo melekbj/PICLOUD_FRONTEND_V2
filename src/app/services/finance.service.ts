@@ -7,7 +7,7 @@ import { Finance } from '../models/Finance.model';
   providedIn: 'root'
 })
 export class FinanceService {
-  private apiUrl = 'http://localhost:8089/api/finances'; // replace with the actual URL to your backend
+  private apiUrl = 'http://localhost:8080/api/finances'; // replace with the actual URL to your backend
 
   constructor(private http: HttpClient) { }
 

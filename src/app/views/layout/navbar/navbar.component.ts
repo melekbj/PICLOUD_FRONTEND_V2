@@ -34,6 +34,23 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  switchUser(event: Event) {
+    event.preventDefault();
+    if (this.thisUser && this.thisUser.id) {
+      this.service.setUserPending(this.thisUser.id).subscribe({
+        next: (response) => {
+          alert('The request for responsible is sent successfully.');
+        },
+        error: (error) => {
+          console.error('Failed to switch user state:', error);
+          alert('Failed to send the request.');
+        }
+      });
+    } else {
+      alert('No user ID found or user data is incomplete.');
+    }
+  }
+
 
 
 

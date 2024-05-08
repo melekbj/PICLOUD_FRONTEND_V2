@@ -7,9 +7,9 @@ import { ImageService } from './image.service';
 import { catchError, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
-const EVENTURL = "http://localhost:8089/event/";
-const IMAGEURL = "http://localhost:8089/cloudinary/";
-const PARTICIPANTURL = "http://localhost:8089/participant/";
+const EVENTURL = "http://localhost:8080/event/";
+const IMAGEURL = "http://localhost:8080/cloudinary/";
+const PARTICIPANTURL = "http://localhost:8080/participant/";
 
 @Injectable({
   providedIn: 'root'
