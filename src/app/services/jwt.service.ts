@@ -19,10 +19,12 @@ export interface User {
   username?: string;
 }
 
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class JwtService {
+
 
   constructor(private http: HttpClient, private router:Router,
 
@@ -33,19 +35,27 @@ export class JwtService {
 
   // ...........................................Authentication............................................
 
+
   register(signRequest: any): Observable<any> {
     return this.http.post(BASE_URL + 'signup', signRequest).pipe(
-        catchError((error: HttpErrorResponse) => {
-            console.log('Error status:', error.status);
-            console.log('Error body:', error.error);
-            return throwError(error);
-        })
+      catchError((error: HttpErrorResponse) => {
+        console.log('Error status:', error.status);
+        console.log('Error body:', error.error);
+        return throwError(error);
+      })
     );
   }
 
   login(loginRequest: any): Observable<any> {
     return this.http.post(BASE_URL + 'login', loginRequest).pipe(
       catchError((error: HttpErrorResponse) => {
+
+        console.log('Error status:', error.status);
+        console.log('Error body:', error.error);
+        return throwError(error);
+      })
+    );
+
           console.error('Login error:', error.error);
           return throwError(() => new Error(error.error || 'Unknown error'));
       })
@@ -76,6 +86,7 @@ export class JwtService {
     return this.http.get(url + '/findByEmail/' + email, {
       headers: this.createAuhtorizationHeader(),
     });
+
   }
 
 
@@ -93,6 +104,28 @@ export class JwtService {
   }
 
 
+  hello(): Observable<any> {
+    return this.http.get(API_BASE_URL + 'api/hello', {
+      headers: this.createAuhtorizationHeader() || new HttpHeaders(),
+    });
+  }
+
+  // Add this method to your JwtService
+  forgotPassword(email: string): Observable<any> {
+    return this.http
+      .get(API_BASE_URL + 'forgot-password', {
+        params: { email: email },
+        responseType: 'text', // Add this line
+      })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('Error status:', error.status);
+          console.error('Error body:', error.error);
+          return throwError(error);
+        })
+      );
+
+
   // Add this method to your JwtService
   forgotPassword(email: string): Observable<any> {
     return this.http.get(API_BASE_URL + 'forgot-password', {
@@ -105,17 +138,21 @@ export class JwtService {
         return throwError(error);
       })
     );
+
   }
 
   setPassword(email: string, newPassword: string): Observable<any> {
     return this.http.put(API_BASE_URL + 'set-password', null, {
       params: { email: email },
       headers: new HttpHeaders().set('newPassword', newPassword),
-      responseType: 'text'  // Add this line
+      responseType: 'text', // Add this line
     });
   }
 
+
+
   
+
 
   isAuthenticated(): boolean {
     const jwt = localStorage.getItem('jwt');
@@ -125,6 +162,8 @@ export class JwtService {
     return jwt != null;
   }
   // ...........................................User Managaement............................................
+
+
 
   getAllUsers(): Observable<any> {
     return this.http.get(API_BASE_URL + 'users/allUsers', {
@@ -191,18 +230,19 @@ export class JwtService {
 
     // .........................................Authorization............................................
 
+
   public createAuhtorizationHeader() {
     const jwtToken = localStorage.getItem('jwt');
     if (jwtToken) {
-      console.log("JWT token found in local storage", jwtToken);
-      return new HttpHeaders().set(
-        "Authorization", "Bearer " + jwtToken
-      )
+      console.log('JWT token found in local storage', jwtToken);
+      return new HttpHeaders().set('Authorization', 'Bearer ' + jwtToken);
     } else {
-      console.log("JWT token not found in local storage");
+      console.log('JWT token not found in local storage');
     }
     return null;
   }
+
+
 
   getToken(): string | null {
     return localStorage.getItem('jwt');
@@ -269,6 +309,7 @@ export class JwtService {
 }
 
   
+
 
 
 

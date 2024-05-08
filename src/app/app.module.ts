@@ -12,9 +12,18 @@ import { ErrorPageComponent } from './views/pages/error-page/error-page.componen
 
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { LibaryComponent } from './components/libary/libary/libary.component';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptorService } from './services/interceptor.service';
+
 
 
 import { EventdetailsComponent } from './views/pages/events/eventdetails/eventdetails.component';
@@ -25,6 +34,9 @@ import { EventformComponent } from './views/pages/events/eventform/eventform.com
 //import { ClubCreateComponent } from './components/clubs/club-create/club-create.component';
 //import { ClublistadminsiteComponent } from './components/clubs/clublistadminsite/clublistadminsite.component';
 @NgModule({
+
+  declarations: [AppComponent, ErrorPageComponent, LibaryComponent],
+
   declarations: [
     AppComponent,
     ErrorPageComponent,
@@ -38,14 +50,24 @@ import { EventformComponent } from './views/pages/events/eventform/eventform.com
     //ClublistadminsiteComponent
 
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
+
+    ReactiveFormsModule,
+    HttpClientModule,
+    NgbAccordionModule,
+    NgSelectModule,
+    FormsModule,
+    SweetAlert2Module.forRoot(),
+
     ReactiveFormsModule, 
     HttpClientModule,
     FormsModule
+
   ],
   providers: [
     
@@ -58,6 +80,11 @@ import { EventformComponent } from './views/pages/events/eventform/eventform.com
           xml: () => import('highlight.js/lib/languages/xml'),
           typescript: () => import('highlight.js/lib/languages/typescript'),
           scss: () => import('highlight.js/lib/languages/scss'),
+
+        },
+      },
+    },
+
         }
       }
     },
@@ -66,7 +93,8 @@ import { EventformComponent } from './views/pages/events/eventform/eventform.com
       useClass: JwtInterceptorService,
       multi: true
     }
+
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

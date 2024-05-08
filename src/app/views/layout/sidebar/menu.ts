@@ -3,7 +3,7 @@ import { MenuItem } from './menu.model';
 export const MENU: MenuItem[] = [
   {
     label: 'Main',
-    isTitle: true
+    isTitle: true,
   },
   {
     label: 'Dashboard',
@@ -50,6 +50,7 @@ export const MENU: MenuItem[] = [
         link: '/apps/email/compose'
       },
     ]
+
   },
   {
     label: 'Chat',
@@ -57,6 +58,11 @@ export const MENU: MenuItem[] = [
     link: '/apps/chat',
   },
   {
+
+    label: 'libary',
+    icon: 'book-open',
+    link: '/libary',
+
     label: 'Calendar',
     icon: 'calendar',
     link: '/apps/calendar',
@@ -330,5 +336,6 @@ export const MENU: MenuItem[] = [
         link: '/error/500',
       },
     ]
+
   },
 ];
