@@ -12,6 +12,7 @@ import { ErrorPageComponent } from './views/pages/error-page/error-page.componen
 
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LibaryComponent } from './components/libary/libary/libary.component';
@@ -19,21 +20,57 @@ import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { JwtInterceptorService } from './services/interceptor.service';
+
+
+
+import { EventdetailsComponent } from './views/pages/events/eventdetails/eventdetails.component';
+import { EventformComponent } from './views/pages/events/eventform/eventform.component';
+
+
+
+//import { ClubCreateComponent } from './components/clubs/club-create/club-create.component';
+//import { ClublistadminsiteComponent } from './components/clubs/clublistadminsite/clublistadminsite.component';
 @NgModule({
+
   declarations: [AppComponent, ErrorPageComponent, LibaryComponent],
+
+  declarations: [
+    AppComponent,
+    ErrorPageComponent,
+
+    EventdetailsComponent,
+    EventformComponent,
+    
+
+    
+   // ClubCreateComponent,
+    //ClublistadminsiteComponent
+
+  ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
+
     ReactiveFormsModule,
     HttpClientModule,
     NgbAccordionModule,
     NgSelectModule,
     FormsModule,
     SweetAlert2Module.forRoot(),
+
+    ReactiveFormsModule, 
+    HttpClientModule,
+    FormsModule
+
   ],
   providers: [
+    
     AuthGuardService,
     {
       provide: HIGHLIGHT_OPTIONS, // https://www.npmjs.com/package/ngx-highlightjs
@@ -43,9 +80,20 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
           xml: () => import('highlight.js/lib/languages/xml'),
           typescript: () => import('highlight.js/lib/languages/typescript'),
           scss: () => import('highlight.js/lib/languages/scss'),
+
         },
       },
     },
+
+        }
+      }
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptorService,
+      multi: true
+    }
+
   ],
   bootstrap: [AppComponent],
 })

@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { JwtService } from 'src/app/services/jwt.service'; 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reset-password',
@@ -10,8 +9,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./reset-password.component.scss']
 })
 
-export class ResetPasswordComponent {
+export class ResetPasswordComponent implements OnInit {
   resetPasswordForm: FormGroup;
+  successMessage: string;
+  errorMessage: string;
+  isFormVisible: boolean = false; // Set initial visibility to false
 
   constructor(
     private service: JwtService,
@@ -21,21 +23,33 @@ export class ResetPasswordComponent {
     this.resetPasswordForm = new FormGroup({
       password: new FormControl(''),
     });
-   }
+  }
 
-   resetPassword() {
+  ngOnInit(): void {
+    // Check for 'email' query parameter in the URL
+    this.route.queryParams.subscribe(params => {
+      if (params['email']) {
+        this.isFormVisible = true; // Only show form if 'email' parameter exists
+      }
+    });
+  }
+
+  resetPassword() {
     const newPassword = this.resetPasswordForm.get('password').value;
     const email = this.route.snapshot.queryParamMap.get('email');
-    this.service.setPassword(email, newPassword).subscribe(
-      response => {
-        alert('Your password has been reset.');
-        this.router.navigate(['/auth/login']);  // Add this line
-      },
-      error => alert('An error occurred while trying to reset your password.')
-    );
+    if (email) {
+      this.service.setPassword(email, newPassword).subscribe(
+        response => {
+          this.successMessage = 'Your password has been reset successfully. You can go back and login.';
+          this.isFormVisible = false;  // Hide the form after successful reset
+          localStorage.setItem('isFormVisible', 'false');  // Update stored state
+        },
+        error => {
+          this.errorMessage = 'An error occurred while trying to reset your password.';
+        }
+      );
+    } else {
+      this.errorMessage = 'No valid email address provided.';
+    }
   }
-  
-  
-  
-
 }

@@ -6,7 +6,16 @@ import { ErrorPageComponent } from './views/pages/error-page/error-page.componen
 import { ResetPasswordComponent } from './views/pages/auth/reset-password/reset-password.component';
 import { LibaryComponent } from './components/libary/libary/libary.component';
 
+import { EventdetailsComponent } from './views/pages/events/eventdetails/eventdetails.component';
+import { EventformComponent } from './views/pages/events/eventform/eventform.component';
+
+
+import { ClubCreateComponent } from './components/clubs/club-create/club-create.component';
+import { ClublistadminsiteComponent } from './components/clubs/clublistadminsite/clublistadminsite.component';
+
 const routes: Routes = [
+  //{path:'clubadminsite',component:ClublistadminsiteComponent},
+  //{ path: 'club/create', component: ClubCreateComponent },
   {
     path: 'auth',
     loadChildren: () =>
@@ -25,8 +34,17 @@ const routes: Routes = [
           ),
       },
       {
+
         path: 'libary',
         component: LibaryComponent,
+
+        path: 'events',
+        component: EventdetailsComponent
+      },
+      {
+        path: 'eventform',
+        component: EventformComponent
+
       },
       {
         path: 'apps',
@@ -55,6 +73,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'update-profile',
+        loadChildren: () =>
+          import('./views/pages/update-profile/update-profile.module').then(
+            (m) => m.updateProfileModule
+          ),
+      },
+      {
         path: 'advanced-form-elements',
         loadChildren: () =>
           import(
@@ -69,10 +94,10 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'tables',
+        path: 'users',
         loadChildren: () =>
-          import('./views/pages/tables/tables.module').then(
-            (m) => m.TablesModule
+          import('./views/pages/users/users.module').then(
+            (m) => m.UsersModule
           ),
       },
       {
