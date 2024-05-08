@@ -1,0 +1,125 @@
+.create-category-container {
+  margin-top: 10px;
+  --post-line-color: #ccc;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #878A8C;
+  position: relative;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.guidelines {
+  text-align: center;
+  font-size: 20px;  /* Increase font size */
+  font-weight: bold;  /* Make text bold */
+  line-height: 24px;  /* Increase line height */
+  color: blue;  /* Change text color to blue */
+}
+.is-invalid {
+  border-color: #dc3545;
+}
+
+.invalid-feedback {
+  color: #dc3545;
+}
+  .create-category-heading {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+    color: #1c1c1c;
+    -ms-flex: 1;
+    flex: 1;
+  }
+
+  .btnCreateCategory {
+    background-color: #0079D3;
+    border-color: #0079D3;
+    color: aliceblue;
+    fill: #0079D3;
+    border: 1px solid;
+    border-radius: 4px;
+    text-align: center;
+    letter-spacing: 1px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    line-height: 24px;
+    text-transform: uppercase;
+    padding: 3px 16px;
+    opacity: 1;
+    width: 288px;
+    height: 34px;
+  }
+
+  .btnDiscard {
+    fill: #0079D3;
+    border: 1px solid;
+    border-radius: 4px;
+    text-align: center;
+    letter-spacing: 1px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    line-height: 24px;
+    text-transform: uppercase;
+    padding: 3px 16px;
+    opacity: 1;
+    width: 288px;
+    height: 34px;
+    margin-top: 5px;
+    color: #0079D3;
+    background-color: transparent;
+  }
+
+  .guidelines {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+    color: #1c1c1c;
+  }
+
+.sidebar {
+  width: 288px; /* Match the width of the form */
+  --post-line-color: #ccc;
+  border: 1px solid #ccc;
+  margin-bottom: 20px; /* Increase margin bottom for spacing */
+  background-color: #f8f9fa; /* Light background color */
+  color: #333; /* Dark text color */
+  border-radius: 6px; /* Rounded corners */
+  padding: 20px; /* Add padding for content */
+}
+.row {
+  display: flex;
+  flex-direction: column;
+}
+.sidebar h5 {
+  font-size: 20px; /* Larger font size for headings */
+  font-weight: bold; /* Bold font weight */
+  margin-bottom: 15px; /* Add space below heading */
+  color: #007bff; /* Blue heading color */
+}
+
+.sidebar hr {
+  border-top: 1px solid #dee2e6; /* Light gray horizontal line */
+  margin-top: 15px; /* Add space above horizontal line */
+  margin-bottom: 15px; /* Add space below horizontal line */
+}
+
+.sidebar ul {
+  list-style: none; /* Remove default list styles */
+  padding-left: 0; /* Remove default left padding */
+}
+
+.sidebar ul li {
+  margin-bottom: 10px; /* Add space between list items */
+}
+
+.sidebar ul li:last-child {
+  margin-bottom: 0; /* Remove margin bottom from last list item */
+}

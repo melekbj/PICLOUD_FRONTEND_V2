@@ -1,0 +1,50 @@
+
+<div class="row post middle-wrapper" *ngFor="let post of posts">
+  <hr />
+  <div class="col-md-9">
+    <div class="row post">
+      <div class="col-md-1">
+        <app-vote-button [post]="post" (voteUpdated)="onVoteUpdated()"></app-vote-button>
+      </div>
+      <div class="col-md-11">
+        <span>
+          /<span class="category-text">
+            <a class="post-url" [routerLink]="['/view-category', post?.categoryId]">{{post?.categoryName}}</a>
+          </span>
+          <span> Posted
+            <span> {{post.duration}} </span>
+            by
+            <a class="username" href="">{{post.userName}}</a>
+          </span>
+        </span>
+        <hr />
+        <a [routerLink]="['/view-post', post.postId]" class="post-title">{{post.postName}}</a>
+        <div>
+          <p class="post-text" [innerHtml]="post.description"></p>
+        </div>
+        <img class="post-image" [src]="'http://localhost/img/' + post.image" alt="Post image">
+
+        <span>
+<!--   <a class="btnCommments" role="button" (click)="goToPost(post.postId)">-->
+<!--  <fa-icon [icon]="faComments"></fa-icon>-->
+<!--  Comments <span> {{post.commentCount}} </span>-->
+<!--</a>-->
+<div class="button-container">
+  <button class="login" (click)="goToPost(post.postId)" title="Go to post">
+    <fa-icon [icon]="faBookOpen"></fa-icon>
+  </button>
+  <button class="share" (click)="sharePost(post.postId)" title="Share post">
+    <fa-icon [icon]="faShareAlt"></fa-icon>
+  </button>
+  <button class="edit" *ngIf="isAdmin || post.userName === currentUser" (click)="editPost(post)" title="Edit post">
+    <fa-icon [icon]="faEdit"></fa-icon>
+  </button>
+  <button class="delete" *ngIf="isAdmin || post.userName === currentUser" (click)="deletePost(post.postId)" title="Delete post">
+    <fa-icon [icon]="faTrashAlt"></fa-icon>
+  </button>
+</div>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

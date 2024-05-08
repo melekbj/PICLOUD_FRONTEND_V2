@@ -70,6 +70,7 @@ export class JwtService {
 
     return payload.sub;
   }
+ 
 
   getUserByEmail(email) {
     return this.http.get(url + '/findByEmail/' + email, {
@@ -81,7 +82,30 @@ export class JwtService {
 //   getUserByEmail(email: string): Observable<User> {
 //     return this.http.get<User>(`${API_BASE_URL}/users/findByEmail/${email}`);
 // }
-
+ 
+  getUserRole(): Observable<string> {
+    const jwtToken = localStorage.getItem('jwt');
+    if (jwtToken) {
+      const headers = new HttpHeaders().set("Authorization", "Bearer " + jwtToken);
+      return this.http.get(BASE_URL + 'api/user-role', { headers, responseType: 'text' });
+    } else {
+      return new Observable<string>(observer => {
+        observer.error('JWT token not found in local storage');
+      });
+    }
+  }
+  getCurrentUser(): Observable<string> {
+    const jwtToken = localStorage.getItem('jwt');
+    if (jwtToken) {
+      const headers = new HttpHeaders().set("Authorization", "Bearer " + jwtToken);
+      return this.http.get(BASE_URL + 'api/current-user', { headers, responseType: 'text' });
+    } else {
+      return new Observable<string>(observer => {
+        observer.error('JWT token not found in local storage');
+      });
+    }
+  }
+ 
   logout(): void {
     // Remove the JWT from local storage
     localStorage.removeItem('jwt');
@@ -90,7 +114,31 @@ export class JwtService {
     // Optionally, navigate the user to the login page
     this.router.navigate(['/auth/login']);
   }
+ 
+ 
+  refreshToken(refreshTokenRequest: any): Observable<any> {
+    return this.http.post(BASE_URL + 'refresh-token', refreshTokenRequest);
+  }
+  hello(): Observable<any> {
+    return this.http.get(API_BASE_URL + 'api/hello', {
+      headers: this.createAuhtorizationHeader() || new HttpHeaders()
+    })
+  }
 
+ // Add this method to your JwtAuthServiceService
+ forgotPassword(email: string): Observable<any> {
+  return this.http.get(API_BASE_URL + 'forgot-password', {
+    params: { email: email },
+    responseType: 'text'  // Add this line
+  }).pipe(
+    catchError((error: HttpErrorResponse) => {
+      console.error('Error status:', error.status);
+      console.error('Error body:', error.error);
+      return throwError(error);
+    })
+  );
+}
+ 
 
   // Add this method to your JwtService
   forgotPassword(email: string): Observable<any> {
@@ -106,6 +154,7 @@ export class JwtService {
     );
   }
 
+ 
   setPassword(email: string, newPassword: string): Observable<any> {
     return this.http.put(API_BASE_URL + 'set-password', null, {
       params: { email: email },
@@ -136,7 +185,7 @@ export class JwtService {
       })
     );
   }
-
+ 
   // Adjust the setUserAccepted method to expect a text response
   setUserAccepted(id: number): Observable<any> {
     return this.http.put(`${API_BASE_URL}users/${id}/accepted`, null, {
@@ -191,6 +240,9 @@ export class JwtService {
     // .........................................Authorization............................................
 
   public createAuhtorizationHeader() {
+ 
+  createAuhtorizationHeader() {
+ 
     const jwtToken = localStorage.getItem('jwt');
     if (jwtToken) {
       console.log("JWT token found in local storage", jwtToken);

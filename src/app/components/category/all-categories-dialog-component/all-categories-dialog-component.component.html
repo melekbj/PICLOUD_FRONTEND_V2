@@ -1,0 +1,13 @@
+<div class="modal-header">
+  <h2 class="dialog-title">All Categories</h2>
+</div>
+<div class="modal-body">
+  <ul>
+    <li *ngFor="let category of categories">
+      <a [routerLink]="['/view-category', category.idCategory]" (click)="onCategoryClick()">{{category.name}}</a>
+    </li>
+  </ul>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" (click)="bsModalRef.hide()">Close</button>
+</div>

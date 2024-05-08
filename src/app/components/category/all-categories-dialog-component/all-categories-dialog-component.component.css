@@ -1,0 +1,49 @@
+mat-dialog-content {
+  background-color: #fcf8e3;  /* Same background color as the sidebar */
+  color: #343a40;  /* Same text color as the sidebar */
+  padding: 15px;  /* Same padding as the sidebar */
+  border-radius: 4px;  /* Same border radius as the sidebar */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);  /* Same shadow as the sidebar */
+}
+.dialog-title {
+  color: #8B4513;  /* Dark brown color */
+  background-color: #fcf8e3;
+  font-size: 1.5em;  /* Increase the font size */
+  margin-bottom: 15px;  /* Add some space below the title */
+}
+mat-dialog-content ul {
+  list-style-type: none;  /* Remove default bullet points */
+  padding: 0;
+  margin: 0;
+}
+mat-dialog-content a:hover {
+  color: #A0522D;  /* Darker color on hover */
+  font-weight: bold;  /* Make the text bolder on hover */
+}
+mat-dialog-content li {
+  padding: 10px 0;  /* Add some vertical padding to each list item */
+}
+
+mat-dialog-content a {
+  text-decoration: none;
+  color: #8B4513;  /* Same link color as the sidebar */
+  font-size: 1.2em;  /* Same font size as the sidebar */
+}
+
+mat-dialog-content a:hover {
+  color: #A0522D;  /* Same hover color as the sidebar */
+}
+
+mat-dialog-actions {
+  background-color: #fcf8e3;  /* Same background color as the sidebar */
+  border-radius: 0 0 4px 4px;  /* Rounded corners at the bottom to match the sidebar */
+  padding: 10px 15px;  /* Padding to match the sidebar */
+}
+
+mat-dialog-actions button {
+  color: #007bff;  /* Same button color as the sidebar */
+}
+
+mat-dialog-actions button:hover {
+  color: #0056b3;  /* Same button hover color as the sidebar */
+}

@@ -4,6 +4,7 @@ import { BaseComponent } from './views/layout/base/base.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
 import { ResetPasswordComponent } from './views/pages/auth/reset-password/reset-password.component';
+ 
 import { LibaryComponent } from './components/libary/libary/libary.component';
 
 import { EventdetailsComponent } from './views/pages/events/eventdetails/eventdetails.component';
@@ -12,6 +13,14 @@ import { EventformComponent } from './views/pages/events/eventform/eventform.com
 
 import { ClubCreateComponent } from './components/clubs/club-create/club-create.component';
 import { ClublistadminsiteComponent } from './components/clubs/clublistadminsite/clublistadminsite.component';
+ 
+import {ForumComponent} from "./components/forum/forum.component";
+import {ViewPostComponent} from "./components/post/view-post/view-post.component";
+import {ListCategoriesComponent} from "./components/category/list-categories/list-categories.component";
+import {CreatePostComponent} from "./components/post/create-post/create-post.component";
+import {CreateCategoryComponent} from "./components/category/create-category/create-category.component";
+import {ViewCategoryComponent} from "./components/category/view-category/view-category.component";
+ 
 
 const routes: Routes = [
   //{path:'clubadminsite',component:ClublistadminsiteComponent},
@@ -26,6 +35,31 @@ const routes: Routes = [
     component: BaseComponent,
     canActivate: [AuthGuardService],
     children: [
+
+      {
+        path: 'forum', // The path you want for the forum
+        component: ForumComponent, // The component to load when this path is visited
+      },
+      {
+        path: 'view-post/:id',
+        component: ViewPostComponent,
+      },
+      {
+        path: 'list-categories',
+        component: ListCategoriesComponent,
+      },
+      {
+        path: 'create-post',
+        component: CreatePostComponent,
+      },
+      {
+        path: 'create-category',
+        component: CreateCategoryComponent,
+      },
+      {
+        path: 'view-category/:id',
+        component: ViewCategoryComponent,
+      },
       {
         path: 'dashboard',
         loadChildren: () =>

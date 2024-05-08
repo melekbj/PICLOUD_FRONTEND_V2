@@ -1,0 +1,66 @@
+<form [formGroup]="createPostForm" (ngSubmit)="createPost()">
+  <div class="container">
+    <div class="row">
+      <div class="create-post-container col-md-9">
+        <div class="form-group">
+          <div class="create-post-heading">Create Post</div>
+          <hr />
+          <input
+            type="text"
+            [formControlName]="'postName'"
+            class="form-control"
+            style="margin-top: 5px"
+            placeholder="Title"
+          />
+          <div *ngIf="createPostForm.controls['postName'].invalid && createPostForm.controls['postName'].touched" class="form-error">
+            Title is required.
+          </div>
+
+          <input
+            type="text"
+            class="form-control"
+            [formControlName]="'url'"
+            style="margin-top: 5px"
+            placeholder="URL"
+          />
+
+          <div *ngIf="createPostForm.controls['url'].invalid && createPostForm.controls['url'].touched" class="form-error">
+            URL is required.
+          </div>
+
+          <select class="form-control" style="margin-top: 10px" [formControlName]="'categoryName'">
+            <option value="" selected disabled>Select Category</option>
+            <option *ngFor="let category of categories">{{ category.name }}</option>
+          </select>
+          <div *ngIf="createPostForm.controls['categoryName'].invalid && createPostForm.controls['categoryName'].touched" class="form-error">
+            Category is required.
+          </div>
+          <input type="file" id="image" class="form-control" (change)="onFileSelect($event)" required>
+
+          <div class="NgxEditor__Wrapper">
+            <textarea
+              class="form-control"
+              [formControlName]="'description'"
+              style="margin-top: 5px"
+              placeholder="Description"
+            ></textarea>
+          </div>
+
+          <div *ngIf="createPostForm.controls['description'].invalid && createPostForm.controls['description'].touched" class="form-error">
+            Description is required.
+          </div>
+
+
+          <div style="margin-top: 5px" class="float-right d-flex flex-column">
+            <button (click)="discardPost()" class="btnDiscard mb-2">Discard</button>
+            <button type="submit" class="btnCreatePost">Post</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <!-- <app-side-bar></app-side-bar> -->
+        <app-category-side-bar></app-category-side-bar>
+      </div>
+    </div>
+  </div>
+</form>
