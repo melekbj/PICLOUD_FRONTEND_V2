@@ -12,7 +12,7 @@ export class ResetPasswordComponent implements OnInit {
   resetPasswordForm: FormGroup;
   successMessage: string;
   errorMessage: string;
-  isFormVisible: boolean; // No initial value here
+  isFormVisible: boolean = true; // default to true
 
   constructor(
     private jwtService: JwtService,
@@ -25,13 +25,17 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Check local storage for form visibility
-    this.isFormVisible = localStorage.getItem('formVisibility') !== 'hidden';
-
     this.route.queryParams.subscribe(params => {
-      if (!params['email']) {
+      const email = params['email'];
+      const storedEmail = localStorage.getItem('resetEmail');
+      if (email) {
+        // Check if the current email has been used to reset the password
+        this.isFormVisible = storedEmail !== email;
+      } else {
+        // If no email is provided, hide the form and consider cleaning up local storage
+        this.isFormVisible = false;
         this.errorMessage = 'No valid email address provided.';
-        this.isFormVisible = false; // Hide form if no email parameter is found
+        localStorage.removeItem('resetEmail'); // Consider clearing storage if the condition meets
       }
     });
   }
@@ -44,7 +48,7 @@ export class ResetPasswordComponent implements OnInit {
         response => {
           this.successMessage = 'Your password has been reset successfully. You can go back and login.';
           this.isFormVisible = false; // Hide the form after successful reset
-          localStorage.setItem('formVisibility', 'hidden'); // Save the state in local storage
+          localStorage.setItem('resetEmail', email); // Save the email used for reset in local storage
         },
         error => {
           this.errorMessage = 'An error occurred while trying to reset your password.';

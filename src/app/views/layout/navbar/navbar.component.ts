@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef, Inject, Renderer2 } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { JwtService } from 'src/app/services/jwt.service';
 import { FormControl } from '@angular/forms';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -9,10 +10,9 @@ import { FormControl } from '@angular/forms';
 })
 export class NavbarComponent implements OnInit {
 
-
-  thisUserEmail :string
-  thisUser: any
-
+  thisUserEmail: string;
+  thisUser: any; // Ensure thisUser can handle the role and etat
+  showRequestResponsable: boolean = false; // Control visibility of the link
 
   searchControl = new FormControl();
 
@@ -22,12 +22,13 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
     const email = this.service.getEmailFromToken();
     if (email) {
       this.service.getUserByEmail(email).subscribe(data => {
         this.thisUser = data;
-        console.log('User details retrieved:', this.thisUser); // Log user details here
+        console.log('User details retrieved:', this.thisUser);
+        // Check user role and etat
+        this.showRequestResponsable = this.thisUser.role === 'MEMBRE' && this.thisUser.etat === 'NORMAL';
       }, error => {
         console.error('Failed to fetch user details:', error);
       });
@@ -51,17 +52,6 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-
-
-
- 
-
-  
-
-  /**
-   * Sidebar toggle on hamburger button click
-   */
-
   toggleSidebar(e: Event) {
     e.preventDefault();
     this.document.body.classList.toggle('sidebar-open');
@@ -70,5 +60,4 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.service.logout();
   }
-
 }
