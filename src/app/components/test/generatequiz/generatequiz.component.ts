@@ -31,7 +31,6 @@ export class GeneratequizComponent implements OnInit {
 
   ngOnInit(): void {
     
-console.log("ttttttttttttttttttttteeesssst");
       
 
      // console.log(this.jwtService.getemail());
@@ -44,30 +43,6 @@ console.log("ttttttttttttttttttttteeesssst");
       anecdote: ['1'],
       wikipedia: ['1']
     });
-    /*let email = this.jwtService.getemail();
-    this.userService.getUserbyemail(email).subscribe(
-      (res) => {
-        console.log(res.id);
-        this.clubService.getClubByUserAndPresident(res.id).pipe(
-          catchError(error => {
-            console.error("Error occurred: ", error);
-            return throwError(error);
-          })
-        ).subscribe(
-          (response) => {
-            this.club = response;
-            console.log("Club: ", this.club);
-          }
-        );
-    
-        // localStorage.setItem('idUser', res.id.toString()); 
-        this.idUser = res.id;
-        console.log("After I get the user: " + this.idUser);
-      },
-      error => {
-        console.error("Error occurred: ", error);
-      }
-    );*/
     this.clubId = Number(localStorage.getItem('idClub'));
     this.idUser = Number(localStorage.getItem('idUser'));
             
@@ -82,14 +57,6 @@ console.log("ttttttttttttttttttttteeesssst");
                                     + "&anec=" + this.apiform.value.anecdote
                                     + "&wiki=" + this.apiform.value.wikipedia;
     
-    //console.log(this.url);
-  //   for (let i = 1; i <= this.apiform.value.nbrquestions; i++) {
-  //     sleep(10)
-  //     this.quizservice.getaquestion(this.url).subscribe((response: any) => { 
-  //         this.lequestionbidou = response.results; 
-  //         this.quizsbyapi = this.quizsbyapi.concat(this.lequestionbidou); // Use concat to merge arrays properly
-  //     });
-  // }
   const requests = [];
   for (let i = 1; i <= this.apiform.value.nbrquestions; i++) {
     requests.push(this.quizservice.getaquestion(this.url));
@@ -116,14 +83,6 @@ console.log("ttttttttttttttttttttteeesssst");
             location.reload();
           } 
         );
-        /*console.log(response);
-        this.club.tests.push(response);
-        console.log(this.club.tests);
-        console.log(this.club)
-        this.clubService.updateClub(this.club.id,this.club).subscribe();*/
-        //location.reload();
-        
-
       });
     });
   }
@@ -131,12 +90,4 @@ console.log("ttttttttttttttttttttteeesssst");
   private url: any
 
 
-  /*
-  langue           &lang=
-  nbr de choix     &choice=
-  categorie        &categ=sports
-  difficulté       &diff=1
-  anecdote         &anec=1
-  Wikipédia        &wiki=1
-  */
 }

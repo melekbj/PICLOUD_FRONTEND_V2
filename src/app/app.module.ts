@@ -27,6 +27,7 @@ import { JwtInterceptorService } from './services/interceptor.service';
 
 import { EventdetailsComponent } from './views/pages/events/eventdetails/eventdetails.component';
 import { EventformComponent } from './views/pages/events/eventform/eventform.component';
+import { EventdetailadminComponent } from './views/pages/events/eventdetailsadmin/eventdetailadmin.component'; 
 
 
 
@@ -41,8 +42,8 @@ import { EventformComponent } from './views/pages/events/eventform/eventform.com
 
     EventdetailsComponent,
     EventformComponent,
-    
-    LibaryComponent
+    LibaryComponent,
+    EventdetailadminComponent,
     
    // ClubCreateComponent,
     //ClublistadminsiteComponent

@@ -53,6 +53,23 @@ export class RequestUsersComponent implements OnInit {
     );
   }
 
+
+  rejectUser(id: number): void {
+    this.jwtService.setUserRejected(id).subscribe(
+      response => {
+        this.successMessage = 'User rejected successfully: ' + response;
+        this.errorMessage = null;
+        this.fetch('MEMBRE', 'PENDING', (data: any) => {
+          this.rows = data;
+        });
+      },
+      error => {
+        this.errorMessage = 'Error rejecting user: ' + error.error;
+        this.successMessage = null;
+      }
+    );
+  }
+
   // Method to clear messages
   clearMessages(): void {
     this.successMessage = null;

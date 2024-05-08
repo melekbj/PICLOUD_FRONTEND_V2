@@ -131,24 +131,47 @@ elements.forEach((element) => {
 });
   }
   assignPresident( userId: number): void {
-    let membership = {
-      club: { id: this.club.id },
-      user: { id: userId },
-      president: true
-    };
-  
-    this.membershipservice.addMember(membership).subscribe(
-      () => {
-        this.users = this.users.filter(user => user.id == userId);
-        this.swal();
-        this.wizardForm.goToNextStep();
+    let usertoupdate:any;
+    this.userService.getUserById(userId).subscribe(
+      (user) => {
+        usertoupdate = user;
+        usertoupdate.role = 'RESPONSABLE';
+        this.userService.updateUser(userId, usertoupdate).subscribe(
+          () => {
+           // alert(userId + ' ' + this.club.id);
+            let membership = {
+              club: { id: this.club.id },
+              user: { id: userId },
+              president: true
+            };
         
-        console.log('User assigned as president');
+            this.membershipservice.addMember(membership).subscribe(
+              () => {
+        
+               
+                
+                console.log('User assigned as president');
+              },
+              (error) => {
+                console.error('Error assigning president', error);
+              }
+            );
+            this.users = this.users.filter(user => user.id == userId);
+            this.swal();
+            this.wizardForm.goToNextStep();
+            console.log('User role updated');
+          },
+          (error) => {
+            console.error('Error updating user role', error);
+          }
+        );
+        console.log('User to assign as president', user);
       },
       (error) => {
-        console.error('Error assigning president', error);
+        console.error('Error retrieving user', error);
       }
     );
+  
   }
   
 /**

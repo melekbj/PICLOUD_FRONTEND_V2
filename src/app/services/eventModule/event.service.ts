@@ -54,7 +54,7 @@ export class EventService {
   }
 
   getImageUrl(id: number): Observable<any> {
-    return this.http.get(IMAGEURL + 'imageurl/' + id, {responseType: 'text'}).pipe(
+    return this.http.get(IMAGEURL + 'imageurl/' + (id+1), {responseType: 'text'}).pipe(
       catchError((error: HttpErrorResponse) => {
         console.error('Error status:', error.status);
         console.error('Error body:', error.error);

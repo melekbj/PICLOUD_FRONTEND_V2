@@ -56,6 +56,7 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { VideocallComponent } from './chat/components/videocall/videocall.component';
 import { NgxEmojiPickerModule } from 'ngx-emoji-picker';
 import { EmojiComponent } from './chat/components/emoji/emoji.component';
+import { LibaryComponent } from 'src/app/components/libary/libary/libary.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
@@ -125,6 +126,10 @@ const routes: Routes = [
       {
         path: 'chat',
         component: ChatComponent
+      },
+      {
+        path: 'library',
+        component: LibaryComponent
       },
       {
         path: 'video-call',

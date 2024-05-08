@@ -150,6 +150,18 @@ export class JwtService {
     );
   }
 
+  setUserRejected(id: number): Observable<any> {
+    return this.http.put(`${API_BASE_URL}users/${id}/rejected`, null, {
+      responseType: 'text' // Specify the expected response type as text
+    }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error status:', error.status);
+        console.error('Error body:', error.error);
+        return throwError(error);
+      })
+    );
+  }
+
 
   setUserPending(id: number): Observable<any> {
     return this.http.put(`${API_BASE_URL}users/${id}/pending`, null, {

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { JwtService } from 'src/app/services/jwt.service';
-import { ImageService } from 'src/app/services/eventModule/image.service'; 
+import { ImageService } from 'src/app/services/eventModule/image.service';
 import { Image } from 'src/app/model/image';
 import Swal from 'sweetalert2';
 import { EventService } from 'src/app/services/eventModule/event.service';
 import { end } from '@popperjs/core';
-
+ 
 @Component({
   selector: 'app-eventform',
   templateUrl: './eventform.component.html',
@@ -17,7 +17,7 @@ export class EventformComponent implements OnInit {
   eventForm: FormGroup;
   events: any;
   eventTypes: string[] = ['Hackathon', 'Formation', 'Dons', 'Crowfunding', 'Other'];
-
+ 
   constructor(private formBuilder: FormBuilder, private jwtService: JwtService, private imageService: ImageService, private eventService: EventService) {
     this.eventForm = this.formBuilder.group({
       eventTitle: ['', Validators.required],
@@ -30,6 +30,20 @@ export class EventformComponent implements OnInit {
       location: ['', Validators.required],
       isPublic: ['', Validators.required],
       creator: [null],
+        // other fields...
+        isFree: [true],
+      price: [{value: '', disabled: true}, Validators.min(0)],
+        // other fields...
+ 
+ 
+    });
+    this.eventForm.get('isFree').valueChanges.subscribe(isFree => {
+      const priceControl = this.eventForm.get('price');
+      if (isFree) {
+        priceControl.disable();
+      } else {
+        priceControl.enable();
+      }
     });
   }
   thisUserEmail;
@@ -40,9 +54,10 @@ export class EventformComponent implements OnInit {
       this.thisUser = data;
       console.log(data);
     });
-    
+   
   }
-
+ 
+ 
   onSubmit() {
     const imageControl = this.eventForm.get('eventImage');
     if (imageControl && imageControl.value) {
@@ -66,12 +81,12 @@ export class EventformComponent implements OnInit {
       this.createEvent();
     }
   }
-
+ 
   createEvent() {
     this.eventForm.value.creator = this.thisUser;
-    
+   
     console.log(this.eventForm.value);
-    
+   
     this.eventService.addEvent(this.eventForm.value).subscribe(response => {
       Swal.fire('Success', 'Event and image uploaded successfully', 'success');
       this.getEvents();
@@ -79,14 +94,14 @@ export class EventformComponent implements OnInit {
       Swal.fire('Error', 'Could not create the event', 'error');
     });
   }
-  
-
+ 
+ 
   getEvents() {
     this.eventService.getEvents().subscribe(events => {
       this.events = events;
     });
   }
-
+ 
   onFileChange(event: any): void {
     this.image = event.target.files[0];
     this.eventForm.get('eventImage')?.setValue(this.image);

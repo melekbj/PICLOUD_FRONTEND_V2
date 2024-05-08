@@ -92,8 +92,17 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       link : '/apps/clubs'
     
     }
-    let roleItem={ 
-      label: 'Clubs Managment',
+    let roleItem:MenuItem[]= [ 
+     {
+      label: 'Liste des invitations',
+      icon: 'layout',
+      subItems: [
+        {
+          label: 'Requests users',
+          link: '/users/request_users'
+        }
+      ]},
+     { label: 'Clubs Managment',
       icon: 'slack',
       subItems: [
         {
@@ -105,57 +114,58 @@ export class SidebarComponent implements OnInit, AfterViewInit {
           link: '/apps/clubadminsite'
         },
        
-      ]
-    }
-   let presedentItem={
-    label: 'President',
-    icon: 'slack',
-    subItems: [
+      ]}
+    ]
+    let presedentItem: MenuItem[] = [
       {
-        label: 'Club',
+        label: 'Responsable',
+        isTitle: true
+      },
+      {
+        label: 'My Club',
+        icon: 'eye', // replace with the correct icon
         link: '/apps/clublistadmin'
       },
       {
         label: 'Departments',
+        icon: 'layers', // replace with the correct icon
         link: '/apps/departments'
       },
-      
       {
         label: 'Tresory',
+        icon: 'dollar-sign', // replace with the correct icon
         link: '/apps/finances'
       },
       {
-        label: 'Members',
-        subItems: [
-          {
-            label: 'Members List',
-            link: '/apps/members',
-          },
-          {
-            label: 'Add Member',
-            link: '/apps/member/create',
-          }]
-    
+        label: 'Members List',
+        icon: 'users', // replace with the correct icon
+        link: '/apps/members',
+      },
+      {
+        label: 'Add Member',
+        icon: 'user-plus', // replace with the correct icon
+        link: '/apps/member/create',
       },
       {
         label: 'Requests',
+        icon: 'inbox', // replace with the correct icon
         link: '/apps/requestlist'
       },
       {
         label: 'Quizzes',
+        icon: 'clipboard', // replace with the correct icon
         link: '/apps/test'
       },
       {
-        label: 'Events ',
-        
+        label: 'Events',
+        icon: 'calendar', // replace with the correct icon
         link: '/eventform'
       },
-    ]
-  }
+    ];
   let idClub = localStorage.getItem("idClub");
   if(idClub !== null && idClub !== undefined && idClub !== ''){
     let position = 2; 
-    this.menuItems .splice(position, 0, presedentItem);
+    this.menuItems.splice(position, 0, ...presedentItem);
     //this.menuItems.splice(position, 0, memberItem);
     //this.menuItems.splice(position, 0, clubItem);
 
@@ -164,7 +174,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   if(role=="ADMIN")
     {
          let position = 2;
-          this.menuItems.splice(position, 0, roleItem);
+          this.menuItems.splice(position, 0,... roleItem);
     }
     else{
       let position = 2;

@@ -8,6 +8,7 @@ import { LibaryComponent } from './components/libary/libary/libary.component';
 
 import { EventdetailsComponent } from './views/pages/events/eventdetails/eventdetails.component';
 import { EventformComponent } from './views/pages/events/eventform/eventform.component';
+import { EventdetailadminComponent } from './views/pages/events/eventdetailsadmin/eventdetailadmin.component';
 
 
 import { ClubCreateComponent } from './components/clubs/club-create/club-create.component';
@@ -44,6 +45,11 @@ const routes: Routes = [
       {
         path: 'eventform',
         component: EventformComponent
+
+      },
+      {
+        path:'eventdetailsadmin',
+        component : EventdetailadminComponent
 
       },
       {

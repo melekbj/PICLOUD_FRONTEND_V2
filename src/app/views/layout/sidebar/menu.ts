@@ -19,16 +19,7 @@ export const MENU: MenuItem[] = [
     isTitle: true
   },
 
-  {
-    label: 'Liste des invitations',
-    icon: 'layout',
-    subItems: [
-      {
-        label: 'Requests users',
-        link: '/users/request_users'
-      }
-    ]
-  },
+ 
 
   
  
@@ -57,12 +48,18 @@ export const MENU: MenuItem[] = [
     icon: 'message-square',
     link: '/apps/chat',
   },
-  // {
+  {
 
-  //   label: 'libary',
-  //   icon: 'book-open',
-  //   link: '/libary',
-  // },
+    label: 'libary',
+    icon: 'book-open',
+    link: '/libary',
+  },
+  {
+
+    label: 'Event Details',
+    icon: 'activity',
+    link: '/eventdetailsadmin',
+  },
   {
     label: 'Calendar',
     icon: 'calendar',
