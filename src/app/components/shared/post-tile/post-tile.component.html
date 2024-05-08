@@ -1,5 +1,5 @@
 
-<div class="row post middle-wrapper" *ngFor="let post of posts">
+<div class="row post middle-wrapper" *ngFor="let post of pagedPosts">
   <hr />
   <div class="col-md-9">
     <div class="row post">
@@ -48,3 +48,4 @@
     </div>
   </div>
 </div>
+<ngb-pagination [collectionSize]="posts.length" [(page)]="currentPage" [pageSize]="postsPerPage" (pageChange)="updatePagedPosts()"></ngb-pagination>

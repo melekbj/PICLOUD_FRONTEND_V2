@@ -1,5 +1,3 @@
-// forum.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { PostModel } from "../shared/post-model";
 import { PostService } from "../shared/post.service";
@@ -13,9 +11,6 @@ import {Subscription} from "rxjs";
 export class ForumComponent implements OnInit {
 
   posts: Array<PostModel> = [];
-  pagedPosts: Array<PostModel> = []; // posts for the current page
-  currentPage: number = 1;
-  postsPerPage: number = 2; // adjust this value as needed
 
   constructor(private postService: PostService) { }
 
@@ -27,9 +22,7 @@ export class ForumComponent implements OnInit {
       console.log("JWT token not found in local storage");
     }
 
-    this.loadPosts().add(() => {
-      this.updatePagedPosts(); // Call updatePagedPosts() here
-    });
+    this.loadPosts();
   }
 
   loadPosts(): Subscription {
@@ -43,19 +36,7 @@ export class ForumComponent implements OnInit {
     );
   }
 
-  handlePageChange(event: any): void {
-    this.currentPage = event; // event is the page number emitted by ngb-pagination
-    this.updatePagedPosts(); // Update the posts for the new page
-  }
-
-  updatePagedPosts(): void {
-    const startIndex = (this.currentPage - 1) * this.postsPerPage;
-    this.pagedPosts = this.posts.slice(startIndex, startIndex + this.postsPerPage);
-  }
-
   onVoteUpdated(): void {
-    this.loadPosts().add(() => {
-      this.updatePagedPosts(); // Call updatePagedPosts() here
-    });
+    this.loadPosts();
   }
 }

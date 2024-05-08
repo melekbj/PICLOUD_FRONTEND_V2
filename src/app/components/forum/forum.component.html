@@ -1,12 +1,9 @@
-<!-- forum.component.html -->
-
 <div class="forum-body">
   <div class="container">
     <div class="row">
       <hr />
       <div class="col-md-9">
-        <app-post-tile [posts]="pagedPosts" (voteUpdated)="onVoteUpdated()" ></app-post-tile>
-        <ngb-pagination [collectionSize]="posts.length" [(page)]="currentPage" [pageSize]="postsPerPage" (pageChange)="handlePageChange($event)"></ngb-pagination>
+        <app-post-tile [posts]="posts" (voteUpdated)="onVoteUpdated()"></app-post-tile>
       </div>
       <div class="col-md-3">
         <app-side-bar></app-side-bar>
