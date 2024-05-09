@@ -9,7 +9,30 @@
     </div>
     <div class="form-group">
         <label>Upload Image:</label>
-        <input type="file" id="image" (change)="onFileChange($event)" accept="image/png, image/jpeg, image/jpg, image/gif" class="form-control-file">
+        <!-- <input type="file" id="image" (change)="onFileChange($event)" accept="image/png, image/jpeg, image/jpg, image/gif" class="form-control-file"> -->
+   
+        <div class="row">
+          <div class="col-md-8">
+            <div class="mb-3">
+              <input class="form-control" type="file" id="cropperImageUpload" (change)="handleFileInput($event)">
+            </div>
+            <div>
+              <angular-cropper #angularCropper [cropperOptions]="config" [imageUrl]="imageUrl"></angular-cropper>
+            </div>
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
+              <div class="d-flex align-items-center flex-wrapp me-2 mt-3">
+                <p class="btn btn-primary crop mb-2 mb-md-0" (click)="cropImage()">Crop me</p>
+              </div>
+              <div class="mb-4 mb-md-0 mt-3">
+                <a href="" class="btn btn-outline-primary download" download="imageName.png">Download croped image</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 ms-auto">
+            <h6 class="text-muted mb-3">Cropped Image: </h6>
+            <img class="w-100 cropped-img mt-2" src="{{resultImage}}" alt="">
+          </div>
+        </div>
     </div>
     <div class="form-group">
         <label>Nombre Maximum des participants:</label>

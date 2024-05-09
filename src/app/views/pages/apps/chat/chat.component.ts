@@ -318,6 +318,8 @@ export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
       }
     );
   }
+  
+  
 
   // define a function to download files
   onDownloadFile(filename: string): void {

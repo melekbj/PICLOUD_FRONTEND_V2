@@ -280,7 +280,28 @@ export class JwtService {
 }
 
   
-
+getUserRole(): Observable<string> {
+  const jwtToken = localStorage.getItem('jwt');
+  if (jwtToken) {
+    const headers = new HttpHeaders().set("Authorization", "Bearer " + jwtToken);
+    return this.http.get(BASE_URL + 'api/user-role', { headers, responseType: 'text' });
+  } else {
+    return new Observable<string>(observer => {
+      observer.error('JWT token not found in local storage');
+    });
+  }
+}
+getCurrentUser(): Observable<string> {
+  const jwtToken = localStorage.getItem('jwt');
+  if (jwtToken) {
+    const headers = new HttpHeaders().set("Authorization", "Bearer " + jwtToken);
+    return this.http.get(BASE_URL + 'api/current-user', { headers, responseType: 'text' });
+  } else {
+    return new Observable<string>(observer => {
+      observer.error('JWT token not found in local storage');
+    });
+  }
+}
 
 
 

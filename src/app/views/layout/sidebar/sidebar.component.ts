@@ -114,7 +114,12 @@ export class SidebarComponent implements OnInit, AfterViewInit {
           link: '/apps/clubadminsite'
         },
        
-      ]}
+      ]},
+      {
+        label:'Event admin',
+        icon:'activity',
+        link:'/eventdetailsadmin'
+      }
     ]
     let presedentItem: MenuItem[] = [
       {
@@ -163,7 +168,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       },
     ];
   let idClub = localStorage.getItem("idClub");
-  if(idClub !== null && idClub !== undefined && idClub !== ''){
+  if(localStorage.getItem("Role")=="RESPONSABLE"){
     let position = 2; 
     this.menuItems.splice(position, 0, ...presedentItem);
     //this.menuItems.splice(position, 0, memberItem);

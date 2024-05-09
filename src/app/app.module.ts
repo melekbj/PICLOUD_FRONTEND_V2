@@ -28,6 +28,7 @@ import { JwtInterceptorService } from './services/interceptor.service';
 import { EventdetailsComponent } from './views/pages/events/eventdetails/eventdetails.component';
 import { EventformComponent } from './views/pages/events/eventform/eventform.component';
 import { EventdetailadminComponent } from './views/pages/events/eventdetailsadmin/eventdetailadmin.component'; 
+import { AngularCropperjsModule } from 'angular-cropperjs';
 
 
 
@@ -65,7 +66,8 @@ import { EventdetailadminComponent } from './views/pages/events/eventdetailsadmi
 
     ReactiveFormsModule, 
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    AngularCropperjsModule
 
   ],
   providers: [
